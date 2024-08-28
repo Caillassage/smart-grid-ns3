@@ -1,0 +1,62 @@
++0.016500000s 3  [ CellId 2, bwpId 0] NrGnbMac:DoSlotDlIndication(): Informing MAC scheduler of the RACH preamble for RAPID 0 in slot FrameNum: 1 SubFrameNum: 7 SlotNum: 0; Allocated RNTI: 1
++0.016500000s 3  [ CellId 2, bwpId 0] NrGnbMac:SendRar(): In slot FrameNum: 1 SubFrameNum: 6 SlotNum: 2 send to PHY the RAR message for RNTI 1 rapId 0
++0.026482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.046482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.066482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.086482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.106482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.126482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.146482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.166482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.186482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.206482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.226482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.246482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.266482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.286482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.306482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.326482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.346482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.366482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.386482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.400000000s 5 UdpClient:Send(): TraceDelay TX 1000 bytes to 7.0.0.2 Uid: 4 Time: +0.4s
++0.400001794s 3 LtePdcp:DoTransmitPdcpSdu(): Transmitting PDCP PDU with header: D/C=1 SN=0
++0.400001794s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReportBufferStatus(): Reporting RLC buffer status update to MAC Scheduler for RNTI=1, LCID=4, Transmission Queue Size=1032, Transmission Queue HOL Delay=0, Retransmission Queue Size=0, Retransmission Queue HOL delay=0, PDU Size=0
++0.400250000s 3  [ CellId 2, bwpId 0] NrGnbMac:DoSchedConfigIndication(): New scheduled allocation: Allocation for slot FrameNum: 40 SubFrameNum: 0 SlotNum: 3 total symbols allocated: 3 of type DL, tti: 2 composed by the following allocations: 
+[Allocation from sym 0 to sym 1 direction DL type CTRL]
+[Allocation from sym 1 to sym 3 direction DL type DATA]
+
++0.400250000s 3  [ CellId 2, bwpId 0] NrGnbMac:DoSchedConfigIndication(): New scheduled data TX in DL for HARQ Process ID: 15, Var. TTI from symbol 1 to 3.  TB of size 2037 with MCS 
++0.400250000s 3  [ CellId 2, bwpId 0] NrGnbMac:DoSchedConfigIndication(): Notifying RLC of TX opportunity for HARQ Process ID 15 LC ID 42034
++0.400250000s 3  [ CellId 2, bwpId 0] NrGnbMac:DoTransmitPdu(): Sending MAC PDU to PHY Layer
++0.400903570s 4 UdpServer:HandleRead(): TraceDelay: RX 1000 bytes from 1.0.0.2 Sequence Number: 0 Uid: 4 TXtime: +4e+08ns RXtime: +4.00904e+08ns Delay: +903570ns
++0.406482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.426482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.446482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.466482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.486482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.506482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.526482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.546482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.566482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.586482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.606482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.626482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.646482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.666482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.686482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.706482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.726482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.746482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.766482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.786482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.806482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.826482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.846482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.866482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.886482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.906482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.926482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.946482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.966482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.986482140s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected

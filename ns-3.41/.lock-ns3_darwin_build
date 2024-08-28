@@ -1,0 +1,31 @@
+#! /usr/bin/env python3
+
+launch_dir = '/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41'
+run_dir = '/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41'
+top_dir = '/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41'
+out_dir = '/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build'
+
+
+NS3_ENABLED_MODULES = ['ns3-wimax', 'ns3-wifi', 'ns3-virtual-net-device', 'ns3-uan', 'ns3-traffic-control', 'ns3-topology-read', 'ns3-stats', 'ns3-spectrum', 'ns3-sixlowpan', 'ns3-propagation', 'ns3-point-to-point-layout', 'ns3-point-to-point', 'ns3-olsr', 'ns3-nr', 'ns3-nix-vector-routing', 'ns3-network', 'ns3-netanim', 'ns3-mobility', 'ns3-mesh', 'ns3-lte', 'ns3-lr-wpan', 'ns3-internet-apps', 'ns3-internet', 'ns3-flow-monitor', 'ns3-energy', 'ns3-dsr', 'ns3-dsdv', 'ns3-csma-layout', 'ns3-csma', 'ns3-core', 'ns3-config-store', 'ns3-buildings', 'ns3-bridge', 'ns3-applications', 'ns3-aodv', 'ns3-antenna', ]
+NS3_ENABLED_CONTRIBUTED_MODULES = []
+NS3_MODULE_PATH = ['/Users/samirsim/.juliaup/bin', '/usr/local/homebrew/opt/llvm/bin', '/opt/local/bin', '/opt/local/sbin', '/usr/local/bin', '/System/Cryptexes/App/usr/bin', '/usr/bin', '/bin', '/usr/sbin', '/sbin', '/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin', '/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin', '/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin', '/opt/X11/bin', '/Library/Apple/usr/bin', '/Library/TeX/texbin', '/Users/samirsim/.juliaup/bin', '/usr/local/homebrew/opt/llvm/bin', '/opt/local/bin', '/opt/local/sbin', '/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build', '/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/lib']
+ENABLE_EXAMPLES = False
+ENABLE_TESTS = False
+ENABLE_OPENFLOW = False
+NSCLICK = False
+ENABLE_BRITE = False
+ENABLE_SUDO = False
+ENABLE_PYTHON_BINDINGS = False
+EXAMPLE_DIRECTORIES = []
+APPNAME = 'ns'
+BUILD_PROFILE = 'default'
+VERSION = '3.41' 
+BUILD_VERSION_STRING = '' 
+PYTHON = ['/usr/bin/python3']
+VALGRIND_FOUND = False 
+
+
+ns3_runnable_programs = ['/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/utils/perf/ns3.41-perf-io-default', '/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/utils/ns3.41-print-introspected-doxygen-default', '/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/utils/ns3.41-bench-packets-default', '/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/utils/ns3.41-bench-scheduler-default', '/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/scratch/subdir/ns3.41-scratch-subdir-default', '/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/scratch/nested-subdir/ns3.41-scratch-nested-subdir-executable-default', '/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/scratch/ns3.41-script-wifi-default', '/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/scratch/ns3.41-script-power-grid-default', '/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/scratch/ns3.41-script-autonomous-bus-default', '/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/scratch/ns3.41-script-5g-default', '/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/scratch/ns3.41-script-5g-remote-default', '/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/scratch/ns3.41-scratch-simulator-default', '/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/scratch/ns3.41-e2e-ul-default', '/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/scratch/ns3.41-e2e-dl-default', '/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/cmake-cache/ns3.41-stdlib_pch_exec-default', ]
+
+ns3_runnable_scripts = []
+

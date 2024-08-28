@@ -1,0 +1,15 @@
+Flow 1 (7.0.0.2:49153 -> 1.0.0.2:1234) proto UDP
+  Tx Packets: 1
+  Tx Bytes:   78
+  TxOffered:  0.001040 Mbps
+  Rx Bytes:   78
+  Throughput: 0.069112 Mbps
+  Mean delay:  9.028761 ms
+  Mean jitter:  0.000000 ms
+  Rx Packets: 1
+
+
+  Mean flow throughput: 0.069112
+  Mean flow delay: 9.028761
+
+ UDP throughput (bps) for UE with node ID 0:0.000667

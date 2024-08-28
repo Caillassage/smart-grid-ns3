@@ -1,0 +1,28 @@
++0.018000000s 3  [ CellId 2, bwpId 0] NrGnbMac:DoSlotDlIndication(): Informing MAC scheduler of the RACH preamble for RAPID 0 in slot FrameNum: 2 SubFrameNum: 0 SlotNum: 0; Allocated RNTI: 1
++0.018000000s 3  [ CellId 2, bwpId 0] NrGnbMac:SendRar(): In slot FrameNum: 1 SubFrameNum: 8 SlotNum: 0 send to PHY the RAR message for RNTI 1 rapId 0
++0.025928563s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.105928563s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.185928563s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.265928563s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.345928563s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.400000000s 4 LtePdcp:DoTransmitPdcpSdu(): Transmitting PDCP PDU with header: D/C=1 SN=0
++0.400000000s 4 UdpClient:Send(): TraceDelay TX 50 bytes to 1.0.0.2 Uid: 4 Time: +0.4s
++0.404000000s 3  [ CellId 2, bwpId 0] NrGnbMac:DoSchedConfigIndication(): New scheduled allocation: Allocation for slot FrameNum: 40 SubFrameNum: 8 SlotNum: 0 total symbols allocated: 2 of type UL, tti: 2 composed by the following allocations: 
+[Allocation from sym 12 to sym 13 direction UL type DATA]
+[Allocation from sym 13 to sym 14 direction UL type CTRL]
+
++0.408928563s 3  [ CellId 2, bwpId 0] NrGnbMac:DoUlCqiReport(): *** UL CQI report SINR 3.75 slot: FrameNum: 40 SubFrameNum: 8 SlotNum: 0
++0.409000000s 3  [ CellId 2, bwpId 0] NrGnbMac:DoSchedConfigIndication(): New scheduled allocation: Allocation for slot FrameNum: 41 SubFrameNum: 3 SlotNum: 0 total symbols allocated: 2 of type UL, tti: 2 composed by the following allocations: 
+[Allocation from sym 12 to sym 13 direction UL type DATA]
+[Allocation from sym 13 to sym 14 direction UL type CTRL]
+
++0.413928563s 3  [ CellId 2, bwpId 0] NrGnbMac:DoUlCqiReport(): *** UL CQI report SINR 3.75 slot: FrameNum: 41 SubFrameNum: 3 SlotNum: 0
++0.414028761s 5 UdpServer:HandleRead(): TraceDelay: RX 50 bytes from 7.0.0.2 Sequence Number: 0 Uid: 4 TXtime: +4e+08ns RXtime: +4.14029e+08ns Delay: +1.40288e+07ns
++0.425928563s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.505928563s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.585928563s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.665928563s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.745928563s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.825928563s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.905928563s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected
++0.985928563s 3  [ CellId 2, bwpId 0] NrGnbMac:DoReceiveControlMessage(): Control message not supported/expected

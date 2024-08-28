@@ -1,0 +1,9 @@
+file(REMOVE_RECURSE
+  "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/lib/libns3.41-wifi-default.dylib"
+  "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/lib/libns3.41-wifi-default.pdb"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang CXX)
+  include(CMakeFiles/libwifi.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

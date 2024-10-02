@@ -1,4 +1,4 @@
-# Install script for directory: /Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/mesh
+# Install script for directory: /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/mesh
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -38,11 +38,11 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/lib/libns3.41-mesh-default.dylib")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/build/lib/libns3.41-mesh-default.dylib")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libns3.41-mesh-default.dylib" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libns3.41-mesh-default.dylib")
     execute_process(COMMAND /usr/bin/install_name_tool
-      -delete_rpath "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/lib"
+      -delete_rpath "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/build/lib"
       -add_rpath "/usr/local/lib:$ORIGIN/:$ORIGIN/../lib:/usr/local/lib64:$ORIGIN/:$ORIGIN/../lib64"
       "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libns3.41-mesh-default.dylib")
     if(CMAKE_INSTALL_DO_STRIP)
@@ -56,37 +56,37 @@ endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/ns3" TYPE FILE FILES
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/mesh/helper/dot11s/dot11s-installer.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/mesh/helper/flame/flame-installer.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/mesh/helper/mesh-helper.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/mesh/helper/mesh-stack-installer.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/mesh/model/dot11s/dot11s-mac-header.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/mesh/model/dot11s/hwmp-protocol.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/mesh/model/dot11s/hwmp-rtable.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/mesh/model/dot11s/ie-dot11s-beacon-timing.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/mesh/model/dot11s/ie-dot11s-configuration.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/mesh/model/dot11s/ie-dot11s-id.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/mesh/model/dot11s/ie-dot11s-metric-report.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/mesh/model/dot11s/ie-dot11s-peer-management.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/mesh/model/dot11s/ie-dot11s-peering-protocol.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/mesh/model/dot11s/ie-dot11s-perr.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/mesh/model/dot11s/ie-dot11s-prep.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/mesh/model/dot11s/ie-dot11s-preq.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/mesh/model/dot11s/ie-dot11s-rann.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/mesh/model/dot11s/peer-link-frame.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/mesh/model/dot11s/peer-link.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/mesh/model/dot11s/peer-management-protocol.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/mesh/model/flame/flame-header.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/mesh/model/flame/flame-protocol-mac.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/mesh/model/flame/flame-protocol.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/mesh/model/flame/flame-rtable.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/mesh/model/mesh-information-element-vector.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/mesh/model/mesh-l2-routing-protocol.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/mesh/model/mesh-point-device.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/mesh/model/mesh-wifi-beacon.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/mesh/model/mesh-wifi-interface-mac-plugin.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/mesh/model/mesh-wifi-interface-mac.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/include/ns3/mesh-module.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/mesh/helper/dot11s/dot11s-installer.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/mesh/helper/flame/flame-installer.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/mesh/helper/mesh-helper.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/mesh/helper/mesh-stack-installer.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/mesh/model/dot11s/dot11s-mac-header.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/mesh/model/dot11s/hwmp-protocol.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/mesh/model/dot11s/hwmp-rtable.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/mesh/model/dot11s/ie-dot11s-beacon-timing.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/mesh/model/dot11s/ie-dot11s-configuration.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/mesh/model/dot11s/ie-dot11s-id.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/mesh/model/dot11s/ie-dot11s-metric-report.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/mesh/model/dot11s/ie-dot11s-peer-management.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/mesh/model/dot11s/ie-dot11s-peering-protocol.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/mesh/model/dot11s/ie-dot11s-perr.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/mesh/model/dot11s/ie-dot11s-prep.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/mesh/model/dot11s/ie-dot11s-preq.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/mesh/model/dot11s/ie-dot11s-rann.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/mesh/model/dot11s/peer-link-frame.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/mesh/model/dot11s/peer-link.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/mesh/model/dot11s/peer-management-protocol.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/mesh/model/flame/flame-header.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/mesh/model/flame/flame-protocol-mac.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/mesh/model/flame/flame-protocol.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/mesh/model/flame/flame-rtable.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/mesh/model/mesh-information-element-vector.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/mesh/model/mesh-l2-routing-protocol.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/mesh/model/mesh-point-device.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/mesh/model/mesh-wifi-beacon.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/mesh/model/mesh-wifi-interface-mac-plugin.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/mesh/model/mesh-wifi-interface-mac.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/build/include/ns3/mesh-module.h"
     )
 endif()
 

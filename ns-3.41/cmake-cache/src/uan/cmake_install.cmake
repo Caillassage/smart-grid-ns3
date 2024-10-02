@@ -1,4 +1,4 @@
-# Install script for directory: /Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/uan
+# Install script for directory: /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/uan
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -38,11 +38,11 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/lib/libns3.41-uan-default.dylib")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/build/lib/libns3.41-uan-default.dylib")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libns3.41-uan-default.dylib" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libns3.41-uan-default.dylib")
     execute_process(COMMAND /usr/bin/install_name_tool
-      -delete_rpath "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/lib"
+      -delete_rpath "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/build/lib"
       -add_rpath "/usr/local/lib:$ORIGIN/:$ORIGIN/../lib:/usr/local/lib64:$ORIGIN/:$ORIGIN/../lib64"
       "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libns3.41-uan-default.dylib")
     if(CMAKE_INSTALL_DO_STRIP)
@@ -56,30 +56,30 @@ endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/ns3" TYPE FILE FILES
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/uan/helper/acoustic-modem-energy-model-helper.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/uan/helper/uan-helper.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/uan/model/acoustic-modem-energy-model.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/uan/model/uan-channel.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/uan/model/uan-header-common.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/uan/model/uan-header-rc.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/uan/model/uan-mac-aloha.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/uan/model/uan-mac-cw.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/uan/model/uan-mac-rc-gw.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/uan/model/uan-mac-rc.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/uan/model/uan-mac.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/uan/model/uan-net-device.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/uan/model/uan-noise-model-default.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/uan/model/uan-noise-model.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/uan/model/uan-phy-dual.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/uan/model/uan-phy-gen.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/uan/model/uan-phy.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/uan/model/uan-prop-model-ideal.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/uan/model/uan-prop-model-thorp.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/uan/model/uan-prop-model.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/uan/model/uan-transducer-hd.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/uan/model/uan-transducer.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/uan/model/uan-tx-mode.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/include/ns3/uan-module.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/uan/helper/acoustic-modem-energy-model-helper.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/uan/helper/uan-helper.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/uan/model/acoustic-modem-energy-model.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/uan/model/uan-channel.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/uan/model/uan-header-common.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/uan/model/uan-header-rc.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/uan/model/uan-mac-aloha.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/uan/model/uan-mac-cw.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/uan/model/uan-mac-rc-gw.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/uan/model/uan-mac-rc.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/uan/model/uan-mac.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/uan/model/uan-net-device.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/uan/model/uan-noise-model-default.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/uan/model/uan-noise-model.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/uan/model/uan-phy-dual.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/uan/model/uan-phy-gen.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/uan/model/uan-phy.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/uan/model/uan-prop-model-ideal.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/uan/model/uan-prop-model-thorp.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/uan/model/uan-prop-model.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/uan/model/uan-transducer-hd.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/uan/model/uan-transducer.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/uan/model/uan-tx-mode.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/build/include/ns3/uan-module.h"
     )
 endif()
 

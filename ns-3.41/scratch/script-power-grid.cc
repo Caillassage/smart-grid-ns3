@@ -13,7 +13,7 @@ NS_LOG_COMPONENT_DEFINE("WifiSimpleAdhoc");
 int main(int argc, char *argv[])
 {
 
-    int numberOfNodes = 6;
+    int numberOfNodes = 2;
 
     // Configure logging
     LogComponentEnable("WifiSimpleAdhoc", LOG_LEVEL_INFO);
@@ -121,6 +121,7 @@ int main(int argc, char *argv[])
     serverApps.Stop(Seconds(11.0));
 
     for (uint32_t index = 0; index < numberOfNodes; ++index) {
+        // This application is to be installed at the central node
         UdpEchoClientHelper echoClient1(nodeInterfaces.GetAddress(index), echoPort); 
       
         echoClient1.SetAttribute("MaxPackets", UintegerValue(10000));
@@ -132,10 +133,21 @@ int main(int argc, char *argv[])
         clientApp.Start(Seconds(1.0));
         clientApp.Stop(Seconds(11.0));
 
+        /*
         // Create an integer to send
-        std::string valueToSend = "1.0";
+        std::string valueToSend = "1.0 1.0 1.0";
         //Ptr<Packet> packet = Create<Packet>((uint8_t *)&valueToSend, sizeof(int));
         echoClient1.SetFill (clientApp.Get (0), valueToSend);
+        */
+       
+        // Serialize the floats into a string
+        float x = 0.0, rho = 1.0, lambda = 1.0; // x and y have the same values for the first sending
+        std::ostringstream oss;
+        oss << x << " " << rho << " " << lambda;
+        std::string valueToSend = oss.str();
+
+        // Use SetFill to set the packet payload
+        echoClient1.SetFill(clientApp.Get(0), valueToSend);
     }
 
     Ptr<FlowMonitor> flowMonitor;

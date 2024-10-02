@@ -1,4 +1,4 @@
-# Install script for directory: /Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/traffic-control
+# Install script for directory: /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/traffic-control
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -38,11 +38,11 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/lib/libns3.41-traffic-control-default.dylib")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/build/lib/libns3.41-traffic-control-default.dylib")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libns3.41-traffic-control-default.dylib" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libns3.41-traffic-control-default.dylib")
     execute_process(COMMAND /usr/bin/install_name_tool
-      -delete_rpath "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/lib"
+      -delete_rpath "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/build/lib"
       -add_rpath "/usr/local/lib:$ORIGIN/:$ORIGIN/../lib:/usr/local/lib64:$ORIGIN/:$ORIGIN/../lib64"
       "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libns3.41-traffic-control-default.dylib")
     if(CMAKE_INSTALL_DO_STRIP)
@@ -56,24 +56,24 @@ endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/ns3" TYPE FILE FILES
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/traffic-control/helper/queue-disc-container.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/traffic-control/helper/traffic-control-helper.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/traffic-control/model/cobalt-queue-disc.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/traffic-control/model/codel-queue-disc.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/traffic-control/model/fifo-queue-disc.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/traffic-control/model/fq-cobalt-queue-disc.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/traffic-control/model/fq-codel-queue-disc.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/traffic-control/model/fq-pie-queue-disc.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/traffic-control/model/mq-queue-disc.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/traffic-control/model/packet-filter.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/traffic-control/model/pfifo-fast-queue-disc.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/traffic-control/model/pie-queue-disc.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/traffic-control/model/prio-queue-disc.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/traffic-control/model/queue-disc.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/traffic-control/model/red-queue-disc.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/traffic-control/model/tbf-queue-disc.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/traffic-control/model/traffic-control-layer.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/include/ns3/traffic-control-module.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/traffic-control/helper/queue-disc-container.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/traffic-control/helper/traffic-control-helper.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/traffic-control/model/cobalt-queue-disc.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/traffic-control/model/codel-queue-disc.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/traffic-control/model/fifo-queue-disc.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/traffic-control/model/fq-cobalt-queue-disc.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/traffic-control/model/fq-codel-queue-disc.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/traffic-control/model/fq-pie-queue-disc.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/traffic-control/model/mq-queue-disc.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/traffic-control/model/packet-filter.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/traffic-control/model/pfifo-fast-queue-disc.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/traffic-control/model/pie-queue-disc.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/traffic-control/model/prio-queue-disc.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/traffic-control/model/queue-disc.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/traffic-control/model/red-queue-disc.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/traffic-control/model/tbf-queue-disc.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/traffic-control/model/traffic-control-layer.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/build/include/ns3/traffic-control-module.h"
     )
 endif()
 

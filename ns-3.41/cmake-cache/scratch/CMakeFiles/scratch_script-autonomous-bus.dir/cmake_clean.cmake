@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/scratch/ns3.41-script-autonomous-bus-default"
-  "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/scratch/ns3.41-script-autonomous-bus-default.pdb"
+  "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/build/scratch/ns3.41-script-autonomous-bus-default"
+  "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/build/scratch/ns3.41-script-autonomous-bus-default.pdb"
   "CMakeFiles/scratch_script-autonomous-bus.dir/script-autonomous-bus.cc.o"
   "CMakeFiles/scratch_script-autonomous-bus.dir/script-autonomous-bus.cc.o.d"
 )

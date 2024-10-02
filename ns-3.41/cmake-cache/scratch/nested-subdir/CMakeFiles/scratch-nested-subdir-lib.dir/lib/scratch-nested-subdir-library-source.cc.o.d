@@ -1,6 +1,6 @@
 scratch/nested-subdir/CMakeFiles/scratch-nested-subdir-lib.dir/lib/scratch-nested-subdir-library-source.cc.o: \
-  /Users/samirsim/Desktop/Smart\ Power\ Grid/power-grid-ns3/ns-3.41/scratch/nested-subdir/lib/scratch-nested-subdir-library-source.cc \
-  /Users/samirsim/Desktop/Smart\ Power\ Grid/power-grid-ns3/ns-3.41/scratch/nested-subdir/lib/scratch-nested-subdir-library-header.h \
+  /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/nested-subdir/lib/scratch-nested-subdir-library-source.cc \
+  /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/nested-subdir/lib/scratch-nested-subdir-library-header.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/string \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/max.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/comp.h \

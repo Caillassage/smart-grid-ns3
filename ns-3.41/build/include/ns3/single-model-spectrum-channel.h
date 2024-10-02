@@ -1,1 +1,1 @@
-#include "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/spectrum/model/single-model-spectrum-channel.h"
+#include "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/spectrum/model/single-model-spectrum-channel.h"

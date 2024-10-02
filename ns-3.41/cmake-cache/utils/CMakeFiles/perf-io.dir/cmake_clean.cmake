@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/utils/perf/ns3.41-perf-io-default"
-  "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/utils/perf/ns3.41-perf-io-default.pdb"
+  "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/build/utils/perf/ns3.41-perf-io-default"
+  "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/build/utils/perf/ns3.41-perf-io-default.pdb"
   "CMakeFiles/perf-io.dir/perf/perf-io.cc.o"
   "CMakeFiles/perf-io.dir/perf/perf-io.cc.o.d"
 )

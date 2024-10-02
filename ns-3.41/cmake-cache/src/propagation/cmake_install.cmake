@@ -1,4 +1,4 @@
-# Install script for directory: /Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/propagation
+# Install script for directory: /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/propagation
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -38,11 +38,11 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/lib/libns3.41-propagation-default.dylib")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/build/lib/libns3.41-propagation-default.dylib")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libns3.41-propagation-default.dylib" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libns3.41-propagation-default.dylib")
     execute_process(COMMAND /usr/bin/install_name_tool
-      -delete_rpath "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/lib"
+      -delete_rpath "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/build/lib"
       -add_rpath "/usr/local/lib:$ORIGIN/:$ORIGIN/../lib:/usr/local/lib64:$ORIGIN/:$ORIGIN/../lib64"
       "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libns3.41-propagation-default.dylib")
     if(CMAKE_INSTALL_DO_STRIP)
@@ -56,22 +56,22 @@ endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/ns3" TYPE FILE FILES
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/propagation/model/channel-condition-model.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/propagation/model/cost231-propagation-loss-model.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/propagation/model/itu-r-1411-los-propagation-loss-model.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/propagation/model/itu-r-1411-nlos-over-rooftop-propagation-loss-model.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/propagation/model/jakes-process.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/propagation/model/jakes-propagation-loss-model.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/propagation/model/kun-2600-mhz-propagation-loss-model.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/propagation/model/okumura-hata-propagation-loss-model.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/propagation/model/probabilistic-v2v-channel-condition-model.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/propagation/model/propagation-cache.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/propagation/model/propagation-delay-model.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/propagation/model/propagation-environment.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/propagation/model/propagation-loss-model.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/propagation/model/three-gpp-propagation-loss-model.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/propagation/model/three-gpp-v2v-propagation-loss-model.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/include/ns3/propagation-module.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/propagation/model/channel-condition-model.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/propagation/model/cost231-propagation-loss-model.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/propagation/model/itu-r-1411-los-propagation-loss-model.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/propagation/model/itu-r-1411-nlos-over-rooftop-propagation-loss-model.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/propagation/model/jakes-process.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/propagation/model/jakes-propagation-loss-model.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/propagation/model/kun-2600-mhz-propagation-loss-model.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/propagation/model/okumura-hata-propagation-loss-model.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/propagation/model/probabilistic-v2v-channel-condition-model.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/propagation/model/propagation-cache.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/propagation/model/propagation-delay-model.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/propagation/model/propagation-environment.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/propagation/model/propagation-loss-model.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/propagation/model/three-gpp-propagation-loss-model.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/propagation/model/three-gpp-v2v-propagation-loss-model.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/build/include/ns3/propagation-module.h"
     )
 endif()
 

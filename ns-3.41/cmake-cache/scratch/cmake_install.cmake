@@ -1,4 +1,4 @@
-# Install script for directory: /Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/scratch
+# Install script for directory: /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,7 +39,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/cmake-cache/scratch/nested-subdir/cmake_install.cmake")
+  include("/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache/scratch/nested-subdir/cmake_install.cmake")
 
 endif()
 

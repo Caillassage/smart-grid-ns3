@@ -1,4 +1,4 @@
-# Install script for directory: /Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax
+# Install script for directory: /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -38,11 +38,11 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/lib/libns3.41-wimax-default.dylib")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/build/lib/libns3.41-wimax-default.dylib")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libns3.41-wimax-default.dylib" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libns3.41-wimax-default.dylib")
     execute_process(COMMAND /usr/bin/install_name_tool
-      -delete_rpath "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/lib"
+      -delete_rpath "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/build/lib"
       -add_rpath "/usr/local/lib:$ORIGIN/:$ORIGIN/../lib:/usr/local/lib64:$ORIGIN/:$ORIGIN/../lib64"
       "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libns3.41-wimax-default.dylib")
     if(CMAKE_INSTALL_DO_STRIP)
@@ -56,51 +56,51 @@ endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/ns3" TYPE FILE FILES
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/helper/wimax-helper.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/wimax-channel.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/wimax-net-device.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/bs-net-device.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/ss-net-device.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/cid.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/cid-factory.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/ofdm-downlink-frame-prefix.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/wimax-connection.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/ss-record.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/mac-messages.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/dl-mac-messages.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/ul-mac-messages.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/wimax-phy.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/simple-ofdm-wimax-phy.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/simple-ofdm-wimax-channel.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/send-params.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/service-flow.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/ss-manager.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/connection-manager.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/wimax-mac-header.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/wimax-mac-queue.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/crc8.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/service-flow-manager.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/bs-uplink-scheduler.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/bs-uplink-scheduler-simple.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/bs-uplink-scheduler-mbqos.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/bs-uplink-scheduler-rtps.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/ul-job.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/bs-scheduler.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/bs-scheduler-simple.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/bs-scheduler-rtps.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/service-flow-record.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/snr-to-block-error-rate-record.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/snr-to-block-error-rate-manager.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/simple-ofdm-send-param.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/ss-service-flow-manager.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/bs-service-flow-manager.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/cs-parameters.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/ipcs-classifier-record.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/wimax-tlv.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/ipcs-classifier.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/bvec.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/src/wimax/model/wimax-mac-to-mac-header.h"
-    "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/include/ns3/wimax-module.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/helper/wimax-helper.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/wimax-channel.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/wimax-net-device.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/bs-net-device.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/ss-net-device.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/cid.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/cid-factory.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/ofdm-downlink-frame-prefix.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/wimax-connection.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/ss-record.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/mac-messages.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/dl-mac-messages.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/ul-mac-messages.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/wimax-phy.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/simple-ofdm-wimax-phy.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/simple-ofdm-wimax-channel.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/send-params.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/service-flow.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/ss-manager.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/connection-manager.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/wimax-mac-header.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/wimax-mac-queue.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/crc8.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/service-flow-manager.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/bs-uplink-scheduler.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/bs-uplink-scheduler-simple.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/bs-uplink-scheduler-mbqos.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/bs-uplink-scheduler-rtps.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/ul-job.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/bs-scheduler.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/bs-scheduler-simple.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/bs-scheduler-rtps.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/service-flow-record.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/snr-to-block-error-rate-record.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/snr-to-block-error-rate-manager.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/simple-ofdm-send-param.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/ss-service-flow-manager.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/bs-service-flow-manager.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/cs-parameters.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/ipcs-classifier-record.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/wimax-tlv.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/ipcs-classifier.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/bvec.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/src/wimax/model/wimax-mac-to-mac-header.h"
+    "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/build/include/ns3/wimax-module.h"
     )
 endif()
 

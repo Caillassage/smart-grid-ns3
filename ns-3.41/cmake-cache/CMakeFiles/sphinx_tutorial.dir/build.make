@@ -53,10 +53,10 @@ RM = /usr/local/Cellar/cmake/3.27.7/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41"
+CMAKE_SOURCE_DIR = /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/cmake-cache"
+CMAKE_BINARY_DIR = /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache
 
 # Utility rule file for sphinx_tutorial.
 
@@ -82,6 +82,6 @@ CMakeFiles/sphinx_tutorial.dir/clean:
 .PHONY : CMakeFiles/sphinx_tutorial.dir/clean
 
 CMakeFiles/sphinx_tutorial.dir/depend:
-	cd "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/cmake-cache" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41" "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41" "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/cmake-cache" "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/cmake-cache" "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/cmake-cache/CMakeFiles/sphinx_tutorial.dir/DependInfo.cmake" "--color=$(COLOR)"
+	cd /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41 /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41 /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache/CMakeFiles/sphinx_tutorial.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/sphinx_tutorial.dir/depend
 

@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/lib/libns3.41-spectrum-default.dylib"
-  "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/lib/libns3.41-spectrum-default.pdb"
+  "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/build/lib/libns3.41-spectrum-default.dylib"
+  "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/build/lib/libns3.41-spectrum-default.pdb"
 )
 
 # Per-language clean rules from dependency scanning.

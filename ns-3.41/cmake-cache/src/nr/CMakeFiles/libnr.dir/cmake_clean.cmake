@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/lib/libns3.41-nr-default.dylib"
-  "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/lib/libns3.41-nr-default.pdb"
+  "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/build/lib/libns3.41-nr-default.dylib"
+  "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/build/lib/libns3.41-nr-default.pdb"
   "CMakeFiles/libnr.dir/model/nr-mimo-matrices-no-eigen.cc.o"
   "CMakeFiles/libnr.dir/model/nr-mimo-matrices-no-eigen.cc.o.d"
 )

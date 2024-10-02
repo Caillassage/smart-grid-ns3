@@ -3,49 +3,49 @@
 cmake_policy(SET CMP0009 NEW)
 
 # scratch_subdirectories at scratch/CMakeLists.txt:83 (file)
-file(GLOB NEW_GLOB LIST_DIRECTORIES true "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/scratch/**")
+file(GLOB NEW_GLOB LIST_DIRECTORIES true "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/**")
 set(OLD_GLOB
-  "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/scratch/CMakeLists.txt"
-  "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/scratch/e2e-dl.cc"
-  "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/scratch/e2e-ul.cc"
-  "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/scratch/nested-subdir"
-  "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/scratch/scratch-simulator.cc"
-  "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/scratch/script-5g-remote.cc"
-  "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/scratch/script-5g.cc"
-  "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/scratch/script-autonomous-bus.cc"
-  "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/scratch/script-power-grid.cc"
-  "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/scratch/script-wifi.cc"
-  "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/scratch/subdir"
+  "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/CMakeLists.txt"
+  "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/e2e-dl.cc"
+  "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/e2e-ul.cc"
+  "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/nested-subdir"
+  "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/scratch-simulator.cc"
+  "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/script-5g-remote.cc"
+  "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/script-5g.cc"
+  "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/script-autonomous-bus.cc"
+  "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/script-power-grid.cc"
+  "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/script-wifi.cc"
+  "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/subdir"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/cmake-cache/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache/CMakeFiles/cmake.verify_globs")
 endif()
 
 # single_source_file_scratches at scratch/CMakeLists.txt:77 (file)
-file(GLOB NEW_GLOB LIST_DIRECTORIES true "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/scratch/[^.]*.cc")
+file(GLOB NEW_GLOB LIST_DIRECTORIES true "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/[^.]*.cc")
 set(OLD_GLOB
-  "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/scratch/e2e-dl.cc"
-  "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/scratch/e2e-ul.cc"
-  "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/scratch/scratch-simulator.cc"
-  "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/scratch/script-5g-remote.cc"
-  "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/scratch/script-5g.cc"
-  "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/scratch/script-autonomous-bus.cc"
-  "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/scratch/script-power-grid.cc"
-  "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/scratch/script-wifi.cc"
+  "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/e2e-dl.cc"
+  "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/e2e-ul.cc"
+  "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/scratch-simulator.cc"
+  "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/script-5g-remote.cc"
+  "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/script-5g.cc"
+  "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/script-autonomous-bus.cc"
+  "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/script-power-grid.cc"
+  "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/script-wifi.cc"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/cmake-cache/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache/CMakeFiles/cmake.verify_globs")
 endif()
 
 # scratch_sources at scratch/CMakeLists.txt:108 (file)
-file(GLOB NEW_GLOB LIST_DIRECTORIES true "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/scratch/subdir/[^.]*.cc")
+file(GLOB NEW_GLOB LIST_DIRECTORIES true "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/subdir/[^.]*.cc")
 set(OLD_GLOB
-  "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/scratch/subdir/scratch-subdir-additional-header.cc"
-  "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/scratch/subdir/scratch-subdir.cc"
+  "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/subdir/scratch-subdir-additional-header.cc"
+  "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/subdir/scratch-subdir.cc"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/cmake-cache/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache/CMakeFiles/cmake.verify_globs")
 endif()

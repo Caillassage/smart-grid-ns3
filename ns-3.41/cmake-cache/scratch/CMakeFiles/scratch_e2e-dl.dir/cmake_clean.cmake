@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/scratch/ns3.41-e2e-dl-default"
-  "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/scratch/ns3.41-e2e-dl-default.pdb"
+  "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/build/scratch/ns3.41-e2e-dl-default"
+  "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/build/scratch/ns3.41-e2e-dl-default.pdb"
   "CMakeFiles/scratch_e2e-dl.dir/e2e-dl.cc.o"
   "CMakeFiles/scratch_e2e-dl.dir/e2e-dl.cc.o.d"
 )

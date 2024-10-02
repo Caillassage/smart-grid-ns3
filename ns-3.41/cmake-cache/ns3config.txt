@@ -1,6 +1,6 @@
 ---- Summary of ns-3 settings:
 Build profile                 : default
-Build directory               : /Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build
+Build directory               : /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/build
 Build with runtime asserts    : [32mON[0m
 Build with runtime logging    : [32mON[0m
 Build version embedding       : OFF (not requested)

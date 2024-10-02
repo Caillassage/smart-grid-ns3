@@ -57,10 +57,10 @@ RM = /usr/local/Cellar/cmake/3.27.7/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41"
+CMAKE_SOURCE_DIR = /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/cmake-cache"
+CMAKE_BINARY_DIR = /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -132,14 +132,14 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	cd "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/cmake-cache" && $(CMAKE_COMMAND) -E cmake_progress_start "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/cmake-cache/CMakeFiles" "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/cmake-cache/src/brite//CMakeFiles/progress.marks"
-	cd "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/cmake-cache" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/brite/all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/cmake-cache/CMakeFiles" 0
+	cd /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache && $(CMAKE_COMMAND) -E cmake_progress_start /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache/CMakeFiles /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache/src/brite//CMakeFiles/progress.marks
+	cd /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/brite/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/cmake-cache" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/brite/clean
+	cd /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/brite/clean
 .PHONY : clean
 
 # The main clean target
@@ -148,18 +148,18 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/cmake-cache" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/brite/preinstall
+	cd /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/brite/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/cmake-cache" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/brite/preinstall
+	cd /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/brite/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/cmake-cache" && $(CMAKE_COMMAND) -P "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/cmake-cache/CMakeFiles/VerifyGlobs.cmake"
-	cd "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/cmake-cache" && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache && $(CMAKE_COMMAND) -P /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache/CMakeFiles/VerifyGlobs.cmake
+	cd /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Help Target
@@ -185,7 +185,7 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/cmake-cache" && $(CMAKE_COMMAND) -P "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/cmake-cache/CMakeFiles/VerifyGlobs.cmake"
-	cd "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/cmake-cache" && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache && $(CMAKE_COMMAND) -P /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache/CMakeFiles/VerifyGlobs.cmake
+	cd /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

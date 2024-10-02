@@ -18,6 +18,7 @@
 #include "udp-echo-server.h"
 
 #include "ns3/address-utils.h"
+#include "ns3/internet-module.h"
 #include "ns3/inet-socket-address.h"
 #include "ns3/inet6-socket-address.h"
 #include "ns3/ipv4-address.h"
@@ -30,6 +31,7 @@
 #include "ns3/socket.h"
 #include "ns3/udp-socket.h"
 #include "ns3/uinteger.h"
+#include <fstream>
 
 namespace ns3
 {
@@ -186,6 +188,93 @@ UdpEchoServer::HandleRead(Ptr<Socket> socket)
         packet->RemoveAllPacketTags();
         packet->RemoveAllByteTags();
 
+        uint8_t buffer_[12];
+        packet->CopyData(buffer_, sizeof(buffer_));
+
+        float x; float rho; float lambda;
+
+        memcpy(&x, buffer_, sizeof(float));
+        memcpy(&rho, buffer_ + sizeof(float), sizeof(float));
+        memcpy(&lambda, buffer_ + 2 * sizeof(float), sizeof(float));
+
+        std::cout << "Received a b c: " << x << " " << rho << " " << lambda << std::endl;
+
+        Ptr<Packet> responsePacket = Create<Packet>();
+
+        // Get the ipv4 address of the node
+        Ptr<Ipv4> ipv4 = GetNode()->GetObject<Ipv4>();
+        Ipv4Address address = ipv4->GetAddress(1, 0).GetLocal();
+        std::cout << "Node address: " << address << std::endl;
+
+        std::string filename = "config/script-conf.csv";
+        std::string script;
+
+        std::ifstream file(filename);
+        std::string line_, ip, area;
+        std::map<Ipv4Address, std::string> addressToAreaMap;
+
+        if (file.is_open()) {
+            while (std::getline(file, line_)) {
+                std::stringstream ss(line_);
+                std::getline(ss, ip, ',');
+                std::getline(ss, area, ',');
+
+                Ipv4Address addr(ip.c_str());
+                addressToAreaMap[addr] = area;
+            }
+            file.close();
+        } else {
+            std::cerr << "Unable to open file: " << filename << std::endl;
+        }
+
+        // Find the area associated with the current node's address
+        auto it = addressToAreaMap.find(address);
+        if (it != addressToAreaMap.end()) {
+            script = it->second;
+        } else {
+            std::cerr << "Address not found in the file" << std::endl;
+        }
+
+        std::cout << script << std::endl;
+
+        // Define the command to run the Julia script
+        std::string juliaCommand = "julia config/" + script + " " + std::to_string(x) + " " + std::to_string(rho) + " " + std::to_string(lambda) + " > output.txt";
+
+        // Run the Julia script
+        float result = std::system(juliaCommand.c_str());
+        if (result != 0) {
+            std::cerr << "Error running Julia script!" << std::endl;
+            //return 1;
+        }
+
+        // Optionally read the output from the file
+        std::ifstream outputFile("output.txt");
+        std::string line; std::string store_line;
+        while (std::getline(outputFile, line)) {
+            //std::cout << line << std::endl; // Print each line from the Julia script's output
+            store_line = line;
+        }
+        result = std::stof(store_line);
+        outputFile.close();
+
+        std::cout << "julia script result: " << result << std::endl;
+
+        //a = a + 1; b = b + 1; c = c + 1;
+
+        // Serialize the floats into a buffer and add to the packet
+        //uint8_t buffer_[12];
+        memcpy(buffer_, &result, sizeof(float));
+        memcpy(buffer_ + sizeof(float), &rho, sizeof(float));
+        memcpy(buffer_ + 2 * sizeof(float), &lambda, sizeof(float));
+
+        responsePacket->AddAtEnd(Create<Packet>(buffer_, sizeof(buffer_)));
+
+
+        //Ptr<Packet> responsePacket = Create<Packet> ((uint8_t *)msg.c_str(), msg.size());
+        socket->SendTo (responsePacket, 0, from);
+
+        /*
+
         uint32_t packetSize = packet->GetSize();
         uint8_t *buffer = new uint8_t[packetSize];
         packet->CopyData(buffer, packetSize);
@@ -200,7 +289,7 @@ UdpEchoServer::HandleRead(Ptr<Socket> socket)
 
         Ptr<Packet> responsePacket = Create<Packet> ((uint8_t *)msg.c_str(), msg.size());
         socket->SendTo (responsePacket, 0, from);
-
+        */
         NS_LOG_LOGIC("Echoing packet");
 
         if (InetSocketAddress::IsMatchingType(from))

@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/scratch/subdir/ns3.41-scratch-subdir-default"
-  "/Users/samirsim/Desktop/Smart Power Grid/power-grid-ns3/ns-3.41/build/scratch/subdir/ns3.41-scratch-subdir-default.pdb"
+  "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/build/scratch/subdir/ns3.41-scratch-subdir-default"
+  "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/build/scratch/subdir/ns3.41-scratch-subdir-default.pdb"
   "CMakeFiles/scratch_subdir_scratch-subdir.dir/subdir/scratch-subdir-additional-header.cc.o"
   "CMakeFiles/scratch_subdir_scratch-subdir.dir/subdir/scratch-subdir-additional-header.cc.o.d"
   "CMakeFiles/scratch_subdir_scratch-subdir.dir/subdir/scratch-subdir.cc.o"

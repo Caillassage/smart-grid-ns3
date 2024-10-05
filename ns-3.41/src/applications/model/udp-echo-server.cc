@@ -40,6 +40,52 @@ NS_LOG_COMPONENT_DEFINE("UdpEchoServerApplication");
 
 NS_OBJECT_ENSURE_REGISTERED(UdpEchoServer);
 
+static int counter = 0;
+static float x = 0;
+static float y = 0;
+static float rho = 1;
+static float lambda = 1;
+static float THRESHOLD = 0.5;
+static std::vector<std::pair<Address, std::string>> m_addressList;  // Static list of address-string pairs
+
+static void TimerExpired(Ptr<Socket> socket) {
+    if (counter != 2) {
+        Ptr<Packet> responsePacket = Create<Packet>(), responsePacket_ = Create<Packet>();
+
+        uint8_t buffer_[12];
+        memcpy(buffer_, &x, sizeof(float));
+        memcpy(buffer_ + sizeof(float), &rho, sizeof(float));
+        memcpy(buffer_ + 2 * sizeof(float), &lambda, sizeof(float));
+
+        responsePacket->AddAtEnd(Create<Packet>(buffer_, sizeof(buffer_)));
+
+        InetSocketAddress address = InetSocketAddress(Ipv4Address("10.1.1.2"), 9); // Hardcoded address here
+
+        //Ptr<Packet> responsePacket = Create<Packet> ((uint8_t *)msg.c_str(), msg.size());
+        socket->SendTo (responsePacket, 0, address);
+
+        NS_LOG_INFO("At time " << Simulator::Now().As(Time::S) << " server sent packet to "
+                               << address);
+
+        uint8_t _buffer_[12];
+        memcpy(_buffer_, &y, sizeof(float));
+        memcpy(_buffer_ + sizeof(float), &rho, sizeof(float));
+        memcpy(_buffer_ + 2 * sizeof(float), &lambda, sizeof(float));
+
+        responsePacket_->AddAtEnd(Create<Packet>(_buffer_, sizeof(_buffer_)));
+
+        InetSocketAddress address_ = InetSocketAddress(Ipv4Address("10.1.1.3"), 9); // Hardcoded address here
+
+        //Ptr<Packet> responsePacket = Create<Packet> ((uint8_t *)msg.c_str(), msg.size());
+        socket->SendTo (responsePacket_, 0, address_);
+
+        NS_LOG_INFO("At time " << Simulator::Now().As(Time::S) << " server sent packet to "
+                               << address_);
+
+        counter = 0;
+    }
+}
+
 TypeId
 UdpEchoServer::GetTypeId()
 {
@@ -188,26 +234,12 @@ UdpEchoServer::HandleRead(Ptr<Socket> socket)
         packet->RemoveAllPacketTags();
         packet->RemoveAllByteTags();
 
-        uint8_t buffer_[12];
-        packet->CopyData(buffer_, sizeof(buffer_));
+        // Get the ipv4 address of the sender
+        InetSocketAddress iaddr = InetSocketAddress::ConvertFrom(from);
+        Ipv4Address sender = iaddr.GetIpv4();
 
-        float x; float rho; float lambda;
-
-        memcpy(&x, buffer_, sizeof(float));
-        memcpy(&rho, buffer_ + sizeof(float), sizeof(float));
-        memcpy(&lambda, buffer_ + 2 * sizeof(float), sizeof(float));
-
-        std::cout << "Received a b c: " << x << " " << rho << " " << lambda << std::endl;
-
-        Ptr<Packet> responsePacket = Create<Packet>();
-
-        // Get the ipv4 address of the node
-        Ptr<Ipv4> ipv4 = GetNode()->GetObject<Ipv4>();
-        Ipv4Address address = ipv4->GetAddress(1, 0).GetLocal();
-        std::cout << "Node address: " << address << std::endl;
-
-        std::string filename = "config/script-conf.csv";
-        std::string script;
+        std::string filename = "config/variable-conf.csv";
+        std::string variable = "";
 
         std::ifstream file(filename);
         std::string line_, ip, area;
@@ -228,83 +260,112 @@ UdpEchoServer::HandleRead(Ptr<Socket> socket)
         }
 
         // Find the area associated with the current node's address
-        auto it = addressToAreaMap.find(address);
+        auto it = addressToAreaMap.find(sender);
         if (it != addressToAreaMap.end()) {
-            script = it->second;
+            variable = it->second;
         } else {
             std::cerr << "Address not found in the file" << std::endl;
         }
 
-        std::cout << script << std::endl;
+        uint8_t buffer_[12];
+        packet->CopyData(buffer_, sizeof(buffer_));
+        float x; float y;
 
-        // Define the command to run the Julia script
-        std::string juliaCommand = "julia config/" + script + " " + std::to_string(x) + " " + std::to_string(rho) + " " + std::to_string(lambda) + " > output.txt";
-
-        // Run the Julia script
-        float result = std::system(juliaCommand.c_str());
-        if (result != 0) {
-            std::cerr << "Error running Julia script!" << std::endl;
-            //return 1;
-        }
-
-        // Optionally read the output from the file
-        std::ifstream outputFile("output.txt");
-        std::string line; std::string store_line;
-        while (std::getline(outputFile, line)) {
-            //std::cout << line << std::endl; // Print each line from the Julia script's output
-            store_line = line;
-        }
-        result = std::stof(store_line);
-        outputFile.close();
-
-        std::cout << "julia script result: " << result << std::endl;
-
-        //a = a + 1; b = b + 1; c = c + 1;
-
-        // Serialize the floats into a buffer and add to the packet
-        //uint8_t buffer_[12];
-        memcpy(buffer_, &result, sizeof(float));
-        memcpy(buffer_ + sizeof(float), &rho, sizeof(float));
-        memcpy(buffer_ + 2 * sizeof(float), &lambda, sizeof(float));
-
-        responsePacket->AddAtEnd(Create<Packet>(buffer_, sizeof(buffer_)));
-
-
-        //Ptr<Packet> responsePacket = Create<Packet> ((uint8_t *)msg.c_str(), msg.size());
-        socket->SendTo (responsePacket, 0, from);
-
-        /*
-
-        uint32_t packetSize = packet->GetSize();
-        uint8_t *buffer = new uint8_t[packetSize];
-        packet->CopyData(buffer, packetSize);
-
-        std::string receivedData(reinterpret_cast<char*>(buffer), packetSize);
-        float value = std::stof(receivedData);
-        float doubledValue = value + 1;
-
-        std::ostringstream oss;
-        oss << doubledValue;
-        std::string msg = oss.str();
-
-        Ptr<Packet> responsePacket = Create<Packet> ((uint8_t *)msg.c_str(), msg.size());
-        socket->SendTo (responsePacket, 0, from);
-        */
-        NS_LOG_LOGIC("Echoing packet");
-
-        if (InetSocketAddress::IsMatchingType(from))
+        // Check if the address is already in the list
+        if (std::find_if(m_addressList.begin(), m_addressList.end(),
+                        [&from](const std::pair<Address, std::string>& pair) {
+                            return pair.first == from;
+                        }) == m_addressList.end())
         {
-            NS_LOG_INFO("At time " << Simulator::Now().As(Time::S) << " server sent "
-                                   << packet->GetSize() << " bytes to "
-                                   << InetSocketAddress::ConvertFrom(from).GetIpv4() << " port "
-                                   << InetSocketAddress::ConvertFrom(from).GetPort());
+            // If not found, append the address and associated string to the static list
+            m_addressList.emplace_back(from, variable);
         }
-        else if (Inet6SocketAddress::IsMatchingType(from))
-        {
-            NS_LOG_INFO("At time " << Simulator::Now().As(Time::S) << " server sent "
-                                   << packet->GetSize() << " bytes to "
-                                   << Inet6SocketAddress::ConvertFrom(from).GetIpv6() << " port "
-                                   << Inet6SocketAddress::ConvertFrom(from).GetPort());
+
+        std::cout << variable << std::endl;
+
+        if (variable == "x") {
+            memcpy(&x, buffer_, sizeof(float));
+            counter += 1;
+        }
+        else if (variable == "y") {
+            memcpy(&y, buffer_, sizeof(float));
+            counter += 1;
+        }
+        
+        NS_LOG_INFO("var: " << counter);
+
+        if (counter == 2) { // If all packets have been received from all the areas
+            counter = 0;
+            Ptr<Packet> responsePacket = Create<Packet>();
+            //packet->AddHeader(SeqTsHeader()); // Ensure there is a header for timestamp
+
+            // Define the command to run the Julia script
+            std::string juliaCommand = "julia config/Server.jl " + std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(rho) + " " + std::to_string(lambda) + " > output.txt";
+
+            // Run the Julia script
+            float result = std::system(juliaCommand.c_str());
+            if (result != 0) {
+                std::cerr << "Error running Julia script!" << std::endl;
+                //return 1;
+            }
+
+            // Optionally read the output from the file
+            std::ifstream outputFile("output.txt");
+            std::string line; std::string store_line;
+            while (std::getline(outputFile, line)) {
+                //std::cout << line << std::endl; // Print each line from the Julia script's output
+                store_line = line;
+            }
+            result = std::stof(store_line);
+            outputFile.close();
+
+            std::cout << "julia script result: " << result << std::endl;
+
+            x = result;
+            y = result;
+
+            for (const auto &pair : m_addressList)
+            {
+                Address address = pair.first;
+                variable = pair.second;
+
+                if (variable == "x") {
+                    uint8_t buffer_[12];
+                    memcpy(buffer_, &x, sizeof(float));
+                    memcpy(buffer_ + sizeof(float), &rho, sizeof(float));
+                    memcpy(buffer_ + 2 * sizeof(float), &lambda, sizeof(float));
+
+                    responsePacket->AddAtEnd(Create<Packet>(buffer_, sizeof(buffer_)));
+
+                    //Ptr<Packet> responsePacket = Create<Packet> ((uint8_t *)msg.c_str(), msg.size());
+                    socket->SendTo (responsePacket, 0, address);
+
+                    NS_LOG_INFO("At time " << Simulator::Now().As(Time::S) << " server sent "
+                                        << packet->GetSize() << " bytes to "
+                                        << InetSocketAddress::ConvertFrom(from).GetIpv4() << " " << from << " " << address << " port 9"); // Hardcoded port here
+
+                }
+                else if (variable == "y") {
+                    uint8_t buffer_[12];
+                    memcpy(buffer_, &y, sizeof(float));
+                    memcpy(buffer_ + sizeof(float), &rho, sizeof(float));
+                    memcpy(buffer_ + 2 * sizeof(float), &lambda, sizeof(float));
+
+                    Ptr<Packet> responsePacket = Create<Packet>();
+                    responsePacket->AddAtEnd(Create<Packet>(buffer_, sizeof(buffer_)));
+
+                    //Ptr<Packet> responsePacket = Create<Packet> ((uint8_t *)msg.c_str(), msg.size());
+                    socket->SendTo (responsePacket, 0, address);
+
+                    NS_LOG_INFO("At time " << Simulator::Now().As(Time::S) << " server sent "
+                                        << packet->GetSize() << " bytes to "
+                                        << InetSocketAddress::ConvertFrom(address).GetIpv4() << " " << from << " " << address << " port 9");
+
+                }
+            }
+        
+            // Set the timer to expire after 5 seconds
+            Simulator::Schedule(Seconds(THRESHOLD), &TimerExpired, socket);
         }
     }
 }

@@ -1,148 +1,100 @@
-[1m/Users/samirsim/Desktop/ns-allinone-3.41/ns-3.41/scratch/script-5g-remote.cc:318:17: [0m[0;1;35mwarning: [0m[1munused variable 'ueAddress' [-Wunused-variable][0m
-        Address ueAddress = ueIpIface.GetAddress(i);
-[0;1;32m                ^
-[0m[1m/Users/samirsim/Desktop/ns-allinone-3.41/ns-3.41/scratch/script-5g-remote.cc:353:14: [0m[0;1;35mwarning: [0m[1mvariable 'packet_lost' set but not used [-Wunused-but-set-variable][0m
-    uint32_t packet_lost = 0;
-[0;1;32m             ^
-[0m[1m/Users/samirsim/Desktop/ns-allinone-3.41/ns-3.41/scratch/script-5g-remote.cc:369:12: [0m[0;1;35mwarning: [0m[1munused variable 'pdr' [-Wunused-variable][0m
-    double pdr = (double)(total_packet_received * 100) / (double)total_packet;
-[0;1;32m           ^
-[0m3 warnings generated.
-+0.000000000s 5 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 0 Time: +0s
-+0.000000000s 6 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 1 Time: +0s
-+0.000000000s 7 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 2 Time: +0s
-+0.000000000s 8 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 3 Time: +0s
-+0.000000000s 9 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 4 Time: +0s
-+0.000000000s 10 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 5 Time: +0s
-+1.000000000s 5 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 30 Time: +1s
-+1.000000000s 6 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 31 Time: +1s
-+1.000000000s 7 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 32 Time: +1s
-+1.000000000s 8 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 33 Time: +1s
-+1.000000000s 9 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 34 Time: +1s
-+1.000000000s 10 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 35 Time: +1s
-+1.012744685s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.7 Sequence Number: 1 Uid: 35 TXtime: +1e+09ns RXtime: +1.01274e+09ns Delay: +1.27447e+07ns
-+1.012816113s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.6 Sequence Number: 1 Uid: 34 TXtime: +1e+09ns RXtime: +1.01282e+09ns Delay: +1.28161e+07ns
-+1.012887541s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.5 Sequence Number: 1 Uid: 33 TXtime: +1e+09ns RXtime: +1.01289e+09ns Delay: +1.28875e+07ns
-+1.012958969s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.4 Sequence Number: 1 Uid: 32 TXtime: +1e+09ns RXtime: +1.01296e+09ns Delay: +1.2959e+07ns
-+1.013030397s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.3 Sequence Number: 1 Uid: 31 TXtime: +1e+09ns RXtime: +1.01303e+09ns Delay: +1.30304e+07ns
-+1.014030397s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.2 Sequence Number: 1 Uid: 30 TXtime: +1e+09ns RXtime: +1.01403e+09ns Delay: +1.40304e+07ns
-+2.000000000s 5 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 60 Time: +2s
-+2.000000000s 6 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 61 Time: +2s
-+2.000000000s 7 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 62 Time: +2s
-+2.000000000s 8 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 63 Time: +2s
-+2.000000000s 9 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 64 Time: +2s
-+2.000000000s 10 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 65 Time: +2s
-+2.007673257s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.7 Sequence Number: 2 Uid: 65 TXtime: +2e+09ns RXtime: +2.00767e+09ns Delay: +7.67326e+06ns
-+2.007744685s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.6 Sequence Number: 2 Uid: 64 TXtime: +2e+09ns RXtime: +2.00774e+09ns Delay: +7.74468e+06ns
-+2.007816113s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.5 Sequence Number: 2 Uid: 63 TXtime: +2e+09ns RXtime: +2.00782e+09ns Delay: +7.81611e+06ns
-+2.007887541s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.4 Sequence Number: 2 Uid: 62 TXtime: +2e+09ns RXtime: +2.00789e+09ns Delay: +7.88754e+06ns
-+2.007958969s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.3 Sequence Number: 2 Uid: 61 TXtime: +2e+09ns RXtime: +2.00796e+09ns Delay: +7.95897e+06ns
-+2.008030397s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.2 Sequence Number: 2 Uid: 60 TXtime: +2e+09ns RXtime: +2.00803e+09ns Delay: +8.0304e+06ns
-+3.000000000s 5 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 78 Time: +3s
-+3.000000000s 6 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 79 Time: +3s
-+3.000000000s 7 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 80 Time: +3s
-+3.000000000s 8 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 81 Time: +3s
-+3.000000000s 9 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 82 Time: +3s
-+3.000000000s 10 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 83 Time: +3s
-+3.007673257s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.7 Sequence Number: 3 Uid: 83 TXtime: +3e+09ns RXtime: +3.00767e+09ns Delay: +7.67326e+06ns
-+3.007744685s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.6 Sequence Number: 3 Uid: 82 TXtime: +3e+09ns RXtime: +3.00774e+09ns Delay: +7.74468e+06ns
-+3.007816113s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.5 Sequence Number: 3 Uid: 81 TXtime: +3e+09ns RXtime: +3.00782e+09ns Delay: +7.81611e+06ns
-+3.007887541s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.4 Sequence Number: 3 Uid: 80 TXtime: +3e+09ns RXtime: +3.00789e+09ns Delay: +7.88754e+06ns
-+3.007958969s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.3 Sequence Number: 3 Uid: 79 TXtime: +3e+09ns RXtime: +3.00796e+09ns Delay: +7.95897e+06ns
-+3.008030397s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.2 Sequence Number: 3 Uid: 78 TXtime: +3e+09ns RXtime: +3.00803e+09ns Delay: +8.0304e+06ns
-+4.000000000s 5 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 96 Time: +4s
-+4.000000000s 6 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 97 Time: +4s
-+4.000000000s 7 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 98 Time: +4s
-+4.000000000s 8 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 99 Time: +4s
-+4.000000000s 9 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 100 Time: +4s
-+4.000000000s 10 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 101 Time: +4s
-+4.007673257s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.7 Sequence Number: 4 Uid: 101 TXtime: +4e+09ns RXtime: +4.00767e+09ns Delay: +7.67326e+06ns
-+4.007744685s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.6 Sequence Number: 4 Uid: 100 TXtime: +4e+09ns RXtime: +4.00774e+09ns Delay: +7.74468e+06ns
-+4.007816113s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.5 Sequence Number: 4 Uid: 99 TXtime: +4e+09ns RXtime: +4.00782e+09ns Delay: +7.81611e+06ns
-+4.007887541s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.4 Sequence Number: 4 Uid: 98 TXtime: +4e+09ns RXtime: +4.00789e+09ns Delay: +7.88754e+06ns
-+4.007958969s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.3 Sequence Number: 4 Uid: 97 TXtime: +4e+09ns RXtime: +4.00796e+09ns Delay: +7.95897e+06ns
-+4.008030397s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.2 Sequence Number: 4 Uid: 96 TXtime: +4e+09ns RXtime: +4.00803e+09ns Delay: +8.0304e+06ns
-+5.000000000s 5 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 114 Time: +5s
-+5.000000000s 6 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 115 Time: +5s
-+5.000000000s 7 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 116 Time: +5s
-+5.000000000s 8 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 117 Time: +5s
-+5.000000000s 9 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 118 Time: +5s
-+5.000000000s 10 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 119 Time: +5s
-+5.007673257s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.7 Sequence Number: 5 Uid: 119 TXtime: +5e+09ns RXtime: +5.00767e+09ns Delay: +7.67326e+06ns
-+5.007744685s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.6 Sequence Number: 5 Uid: 118 TXtime: +5e+09ns RXtime: +5.00774e+09ns Delay: +7.74468e+06ns
-+5.007816113s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.5 Sequence Number: 5 Uid: 117 TXtime: +5e+09ns RXtime: +5.00782e+09ns Delay: +7.81611e+06ns
-+5.007887541s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.4 Sequence Number: 5 Uid: 116 TXtime: +5e+09ns RXtime: +5.00789e+09ns Delay: +7.88754e+06ns
-+5.007958969s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.3 Sequence Number: 5 Uid: 115 TXtime: +5e+09ns RXtime: +5.00796e+09ns Delay: +7.95897e+06ns
-+5.008030397s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.2 Sequence Number: 5 Uid: 114 TXtime: +5e+09ns RXtime: +5.00803e+09ns Delay: +8.0304e+06ns
-+6.000000000s 5 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 132 Time: +6s
-+6.000000000s 6 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 133 Time: +6s
-+6.000000000s 7 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 134 Time: +6s
-+6.000000000s 8 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 135 Time: +6s
-+6.000000000s 9 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 136 Time: +6s
-+6.000000000s 10 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 137 Time: +6s
-+6.007673257s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.7 Sequence Number: 6 Uid: 137 TXtime: +6e+09ns RXtime: +6.00767e+09ns Delay: +7.67326e+06ns
-+6.007744685s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.6 Sequence Number: 6 Uid: 136 TXtime: +6e+09ns RXtime: +6.00774e+09ns Delay: +7.74468e+06ns
-+6.007816113s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.5 Sequence Number: 6 Uid: 135 TXtime: +6e+09ns RXtime: +6.00782e+09ns Delay: +7.81611e+06ns
-+6.007887541s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.4 Sequence Number: 6 Uid: 134 TXtime: +6e+09ns RXtime: +6.00789e+09ns Delay: +7.88754e+06ns
-+6.007958969s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.3 Sequence Number: 6 Uid: 133 TXtime: +6e+09ns RXtime: +6.00796e+09ns Delay: +7.95897e+06ns
-+6.008030397s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.2 Sequence Number: 6 Uid: 132 TXtime: +6e+09ns RXtime: +6.00803e+09ns Delay: +8.0304e+06ns
-+7.000000000s 5 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 150 Time: +7s
-+7.000000000s 6 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 151 Time: +7s
-+7.000000000s 7 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 152 Time: +7s
-+7.000000000s 8 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 153 Time: +7s
-+7.000000000s 9 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 154 Time: +7s
-+7.000000000s 10 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 155 Time: +7s
-+7.007673257s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.7 Sequence Number: 7 Uid: 155 TXtime: +7e+09ns RXtime: +7.00767e+09ns Delay: +7.67326e+06ns
-+7.007744685s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.6 Sequence Number: 7 Uid: 154 TXtime: +7e+09ns RXtime: +7.00774e+09ns Delay: +7.74468e+06ns
-+7.007816113s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.5 Sequence Number: 7 Uid: 153 TXtime: +7e+09ns RXtime: +7.00782e+09ns Delay: +7.81611e+06ns
-+7.007887541s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.4 Sequence Number: 7 Uid: 152 TXtime: +7e+09ns RXtime: +7.00789e+09ns Delay: +7.88754e+06ns
-+7.007958969s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.3 Sequence Number: 7 Uid: 151 TXtime: +7e+09ns RXtime: +7.00796e+09ns Delay: +7.95897e+06ns
-+7.008030397s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.2 Sequence Number: 7 Uid: 150 TXtime: +7e+09ns RXtime: +7.00803e+09ns Delay: +8.0304e+06ns
-+8.000000000s 5 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 168 Time: +8s
-+8.000000000s 6 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 169 Time: +8s
-+8.000000000s 7 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 170 Time: +8s
-+8.000000000s 8 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 171 Time: +8s
-+8.000000000s 9 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 172 Time: +8s
-+8.000000000s 10 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 173 Time: +8s
-+8.007673257s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.7 Sequence Number: 8 Uid: 173 TXtime: +8e+09ns RXtime: +8.00767e+09ns Delay: +7.67326e+06ns
-+8.007744685s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.6 Sequence Number: 8 Uid: 172 TXtime: +8e+09ns RXtime: +8.00774e+09ns Delay: +7.74468e+06ns
-+8.007816113s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.5 Sequence Number: 8 Uid: 171 TXtime: +8e+09ns RXtime: +8.00782e+09ns Delay: +7.81611e+06ns
-+8.007887541s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.4 Sequence Number: 8 Uid: 170 TXtime: +8e+09ns RXtime: +8.00789e+09ns Delay: +7.88754e+06ns
-+8.007958969s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.3 Sequence Number: 8 Uid: 169 TXtime: +8e+09ns RXtime: +8.00796e+09ns Delay: +7.95897e+06ns
-+8.008030397s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.2 Sequence Number: 8 Uid: 168 TXtime: +8e+09ns RXtime: +8.00803e+09ns Delay: +8.0304e+06ns
-+9.000000000s 5 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 186 Time: +9s
-+9.000000000s 6 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 187 Time: +9s
-+9.000000000s 7 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 188 Time: +9s
-+9.000000000s 8 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 189 Time: +9s
-+9.000000000s 9 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 190 Time: +9s
-+9.000000000s 10 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 191 Time: +9s
-+9.007673257s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.7 Sequence Number: 9 Uid: 191 TXtime: +9e+09ns RXtime: +9.00767e+09ns Delay: +7.67326e+06ns
-+9.007744685s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.6 Sequence Number: 9 Uid: 190 TXtime: +9e+09ns RXtime: +9.00774e+09ns Delay: +7.74468e+06ns
-+9.007816113s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.5 Sequence Number: 9 Uid: 189 TXtime: +9e+09ns RXtime: +9.00782e+09ns Delay: +7.81611e+06ns
-+9.007887541s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.4 Sequence Number: 9 Uid: 188 TXtime: +9e+09ns RXtime: +9.00789e+09ns Delay: +7.88754e+06ns
-+9.007958969s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.3 Sequence Number: 9 Uid: 187 TXtime: +9e+09ns RXtime: +9.00796e+09ns Delay: +7.95897e+06ns
-+9.008030397s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.2 Sequence Number: 9 Uid: 186 TXtime: +9e+09ns RXtime: +9.00803e+09ns Delay: +8.0304e+06ns
-+10.000000000s 5 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 204 Time: +10s
-+10.000000000s 6 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 205 Time: +10s
-+10.000000000s 7 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 206 Time: +10s
-+10.000000000s 8 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 207 Time: +10s
-+10.000000000s 9 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 208 Time: +10s
-+10.000000000s 10 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 209 Time: +10s
-+10.007673257s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.7 Sequence Number: 10 Uid: 209 TXtime: +1e+10ns RXtime: +1.00077e+10ns Delay: +7.67326e+06ns
-+10.007744685s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.6 Sequence Number: 10 Uid: 208 TXtime: +1e+10ns RXtime: +1.00077e+10ns Delay: +7.74468e+06ns
-+10.007816113s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.5 Sequence Number: 10 Uid: 207 TXtime: +1e+10ns RXtime: +1.00078e+10ns Delay: +7.81611e+06ns
-+10.007887541s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.4 Sequence Number: 10 Uid: 206 TXtime: +1e+10ns RXtime: +1.00079e+10ns Delay: +7.88754e+06ns
-+10.007958969s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.3 Sequence Number: 10 Uid: 205 TXtime: +1e+10ns RXtime: +1.0008e+10ns Delay: +7.95897e+06ns
-+10.008030397s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.2 Sequence Number: 10 Uid: 204 TXtime: +1e+10ns RXtime: +1.0008e+10ns Delay: +8.0304e+06ns
-+11.000000000s 5 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 222 Time: +11s
-+11.000000000s 6 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 223 Time: +11s
-+11.000000000s 7 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 224 Time: +11s
-+11.000000000s 8 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 225 Time: +11s
-+11.000000000s 9 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 226 Time: +11s
-+11.000000000s 10 UdpClient:Send(): TraceDelay TX 1024 bytes to 1.0.0.2 Uid: 227 Time: +11s
-+11.007673257s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.7 Sequence Number: 11 Uid: 227 TXtime: +1.1e+10ns RXtime: +1.10077e+10ns Delay: +7.67326e+06ns
-+11.007744685s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.6 Sequence Number: 11 Uid: 226 TXtime: +1.1e+10ns RXtime: +1.10077e+10ns Delay: +7.74468e+06ns
-+11.007816113s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.5 Sequence Number: 11 Uid: 225 TXtime: +1.1e+10ns RXtime: +1.10078e+10ns Delay: +7.81611e+06ns
-+11.007887541s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.4 Sequence Number: 11 Uid: 224 TXtime: +1.1e+10ns RXtime: +1.10079e+10ns Delay: +7.88754e+06ns
-+11.007958969s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.3 Sequence Number: 11 Uid: 223 TXtime: +1.1e+10ns RXtime: +1.1008e+10ns Delay: +7.95897e+06ns
-+11.008030397s 11 UdpServer:HandleRead(): TraceDelay: RX 1024 bytes from 7.0.0.2 Sequence Number: 11 Uid: 222 TXtime: +1.1e+10ns RXtime: +1.1008e+10ns Delay: +8.0304e+06ns
++1.000000000s 0 UdpEchoClientApplication:Send(): At time +1s client sent 12 bytes to 10.1.1.1 port 9 packet content 
++1.000000000s 1 UdpEchoClientApplication:Send(): At time +1s client sent 12 bytes to 10.1.1.1 port 9 packet content 
++1.006872081s 2 UdpEchoServerApplication:HandleRead(): At time +1.00687s server received 12 bytes from 10.1.1.3 port 49153
++1.006872081s 2 UdpEchoServerApplication:HandleRead(): At time +1.00687s server sent 12 bytes to 10.1.1.3 03-07-0a:01:01:03:01:c0:00 port 9
++1.006872081s 2 UdpEchoServerApplication:HandleRead(): var: 1
++1.010438137s 2 UdpEchoServerApplication:HandleRead(): At time +1.01044s server received 12 bytes from 10.1.1.2 port 49153
++1.010438137s 2 UdpEchoServerApplication:HandleRead(): At time +1.01044s server sent 12 bytes to 10.1.1.2 03-07-0a:01:01:02:01:c0:00 port 9
++1.010438137s 2 UdpEchoServerApplication:HandleRead(): var: 2
+The latest version of Julia in the `release` channel is 1.10.5+0.aarch64.apple.darwin14. You currently have `1.10.4+0.aarch64.apple.darwin14` installed. Run:
+
+  juliaup update
+
+in your terminal shell to install Julia 1.10.5+0.aarch64.apple.darwin14 and update the `release` channel to that version.
++1.010438137s 2 UdpEchoServerApplication:HandleRead(): Stored address: 03-07-0a:01:01:03:01:c0:00, Associated string: y
++1.010438137s 2 UdpEchoServerApplication:HandleRead(): At time +1.01044s server sent 12 bytes to 10.1.1.3 03-07-0a:01:01:02:01:c0:00 03-07-0a:01:01:03:01:c0:00 port 9
++1.010438137s 2 UdpEchoServerApplication:HandleRead(): Stored address: 03-07-0a:01:01:02:01:c0:00, Associated string: x
++1.010438137s 2 UdpEchoServerApplication:HandleRead(): At time +1.01044s server sent 12 bytes to 10.1.1.2 03-07-0a:01:01:02:01:c0:00 03-07-0a:01:01:02:01:c0:00 port 9
++1.013864179s 0 UdpEchoClientApplication:HandleRead(): At time +1.01386s client received 12 bytes from 10.1.1.1 port 9
+The latest version of Julia in the `release` channel is 1.10.5+0.aarch64.apple.darwin14. You currently have `1.10.4+0.aarch64.apple.darwin14` installed. Run:
+
+  juliaup update
+
+in your terminal shell to install Julia 1.10.5+0.aarch64.apple.darwin14 and update the `release` channel to that version.
++1.015028193s 2 UdpEchoServerApplication:HandleRead(): At time +1.01503s server received 12 bytes from 10.1.1.2 port 49153
++1.015028193s 2 UdpEchoServerApplication:HandleRead(): At time +1.01503s server sent 12 bytes to 10.1.1.2 03-07-0a:01:01:02:01:c0:00 port 9
++1.015028193s 2 UdpEchoServerApplication:HandleRead(): var: 1
++1.019390218s 1 UdpEchoClientApplication:HandleRead(): At time +1.01939s client received 12 bytes from 10.1.1.1 port 9
+The latest version of Julia in the `release` channel is 1.10.5+0.aarch64.apple.darwin14. You currently have `1.10.4+0.aarch64.apple.darwin14` installed. Run:
+
+  juliaup update
+
+in your terminal shell to install Julia 1.10.5+0.aarch64.apple.darwin14 and update the `release` channel to that version.
++1.020554245s 2 UdpEchoServerApplication:HandleRead(): At time +1.02055s server received 12 bytes from 10.1.1.3 port 49153
++1.020554245s 2 UdpEchoServerApplication:HandleRead(): At time +1.02055s server sent 12 bytes to 10.1.1.3 03-07-0a:01:01:03:01:c0:00 port 9
++1.020554245s 2 UdpEchoServerApplication:HandleRead(): var: 2
+The latest version of Julia in the `release` channel is 1.10.5+0.aarch64.apple.darwin14. You currently have `1.10.4+0.aarch64.apple.darwin14` installed. Run:
+
+  juliaup update
+
+in your terminal shell to install Julia 1.10.5+0.aarch64.apple.darwin14 and update the `release` channel to that version.
++1.020554245s 2 UdpEchoServerApplication:HandleRead(): Stored address: 03-07-0a:01:01:03:01:c0:00, Associated string: y
++1.020554245s 2 UdpEchoServerApplication:HandleRead(): At time +1.02055s server sent 12 bytes to 10.1.1.3 03-07-0a:01:01:03:01:c0:00 03-07-0a:01:01:03:01:c0:00 port 9
++1.020554245s 2 UdpEchoServerApplication:HandleRead(): Stored address: 03-07-0a:01:01:02:01:c0:00, Associated string: x
++1.020554245s 2 UdpEchoServerApplication:HandleRead(): At time +1.02055s server sent 12 bytes to 10.1.1.3 03-07-0a:01:01:03:01:c0:00 03-07-0a:01:01:02:01:c0:00 port 9
++1.022278272s 1 UdpEchoClientApplication:HandleRead(): At time +1.02228s client received 12 bytes from 10.1.1.1 port 9
+The latest version of Julia in the `release` channel is 1.10.5+0.aarch64.apple.darwin14. You currently have `1.10.4+0.aarch64.apple.darwin14` installed. Run:
+
+  juliaup update
+
+in your terminal shell to install Julia 1.10.5+0.aarch64.apple.darwin14 and update the `release` channel to that version.
++1.023442299s 2 UdpEchoServerApplication:HandleRead(): At time +1.02344s server received 12 bytes from 10.1.1.3 port 49153
++1.023442299s 2 UdpEchoServerApplication:HandleRead(): At time +1.02344s server sent 12 bytes to 10.1.1.3 03-07-0a:01:01:03:01:c0:00 port 9
++1.023442299s 2 UdpEchoServerApplication:HandleRead(): var: 1
++1.024886313s 0 UdpEchoClientApplication:HandleRead(): At time +1.02489s client received 12 bytes from 10.1.1.1 port 9
+The latest version of Julia in the `release` channel is 1.10.5+0.aarch64.apple.darwin14. You currently have `1.10.4+0.aarch64.apple.darwin14` installed. Run:
+
+  juliaup update
+
+in your terminal shell to install Julia 1.10.5+0.aarch64.apple.darwin14 and update the `release` channel to that version.
++1.026050327s 2 UdpEchoServerApplication:HandleRead(): At time +1.02605s server received 12 bytes from 10.1.1.2 port 49153
++1.026050327s 2 UdpEchoServerApplication:HandleRead(): At time +1.02605s server sent 12 bytes to 10.1.1.2 03-07-0a:01:01:02:01:c0:00 port 9
++1.026050327s 2 UdpEchoServerApplication:HandleRead(): var: 2
+The latest version of Julia in the `release` channel is 1.10.5+0.aarch64.apple.darwin14. You currently have `1.10.4+0.aarch64.apple.darwin14` installed. Run:
+
+  juliaup update
+
+in your terminal shell to install Julia 1.10.5+0.aarch64.apple.darwin14 and update the `release` channel to that version.
++1.026050327s 2 UdpEchoServerApplication:HandleRead(): Stored address: 03-07-0a:01:01:03:01:c0:00, Associated string: y
++1.026050327s 2 UdpEchoServerApplication:HandleRead(): At time +1.02605s server sent 12 bytes to 10.1.1.3 03-07-0a:01:01:02:01:c0:00 03-07-0a:01:01:03:01:c0:00 port 9
++1.026050327s 2 UdpEchoServerApplication:HandleRead(): Stored address: 03-07-0a:01:01:02:01:c0:00, Associated string: x
++1.026050327s 2 UdpEchoServerApplication:HandleRead(): At time +1.02605s server sent 12 bytes to 10.1.1.2 03-07-0a:01:01:02:01:c0:00 03-07-0a:01:01:02:01:c0:00 port 9
++1.027414354s 1 UdpEchoClientApplication:HandleRead(): At time +1.02741s client received 12 bytes from 10.1.1.1 port 9
+The latest version of Julia in the `release` channel is 1.10.5+0.aarch64.apple.darwin14. You currently have `1.10.4+0.aarch64.apple.darwin14` installed. Run:
+
+  juliaup update
+
+in your terminal shell to install Julia 1.10.5+0.aarch64.apple.darwin14 and update the `release` channel to that version.
++1.028578381s 2 UdpEchoServerApplication:HandleRead(): At time +1.02858s server received 12 bytes from 10.1.1.3 port 49153
++1.028578381s 2 UdpEchoServerApplication:HandleRead(): At time +1.02858s server sent 12 bytes to 10.1.1.3 03-07-0a:01:01:03:01:c0:00 port 9
++1.028578381s 2 UdpEchoServerApplication:HandleRead(): var: 1
++1.029822395s 0 UdpEchoClientApplication:HandleRead(): At time +1.02982s client received 12 bytes from 10.1.1.1 port 9
+Error running Julia script!
++1.031106409s 2 UdpEchoServerApplication:HandleRead(): At time +1.03111s server received 12 bytes from 10.1.1.2 port 49153
++1.031106409s 2 UdpEchoServerApplication:HandleRead(): At time +1.03111s server sent 12 bytes to 10.1.1.2 03-07-0a:01:01:02:01:c0:00 port 9
++1.031106409s 2 UdpEchoServerApplication:HandleRead(): var: 2
+The latest version of Julia in the `release` channel is 1.10.5+0.aarch64.apple.darwin14. You currently have `1.10.4+0.aarch64.apple.darwin14` installed. Run:
+
+  juliaup update
+
+in your terminal shell to install Julia 1.10.5+0.aarch64.apple.darwin14 and update the `release` channel to that version.
++1.031106409s 2 UdpEchoServerApplication:HandleRead(): Stored address: 03-07-0a:01:01:03:01:c0:00, Associated string: y
++1.031106409s 2 UdpEchoServerApplication:HandleRead(): At time +1.03111s server sent 12 bytes to 10.1.1.3 03-07-0a:01:01:02:01:c0:00 03-07-0a:01:01:03:01:c0:00 port 9
++1.031106409s 2 UdpEchoServerApplication:HandleRead(): Stored address: 03-07-0a:01:01:02:01:c0:00, Associated string: x
++1.031106409s 2 UdpEchoServerApplication:HandleRead(): At time +1.03111s server sent 12 bytes to 10.1.1.2 03-07-0a:01:01:02:01:c0:00 03-07-0a:01:01:02:01:c0:00 port 9
++1.032310436s 1 UdpEchoClientApplication:HandleRead(): At time +1.03231s client received 12 bytes from 10.1.1.1 port 9
+The latest version of Julia in the `release` channel is 1.10.5+0.aarch64.apple.darwin14. You currently have `1.10.4+0.aarch64.apple.darwin14` installed. Run:
+
+  juliaup update
+
+in your terminal shell to install Julia 1.10.5+0.aarch64.apple.darwin14 and update the `release` channel to that version.

@@ -67,68 +67,23 @@ int main(int argc, char *argv[])
     Ipv4InterfaceContainer centralInterface = address.Assign(centralDevice);
     Ipv4InterfaceContainer nodeInterfaces = address.Assign(nodeDevices);
 
-    uint16_t port = 9;  // Arbitrary port number
-    /*
-    // Create MyApp on node 0
-    
-    Address serverAddress = InetSocketAddress(interfaces.GetAddress(1), port);
-    Ptr<MyApp> app = CreateObject<MyApp>();
-    app->Setup(nodes.Get(0), serverAddress, 1024, 5, DataRate("1Mbps"));  // Setup with 1024-byte packet size
-    nodes.Get(0)->AddApplication(app);
-    app->SetStartTime(Seconds(1.0));
-    app->SetStopTime(Seconds(10.0));
-
-    Address serverAddress_2 = InetSocketAddress(interfaces.GetAddress(0), port);
-    Ptr<MyApp> app_2 = CreateObject<MyApp>();
-    app_2->Setup(nodes.Get(1), Address(), 0, 0, DataRate("0Mbps"));  // Setup with 1024-byte packet size
-    nodes.Get(1)->AddApplication(app_2);
-    app_2->SetStartTime(Seconds(1.0));
-    app_2->SetStopTime(Seconds(10.0));
-    
-    
-    // Create a packet sink on node 1 to receive packets
-    MyAppHelper packetSinkHelper("ns3::UdpSocketFactory", InetSocketAddress(Ipv4Address::GetAny(), port));
-    ApplicationContainer sinkApps = packetSinkHelper.Install(nodes.Get(0));
-    sinkApps.Start(Seconds(0.0));
-    sinkApps.Stop(Seconds(10.0));
-
-    PacketSinkHelper packetSinkHelper_("ns3::UdpSocketFactory", InetSocketAddress(Ipv4Address::GetAny(), port));
-    ApplicationContainer sinkApps_ = packetSinkHelper_.Install(nodes.Get(1));
-    sinkApps_.Start(Seconds(0.0));
-    sinkApps_.Stop(Seconds(10.0));
-
-    auto ipv4 = nodes.Get (0)->GetObject<Ipv4> ();
-    const auto address_ = ipv4->GetAddress (1, 0).GetLocal ();
-
-    // UDP Client application to be installed in the stations
-    UdpClientHelper echoClient(address_, port);
-    
-    echoClient.SetAttribute("MaxPackets", UintegerValue(100000));
-    echoClient.SetAttribute("Interval", TimeValue(Seconds(1)));
-    echoClient.SetAttribute("PacketSize", UintegerValue(1024));
-
-    ApplicationContainer sourceApplications = echoClient.Install (nodes.Get(1));
-    sourceApplications.Start(Seconds(0.0));
-    sourceApplications.Stop(Seconds(10.0));
-    */
-
     int echoPort = 9;
     UdpEchoServerHelper echoServer(echoPort); // Port # 9
     uint32_t payloadSizeEcho = 1023; //Packet size for Echo UDP App
 
-    ApplicationContainer serverApps = echoServer.Install(nodes);
+    ApplicationContainer serverApps = echoServer.Install(centralNode.Get(0));
     serverApps.Start(Seconds(0.0));
     serverApps.Stop(Seconds(11.0));
 
     for (uint32_t index = 0; index < numberOfNodes; ++index) {
         // This application is to be installed at the central node
-        UdpEchoClientHelper echoClient1(nodeInterfaces.GetAddress(index), echoPort); 
+        UdpEchoClientHelper echoClient1(centralInterface.GetAddress(0), echoPort); 
       
         echoClient1.SetAttribute("MaxPackets", UintegerValue(10000));
         echoClient1.SetAttribute("Interval", TimeValue(Seconds(10)));
         echoClient1.SetAttribute("PacketSize", UintegerValue(payloadSizeEcho));
 
-        ApplicationContainer clientApp = echoClient1.Install(centralNode.Get(0));
+        ApplicationContainer clientApp = echoClient1.Install(nodes.Get(index));
         //commInterfaces.GetAddress(0).Print(std::cout);
         clientApp.Start(Seconds(1.0));
         clientApp.Stop(Seconds(11.0));
@@ -141,9 +96,16 @@ int main(int argc, char *argv[])
         */
        
         // Serialize the floats into a string
+        /*
         float x = 0.0, rho = 1.0, lambda = 1.0; // x and y have the same values for the first sending
         std::ostringstream oss;
         oss << x << " " << rho << " " << lambda;
+        std::string valueToSend = oss.str();
+        */
+
+       float x = 0.0; // x and y have the same values for the first sending
+        std::ostringstream oss;
+        oss << x;
         std::string valueToSend = oss.str();
 
         // Use SetFill to set the packet payload

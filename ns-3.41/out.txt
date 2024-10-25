@@ -1,0 +1,24 @@
+make[3]: *** [scratch/CMakeFiles/scratch_script-autonomous-bus.dir/depend] Interrupt: 2
+make[2]: *** [scratch/CMakeFiles/scratch_script-autonomous-bus.dir/all] Interrupt: 2
+make[1]: *** [scratch/CMakeFiles/scratch_script-autonomous-bus.dir/rule] Interrupt: 2
+make: *** [scratch_script-autonomous-bus] Interrupt: 2
+Traceback (most recent call last):
+  File "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/./ns3", line 1914, in <module>
+    main()
+  File "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/./ns3", line 1876, in main
+    build_step(
+  File "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/./ns3", line 1331, in build_step
+    cmake_build(
+  File "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/./ns3", line 1112, in cmake_build
+    ret = subprocess.run(
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 507, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 1126, in communicate
+    self.wait()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 1189, in wait
+    return self._wait(timeout=timeout)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 1917, in _wait
+    (pid, sts) = self._try_wait(0)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 1875, in _try_wait
+    (pid, sts) = os.waitpid(self.pid, wait_flags)
+KeyboardInterrupt

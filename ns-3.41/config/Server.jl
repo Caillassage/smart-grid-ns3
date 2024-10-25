@@ -7,4 +7,5 @@ if length(ARGS) > 0
     #println("Received: ", x)
 end
 
+sleep(1)
 println(x+y)

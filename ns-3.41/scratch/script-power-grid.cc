@@ -12,8 +12,20 @@ NS_LOG_COMPONENT_DEFINE("WifiSimpleAdhoc");
 
 int main(int argc, char *argv[])
 {
-
+    int seed = 1;
     int numberOfNodes = 2;
+    float threshold = 9.0;
+    float simulationTime = 10.0;
+
+    CommandLine cmd;
+    cmd.AddValue("numberOfNodes", "Number of nodes", numberOfNodes);
+    cmd.AddValue("seed", "Seed for random number generation", seed);
+    cmd.AddValue("threshold", "Threshold for the algorithm (server initiating new round)", threshold);
+    cmd.AddValue("simulationTime", "Simulation time in seconds", simulationTime);
+
+    cmd.Parse(argc, argv);
+
+    SeedManager::SetSeed (seed);  // Changes seed from default of 1 to 3
 
     // Configure logging
     LogComponentEnable("WifiSimpleAdhoc", LOG_LEVEL_INFO);
@@ -69,6 +81,7 @@ int main(int argc, char *argv[])
 
     int echoPort = 9;
     UdpEchoServerHelper echoServer(echoPort); // Port # 9
+    echoServer.SetAttribute("Threshold", TimeValue(Seconds(threshold)));
     uint32_t payloadSizeEcho = 1023; //Packet size for Echo UDP App
 
     ApplicationContainer serverApps = echoServer.Install(centralNode.Get(0));
@@ -103,9 +116,10 @@ int main(int argc, char *argv[])
         std::string valueToSend = oss.str();
         */
 
-       float x = 0.0; // x and y have the same values for the first sending
+        float x = 0.0;
+        uint32_t round = 1; // x and y have the same values for the first sending
         std::ostringstream oss;
-        oss << x;
+        oss << x << " " << round;
         std::string valueToSend = oss.str();
 
         // Use SetFill to set the packet payload
@@ -116,9 +130,8 @@ int main(int argc, char *argv[])
     FlowMonitorHelper flowHelper;
     flowMonitor = flowHelper.InstallAll();
 
-    // Start the simulation
     /*/ Starting simulation /*/
-    Simulator::Stop (Seconds (1.2));
+    Simulator::Stop (Seconds (simulationTime));
     Simulator::Run ();
 
     // *** Récupération des statistiques ***

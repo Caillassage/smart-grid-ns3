@@ -72,6 +72,7 @@ class UdpEchoServer : public Application
     Ptr<Socket> m_socket;  //!< IPv4 Socket
     Ptr<Socket> m_socket6; //!< IPv6 Socket
     Address m_local;       //!< local multicast address
+    Time m_threshold;      //!< Threshold for the algorithm (server initiating new round)
 
     /// Callbacks for tracing the packet Rx events
     TracedCallback<Ptr<const Packet>> m_rxTrace;

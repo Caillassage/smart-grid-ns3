@@ -42,16 +42,17 @@ NS_OBJECT_ENSURE_REGISTERED(UdpEchoServer);
 
 static int counter = 0;
 static int current_round = 1;
-static float x = 0;
-static float y = 0;
-static float rho = 1;
-static float lambda = 1;
-static float THRESHOLD = 10;
+static float x = 0.0;
+static float y = 0.0;
+static float rho = 1.0;
+static float lambda = 1.0;
+static float THRESHOLD = 10.0;
 static std::vector<std::pair<Address, std::string>> m_addressList;  // Static list of address-string pairs
+static int STOP = 0;
 
 static void TimerExpired(Ptr<Socket> socket) {
-    std::cout << "incfrgreg " << counter << std::endl;
-    if (counter != 2) {
+    if ((counter != 2) && (STOP == 0)) {
+        std::cout << "Threshold expired " << counter << std::endl;
         current_round += 1;
         counter = 0;
 
@@ -223,7 +224,6 @@ void
 UdpEchoServer::HandleRead(Ptr<Socket> socket)
 {
     NS_LOG_FUNCTION(this << socket);
-
     Ptr<Packet> packet;
     Address from;
     Address localAddress;
@@ -297,30 +297,35 @@ UdpEchoServer::HandleRead(Ptr<Socket> socket)
             m_addressList.emplace_back(from, variable);
         }
 
-        std::cout << variable << std::endl;
+        //std::cout << variable << std::endl;
 
         if (variable == "x") {
             memcpy(&x, buffer_, sizeof(float));
             memcpy(&round, buffer_ + sizeof(float), sizeof(uint32_t));
+            std::cout << "Server: Received x round: " << x << " " << round << std::endl;
             counter += 1;
         }
         else if (variable == "y") {
             memcpy(&y, buffer_, sizeof(float));
             memcpy(&round, buffer_ + sizeof(float), sizeof(uint32_t));
+            std::cout << "Server: Received y round: " << y << " " << round << std::endl;
             counter += 1;
         }
-        std::cout << "round: " << round << " current round: " << current_round << std::endl;
+        //std::cout << "round: " << round << " current round: " << current_round << std::endl;
         if (round == current_round) { // Else the packet is from the previous round, ignore it
-            NS_LOG_INFO("var: " << counter);
+            //NS_LOG_INFO("counter: " << counter);
 
             if (counter == 2) { // If all packets have been received from all the areas
+                NS_LOG_INFO("Current iteration: " << current_round);
                 current_round += 1;
-                counter = 0;    
+                counter = 0;
                 Ptr<Packet> responsePacket = Create<Packet>();
                 //packet->AddHeader(SeqTsHeader()); // Ensure there is a header for timestamp
 
+                std::cout << "Sent variables to the script are: " << x << " " << y << " " << lambda << std::endl;
+
                 // Define the command to run the Julia script
-                std::string juliaCommand = "julia config/Server.jl " + std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(rho) + " " + std::to_string(lambda) + " > output.txt";
+                std::string juliaCommand = "julia config/Server.jl " + std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(lambda) + " " + std::to_string(rho) +  " > output_server.txt";
 
                 // Run the Julia script
                 float result = std::system(juliaCommand.c_str());
@@ -330,66 +335,81 @@ UdpEchoServer::HandleRead(Ptr<Socket> socket)
                 }
 
                 // Optionally read the output from the file
-                std::ifstream outputFile("output.txt");
-                std::string line; std::string store_line;
+                std::ifstream outputFile("output_server.txt");
+                std::string line, line1, line2, line3, line4;
+
+                // Loop through the file to get the last four lines
                 while (std::getline(outputFile, line)) {
-                    //std::cout << line << std::endl; // Print each line from the Julia script's output
-                    store_line = line;
+                    line1 = line2;  // Shift the previous lines up
+                    line2 = line3;
+                    line3 = line4;
+                    line4 = line;   // Update line4 to the current line
                 }
-                result = std::stof(store_line);
+
                 outputFile.close();
 
-                std::cout << "julia script result: " << result << std::endl;
+                // Convert the last four lines to the required variables
+                try {
+                    x = std::stof(line1);
+                    y = std::stof(line2);
+                    lambda = std::stof(line3);
+                    rho = std::stof(line4);
 
-                x = result;
-                y = result;
+                    // Output the values to verify
+                    std::cout << "x: " << x << std::endl;
+                    std::cout << "y: " << y << std::endl;
+                    std::cout << "lambda: " << lambda << std::endl;
+                    std::cout << "rho: " << rho << std::endl;
 
-                for (const auto &pair : m_addressList)
-                {
-                    Address address = pair.first;
-                    variable = pair.second;
+                    for (const auto &pair : m_addressList)
+                    {
+                        Address address = pair.first;
+                        variable = pair.second;
 
-                    if (variable == "x") {
-                        uint8_t buffer_[16];
-                        memcpy(buffer_, &x, sizeof(float));
-                        memcpy(buffer_ + sizeof(float), &rho, sizeof(float));
-                        memcpy(buffer_ + 2 * sizeof(float), &lambda, sizeof(float));
-                        memcpy(buffer_ + 3 * sizeof(float), &current_round, sizeof(uint32_t));
+                        if (variable == "x") {
+                            uint8_t buffer_[16];
+                            memcpy(buffer_, &x, sizeof(float));
+                            memcpy(buffer_ + sizeof(float), &lambda, sizeof(float));
+                            memcpy(buffer_ + 2 * sizeof(float), &rho, sizeof(float));
+                            memcpy(buffer_ + 3 * sizeof(float), &current_round, sizeof(uint32_t));
 
-                        responsePacket->AddAtEnd(Create<Packet>(buffer_, sizeof(buffer_)));
+                            responsePacket->AddAtEnd(Create<Packet>(buffer_, sizeof(buffer_)));
 
-                        //Ptr<Packet> responsePacket = Create<Packet> ((uint8_t *)msg.c_str(), msg.size());
-                        socket->SendTo (responsePacket, 0, address);
+                            //Ptr<Packet> responsePacket = Create<Packet> ((uint8_t *)msg.c_str(), msg.size());
+                            socket->SendTo (responsePacket, 0, address);
 
-                        NS_LOG_INFO("At time " << Simulator::Now().As(Time::S) << " server sent "
-                                            << packet->GetSize() << " bytes to "
-                                            << InetSocketAddress::ConvertFrom(from).GetIpv4() << " " << from << " " << address << " port 9"); // Hardcoded port here
+                            NS_LOG_INFO("At time " << Simulator::Now().As(Time::S) << " server sent "
+                                                << packet->GetSize() << " bytes to " << address << " port 9"); // Hardcoded port here
 
+                        }
+                        else if (variable == "y") {
+                            uint8_t buffer_[16];
+                            memcpy(buffer_, &y, sizeof(float));
+                            memcpy(buffer_ + sizeof(float), &lambda, sizeof(float));
+                            memcpy(buffer_ + 2 * sizeof(float), &rho, sizeof(float));
+                            memcpy(buffer_ + 3 * sizeof(float), &current_round, sizeof(uint32_t));
+
+                            Ptr<Packet> responsePacket = Create<Packet>();
+                            responsePacket->AddAtEnd(Create<Packet>(buffer_, sizeof(buffer_)));
+
+                            //Ptr<Packet> responsePacket = Create<Packet> ((uint8_t *)msg.c_str(), msg.size());
+                            socket->SendTo (responsePacket, 0, address);
+
+                            NS_LOG_INFO("At time " << Simulator::Now().As(Time::S) << " server sent "
+                                                << packet->GetSize() << " bytes to " << address << " port 9");
+
+                        }
                     }
-                    else if (variable == "y") {
-                        uint8_t buffer_[16];
-                        memcpy(buffer_, &y, sizeof(float));
-                        memcpy(buffer_ + sizeof(float), &rho, sizeof(float));
-                        memcpy(buffer_ + 2 * sizeof(float), &lambda, sizeof(float));
-                        memcpy(buffer_ + 3 * sizeof(float), &current_round, sizeof(uint32_t));
+                    THRESHOLD = m_threshold.GetSeconds();
 
-                        Ptr<Packet> responsePacket = Create<Packet>();
-                        responsePacket->AddAtEnd(Create<Packet>(buffer_, sizeof(buffer_)));
-
-                        //Ptr<Packet> responsePacket = Create<Packet> ((uint8_t *)msg.c_str(), msg.size());
-                        socket->SendTo (responsePacket, 0, address);
-
-                        NS_LOG_INFO("At time " << Simulator::Now().As(Time::S) << " server sent "
-                                            << packet->GetSize() << " bytes to "
-                                            << InetSocketAddress::ConvertFrom(address).GetIpv4() << " " << from << " " << address << " port 9");
-
-                    }
+                    // Set the timer to expire after 5 seconds
+                    Simulator::Schedule(Seconds(THRESHOLD), &TimerExpired, socket);
+                    //std::cout << "here setting timer" << std::endl;
+                } catch (const std::invalid_argument& e) {
+                    STOP = 1;
+                    std::cout << line4 << std::endl;
                 }
-                THRESHOLD = m_threshold.GetSeconds();
-
-                // Set the timer to expire after 5 seconds
-                Simulator::Schedule(Seconds(THRESHOLD), &TimerExpired, socket);
-                std::cout << "here setting timer" << std::endl;
+                
             }
         }
     }

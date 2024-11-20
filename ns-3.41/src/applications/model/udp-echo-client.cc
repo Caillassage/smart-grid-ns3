@@ -43,17 +43,7 @@ NS_OBJECT_ENSURE_REGISTERED(UdpEchoClient);
 
 static void sendPacket(Ptr<Packet> responsePacket, Address from, float result, std::string script, uint32_t round, Ptr<Socket> socket)
     {
-        // Optionally read the output from the file
-        std::ifstream outputFile("output.txt");
-        std::string line; std::string store_line;
-        while (std::getline(outputFile, line)) {
-            //std::cout << line << std::endl; // Print each line from the Julia script's output
-            store_line = line;
-        }
-        result = std::stof(store_line);
-        outputFile.close();
-
-        std::cout << script << " julia script result: " << result << std::endl;
+        //std::cout << script << " julia script result: " << result << std::endl;
 
         uint8_t buffer_[16];
 
@@ -66,10 +56,10 @@ static void sendPacket(Ptr<Packet> responsePacket, Address from, float result, s
         socket->SendTo (responsePacket, 0, from);
 
 
-        std::cout << "here At time " << Simulator::Now().As(Time::S) << " client sent "
+        NS_LOG_INFO("At time " << Simulator::Now().As(Time::S) << " client sent "
                                << responsePacket->GetSize() << " bytes to "
                                << InetSocketAddress::ConvertFrom(from).GetIpv4() << " port "
-                               << InetSocketAddress::ConvertFrom(from).GetPort() << std::endl;
+                               << InetSocketAddress::ConvertFrom(from).GetPort());
     }
 
 TypeId
@@ -83,7 +73,7 @@ UdpEchoClient::GetTypeId()
             .AddAttribute(
                 "MaxPackets",
                 "The maximum number of packets the application will send (zero means infinite)",
-                UintegerValue(100),
+                UintegerValue(0),
                 MakeUintegerAccessor(&UdpEchoClient::m_count),
                 MakeUintegerChecker<uint32_t>())
             .AddAttribute("Interval",
@@ -275,10 +265,10 @@ UdpEchoClient::SetFill(std::string fill)
     }
 
     // Serialize the floats into a string
-    float a = 1.0; uint32_t round = 1;
-    uint8_t buffer_[12];
+    float a = 1.666666667167921; uint32_t round = 1;
+    uint8_t buffer_[16];
     memcpy(buffer_, &a, sizeof(float));
-    memcpy(buffer_ + sizeof(float), &round, sizeof(uint128_t));
+    memcpy(buffer_ + sizeof(float), &round, sizeof(uint32_t));
     memcpy(m_data, buffer_, dataSize);
     //memcpy(m_data, fill.c_str(), dataSize);
 
@@ -411,7 +401,7 @@ UdpEchoClient::Send()
     {
         NS_LOG_INFO("At time " << Simulator::Now().As(Time::S) << " client sent " << m_size
                                << " bytes to " << Ipv4Address::ConvertFrom(m_peerAddress)
-                               << " port " << m_peerPort << " packet content " << m_data);
+                               << " port " << m_peerPort);
     }
     else if (Ipv6Address::IsMatchingType(m_peerAddress))
     {
@@ -475,7 +465,7 @@ UdpEchoClient::HandleRead(Ptr<Socket> socket)
         memcpy(&lambda, buffer_ + 2 * sizeof(float), sizeof(float));
         memcpy(&round, buffer_ + 3 * sizeof(float), sizeof(uint32_t));
 
-        std::cout << "Received x rho lambda round: " << x << " " << rho << " " << lambda << " " << round << std::endl;
+        std::cout << "Client: Received x lambda rho round: " << x << " " << lambda << " " << rho  << " " << round << std::endl;
 
         Ptr<Packet> responsePacket = Create<Packet>();
 
@@ -512,14 +502,10 @@ UdpEchoClient::HandleRead(Ptr<Socket> socket)
             std::cerr << "Address not found in the file" << std::endl;
         }
 
-        std::cout << script << std::endl;
+        //std::cout << script << std::endl;
 
         // Define the command to run the Julia script
-        std::string juliaCommand = "julia config/" + script + " " + std::to_string(x) + " " + std::to_string(rho) + " " + std::to_string(lambda) + " > output.txt";
-
-
-        // Start measuring the simulation time
-        auto start = std::chrono::high_resolution_clock::now();
+        std::string juliaCommand = "julia config/" + script + " " + std::to_string(x) + " " + std::to_string(rho) + " " + std::to_string(lambda) + " > output_client.txt";
 
         // Run the Julia script
         float result = std::system(juliaCommand.c_str());
@@ -527,13 +513,29 @@ UdpEchoClient::HandleRead(Ptr<Socket> socket)
             std::cerr << "Error running Julia script!" << std::endl;
             //return 1;
         }
-        /*/ Stop measuring the simulation time /*/
-        auto end = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<double> elapsedTime = end - start; // This will store the elapsed time in seconds
-        std::cout << "The optimization time is: " << elapsedTime.count() << " s" << std::endl;
+        
+        std::ifstream outputFile("output_client.txt");
+        std::string line, lastLine, secondLastLine;
+
+        // Loop through the file to get the last two lines
+        while (std::getline(outputFile, line)) {
+            secondLastLine = lastLine;  // Move the previous last line
+            lastLine = line;             // Update last line to the current line
+        }
+
+        outputFile.close();
+
+        // Convert the last two lines to the required variables
+        float optimizationTime = std::stof(lastLine);
+        result = std::stof(secondLastLine);
+
+        // Output the values to verify
+        NS_LOG_INFO("Optimization Time: " << optimizationTime);
+        std::cout << "Result: " << result << std::endl;
 
         // Schedule the next events in ns-3 to continue after the real-time delay
-        Simulator::Schedule(Seconds(elapsedTime.count()), &sendPacket, responsePacket, from, result, script, round, socket);
+        Simulator::Schedule(Seconds(optimizationTime), &sendPacket, responsePacket, from, result, script, round, socket);
+        
         /*
         // Optionally read the output from the file
         std::ifstream outputFile("output.txt");

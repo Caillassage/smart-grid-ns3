@@ -1,100 +1,137 @@
-+1.000000000s 0 UdpEchoClientApplication:Send(): At time +1s client sent 12 bytes to 10.1.1.1 port 9 packet content 
-+1.000000000s 1 UdpEchoClientApplication:Send(): At time +1s client sent 12 bytes to 10.1.1.1 port 9 packet content 
++1.000000000s 0 UdpEchoClientApplication:Send(): At time +1s client sent 12 bytes to 10.1.1.1 port 9
++1.000000000s 1 UdpEchoClientApplication:Send(): At time +1s client sent 12 bytes to 10.1.1.1 port 9
 +1.006872081s 2 UdpEchoServerApplication:HandleRead(): At time +1.00687s server received 12 bytes from 10.1.1.3 port 49153
-+1.006872081s 2 UdpEchoServerApplication:HandleRead(): At time +1.00687s server sent 12 bytes to 10.1.1.3 03-07-0a:01:01:03:01:c0:00 port 9
-+1.006872081s 2 UdpEchoServerApplication:HandleRead(): var: 1
 +1.010438137s 2 UdpEchoServerApplication:HandleRead(): At time +1.01044s server received 12 bytes from 10.1.1.2 port 49153
-+1.010438137s 2 UdpEchoServerApplication:HandleRead(): At time +1.01044s server sent 12 bytes to 10.1.1.2 03-07-0a:01:01:02:01:c0:00 port 9
-+1.010438137s 2 UdpEchoServerApplication:HandleRead(): var: 2
-The latest version of Julia in the `release` channel is 1.10.5+0.aarch64.apple.darwin14. You currently have `1.10.4+0.aarch64.apple.darwin14` installed. Run:
-
-  juliaup update
-
-in your terminal shell to install Julia 1.10.5+0.aarch64.apple.darwin14 and update the `release` channel to that version.
-+1.010438137s 2 UdpEchoServerApplication:HandleRead(): Stored address: 03-07-0a:01:01:03:01:c0:00, Associated string: y
-+1.010438137s 2 UdpEchoServerApplication:HandleRead(): At time +1.01044s server sent 12 bytes to 10.1.1.3 03-07-0a:01:01:02:01:c0:00 03-07-0a:01:01:03:01:c0:00 port 9
-+1.010438137s 2 UdpEchoServerApplication:HandleRead(): Stored address: 03-07-0a:01:01:02:01:c0:00, Associated string: x
-+1.010438137s 2 UdpEchoServerApplication:HandleRead(): At time +1.01044s server sent 12 bytes to 10.1.1.2 03-07-0a:01:01:02:01:c0:00 03-07-0a:01:01:02:01:c0:00 port 9
-+1.013864179s 0 UdpEchoClientApplication:HandleRead(): At time +1.01386s client received 12 bytes from 10.1.1.1 port 9
-The latest version of Julia in the `release` channel is 1.10.5+0.aarch64.apple.darwin14. You currently have `1.10.4+0.aarch64.apple.darwin14` installed. Run:
-
-  juliaup update
-
-in your terminal shell to install Julia 1.10.5+0.aarch64.apple.darwin14 and update the `release` channel to that version.
-+1.015028193s 2 UdpEchoServerApplication:HandleRead(): At time +1.01503s server received 12 bytes from 10.1.1.2 port 49153
-+1.015028193s 2 UdpEchoServerApplication:HandleRead(): At time +1.01503s server sent 12 bytes to 10.1.1.2 03-07-0a:01:01:02:01:c0:00 port 9
-+1.015028193s 2 UdpEchoServerApplication:HandleRead(): var: 1
-+1.019390218s 1 UdpEchoClientApplication:HandleRead(): At time +1.01939s client received 12 bytes from 10.1.1.1 port 9
-The latest version of Julia in the `release` channel is 1.10.5+0.aarch64.apple.darwin14. You currently have `1.10.4+0.aarch64.apple.darwin14` installed. Run:
-
-  juliaup update
-
-in your terminal shell to install Julia 1.10.5+0.aarch64.apple.darwin14 and update the `release` channel to that version.
-+1.020554245s 2 UdpEchoServerApplication:HandleRead(): At time +1.02055s server received 12 bytes from 10.1.1.3 port 49153
-+1.020554245s 2 UdpEchoServerApplication:HandleRead(): At time +1.02055s server sent 12 bytes to 10.1.1.3 03-07-0a:01:01:03:01:c0:00 port 9
-+1.020554245s 2 UdpEchoServerApplication:HandleRead(): var: 2
-The latest version of Julia in the `release` channel is 1.10.5+0.aarch64.apple.darwin14. You currently have `1.10.4+0.aarch64.apple.darwin14` installed. Run:
-
-  juliaup update
-
-in your terminal shell to install Julia 1.10.5+0.aarch64.apple.darwin14 and update the `release` channel to that version.
-+1.020554245s 2 UdpEchoServerApplication:HandleRead(): Stored address: 03-07-0a:01:01:03:01:c0:00, Associated string: y
-+1.020554245s 2 UdpEchoServerApplication:HandleRead(): At time +1.02055s server sent 12 bytes to 10.1.1.3 03-07-0a:01:01:03:01:c0:00 03-07-0a:01:01:03:01:c0:00 port 9
-+1.020554245s 2 UdpEchoServerApplication:HandleRead(): Stored address: 03-07-0a:01:01:02:01:c0:00, Associated string: x
-+1.020554245s 2 UdpEchoServerApplication:HandleRead(): At time +1.02055s server sent 12 bytes to 10.1.1.3 03-07-0a:01:01:03:01:c0:00 03-07-0a:01:01:02:01:c0:00 port 9
-+1.022278272s 1 UdpEchoClientApplication:HandleRead(): At time +1.02228s client received 12 bytes from 10.1.1.1 port 9
-The latest version of Julia in the `release` channel is 1.10.5+0.aarch64.apple.darwin14. You currently have `1.10.4+0.aarch64.apple.darwin14` installed. Run:
-
-  juliaup update
-
-in your terminal shell to install Julia 1.10.5+0.aarch64.apple.darwin14 and update the `release` channel to that version.
-+1.023442299s 2 UdpEchoServerApplication:HandleRead(): At time +1.02344s server received 12 bytes from 10.1.1.3 port 49153
-+1.023442299s 2 UdpEchoServerApplication:HandleRead(): At time +1.02344s server sent 12 bytes to 10.1.1.3 03-07-0a:01:01:03:01:c0:00 port 9
-+1.023442299s 2 UdpEchoServerApplication:HandleRead(): var: 1
-+1.024886313s 0 UdpEchoClientApplication:HandleRead(): At time +1.02489s client received 12 bytes from 10.1.1.1 port 9
-The latest version of Julia in the `release` channel is 1.10.5+0.aarch64.apple.darwin14. You currently have `1.10.4+0.aarch64.apple.darwin14` installed. Run:
-
-  juliaup update
-
-in your terminal shell to install Julia 1.10.5+0.aarch64.apple.darwin14 and update the `release` channel to that version.
-+1.026050327s 2 UdpEchoServerApplication:HandleRead(): At time +1.02605s server received 12 bytes from 10.1.1.2 port 49153
-+1.026050327s 2 UdpEchoServerApplication:HandleRead(): At time +1.02605s server sent 12 bytes to 10.1.1.2 03-07-0a:01:01:02:01:c0:00 port 9
-+1.026050327s 2 UdpEchoServerApplication:HandleRead(): var: 2
-The latest version of Julia in the `release` channel is 1.10.5+0.aarch64.apple.darwin14. You currently have `1.10.4+0.aarch64.apple.darwin14` installed. Run:
-
-  juliaup update
-
-in your terminal shell to install Julia 1.10.5+0.aarch64.apple.darwin14 and update the `release` channel to that version.
-+1.026050327s 2 UdpEchoServerApplication:HandleRead(): Stored address: 03-07-0a:01:01:03:01:c0:00, Associated string: y
-+1.026050327s 2 UdpEchoServerApplication:HandleRead(): At time +1.02605s server sent 12 bytes to 10.1.1.3 03-07-0a:01:01:02:01:c0:00 03-07-0a:01:01:03:01:c0:00 port 9
-+1.026050327s 2 UdpEchoServerApplication:HandleRead(): Stored address: 03-07-0a:01:01:02:01:c0:00, Associated string: x
-+1.026050327s 2 UdpEchoServerApplication:HandleRead(): At time +1.02605s server sent 12 bytes to 10.1.1.2 03-07-0a:01:01:02:01:c0:00 03-07-0a:01:01:02:01:c0:00 port 9
-+1.027414354s 1 UdpEchoClientApplication:HandleRead(): At time +1.02741s client received 12 bytes from 10.1.1.1 port 9
-The latest version of Julia in the `release` channel is 1.10.5+0.aarch64.apple.darwin14. You currently have `1.10.4+0.aarch64.apple.darwin14` installed. Run:
-
-  juliaup update
-
-in your terminal shell to install Julia 1.10.5+0.aarch64.apple.darwin14 and update the `release` channel to that version.
-+1.028578381s 2 UdpEchoServerApplication:HandleRead(): At time +1.02858s server received 12 bytes from 10.1.1.3 port 49153
-+1.028578381s 2 UdpEchoServerApplication:HandleRead(): At time +1.02858s server sent 12 bytes to 10.1.1.3 03-07-0a:01:01:03:01:c0:00 port 9
-+1.028578381s 2 UdpEchoServerApplication:HandleRead(): var: 1
-+1.029822395s 0 UdpEchoClientApplication:HandleRead(): At time +1.02982s client received 12 bytes from 10.1.1.1 port 9
-Error running Julia script!
-+1.031106409s 2 UdpEchoServerApplication:HandleRead(): At time +1.03111s server received 12 bytes from 10.1.1.2 port 49153
-+1.031106409s 2 UdpEchoServerApplication:HandleRead(): At time +1.03111s server sent 12 bytes to 10.1.1.2 03-07-0a:01:01:02:01:c0:00 port 9
-+1.031106409s 2 UdpEchoServerApplication:HandleRead(): var: 2
-The latest version of Julia in the `release` channel is 1.10.5+0.aarch64.apple.darwin14. You currently have `1.10.4+0.aarch64.apple.darwin14` installed. Run:
-
-  juliaup update
-
-in your terminal shell to install Julia 1.10.5+0.aarch64.apple.darwin14 and update the `release` channel to that version.
-+1.031106409s 2 UdpEchoServerApplication:HandleRead(): Stored address: 03-07-0a:01:01:03:01:c0:00, Associated string: y
-+1.031106409s 2 UdpEchoServerApplication:HandleRead(): At time +1.03111s server sent 12 bytes to 10.1.1.3 03-07-0a:01:01:02:01:c0:00 03-07-0a:01:01:03:01:c0:00 port 9
-+1.031106409s 2 UdpEchoServerApplication:HandleRead(): Stored address: 03-07-0a:01:01:02:01:c0:00, Associated string: x
-+1.031106409s 2 UdpEchoServerApplication:HandleRead(): At time +1.03111s server sent 12 bytes to 10.1.1.2 03-07-0a:01:01:02:01:c0:00 03-07-0a:01:01:02:01:c0:00 port 9
-+1.032310436s 1 UdpEchoClientApplication:HandleRead(): At time +1.03231s client received 12 bytes from 10.1.1.1 port 9
-The latest version of Julia in the `release` channel is 1.10.5+0.aarch64.apple.darwin14. You currently have `1.10.4+0.aarch64.apple.darwin14` installed. Run:
-
-  juliaup update
-
-in your terminal shell to install Julia 1.10.5+0.aarch64.apple.darwin14 and update the `release` channel to that version.
++1.010438137s 2 UdpEchoServerApplication:HandleRead(): Current iteration: 1
++1.010438137s 2 UdpEchoServerApplication:HandleRead(): At time +1.01044s server sent 12 bytes to 03-07-0a:01:01:03:01:c0:00 port 9
++1.010438137s 2 UdpEchoServerApplication:HandleRead(): At time +1.01044s server sent 12 bytes to 03-07-0a:01:01:02:01:c0:00 port 9
++1.013896179s 0 UdpEchoClientApplication:HandleRead(): At time +1.0139s client received 16 bytes from 10.1.1.1 port 9
++1.013896179s 0 UdpEchoClientApplication:HandleRead(): Optimization Time: 0.393639
++1.019422218s 1 UdpEchoClientApplication:HandleRead(): At time +1.01942s client received 16 bytes from 10.1.1.1 port 9
++1.019422218s 1 UdpEchoClientApplication:HandleRead(): Optimization Time: 0.371626
++1.391048357s 1 UdpEchoClientApplication:sendPacket(): At time +1.39105s client sent 16 bytes to 10.1.1.1 port 9
++1.391930384s 2 UdpEchoServerApplication:HandleRead(): At time +1.39193s server received 16 bytes from 10.1.1.3 port 49153
++1.407535267s 0 UdpEchoClientApplication:sendPacket(): At time +1.40754s client sent 16 bytes to 10.1.1.1 port 9
++1.408417281s 2 UdpEchoServerApplication:HandleRead(): At time +1.40842s server received 16 bytes from 10.1.1.2 port 49153
++1.408417281s 2 UdpEchoServerApplication:HandleRead(): Current iteration: 2
++1.408417281s 2 UdpEchoServerApplication:HandleRead(): At time +1.40842s server sent 16 bytes to 03-07-0a:01:01:03:01:c0:00 port 9
++1.408417281s 2 UdpEchoServerApplication:HandleRead(): At time +1.40842s server sent 16 bytes to 03-07-0a:01:01:02:01:c0:00 port 9
++1.409613308s 1 UdpEchoClientApplication:HandleRead(): At time +1.40961s client received 16 bytes from 10.1.1.1 port 9
++1.409613308s 1 UdpEchoClientApplication:HandleRead(): Optimization Time: 0.368783
++1.411089349s 0 UdpEchoClientApplication:HandleRead(): At time +1.41109s client received 16 bytes from 10.1.1.1 port 9
++1.411089349s 0 UdpEchoClientApplication:HandleRead(): Optimization Time: 0.376104
++1.778396305s 1 UdpEchoClientApplication:sendPacket(): At time +1.7784s client sent 16 bytes to 10.1.1.1 port 9
++1.779278332s 2 UdpEchoServerApplication:HandleRead(): At time +1.77928s server received 16 bytes from 10.1.1.3 port 49153
++1.787193465s 0 UdpEchoClientApplication:sendPacket(): At time +1.78719s client sent 16 bytes to 10.1.1.1 port 9
++1.788075479s 2 UdpEchoServerApplication:HandleRead(): At time +1.78808s server received 16 bytes from 10.1.1.2 port 49153
++1.788075479s 2 UdpEchoServerApplication:HandleRead(): Current iteration: 3
++1.788075479s 2 UdpEchoServerApplication:HandleRead(): At time +1.78808s server sent 16 bytes to 03-07-0a:01:01:03:01:c0:00 port 9
++1.788075479s 2 UdpEchoServerApplication:HandleRead(): At time +1.78808s server sent 16 bytes to 03-07-0a:01:01:02:01:c0:00 port 9
++1.789271506s 1 UdpEchoClientApplication:HandleRead(): At time +1.78927s client received 16 bytes from 10.1.1.1 port 9
++1.789271506s 1 UdpEchoClientApplication:HandleRead(): Optimization Time: 0.380581
++1.790547547s 0 UdpEchoClientApplication:HandleRead(): At time +1.79055s client received 16 bytes from 10.1.1.1 port 9
++1.790547547s 0 UdpEchoClientApplication:HandleRead(): Optimization Time: 0.387218
++2.169852408s 1 UdpEchoClientApplication:sendPacket(): At time +2.16985s client sent 16 bytes to 10.1.1.1 port 9
++2.170734435s 2 UdpEchoServerApplication:HandleRead(): At time +2.17073s server received 16 bytes from 10.1.1.3 port 49153
++2.177765546s 0 UdpEchoClientApplication:sendPacket(): At time +2.17777s client sent 16 bytes to 10.1.1.1 port 9
++2.178647560s 2 UdpEchoServerApplication:HandleRead(): At time +2.17865s server received 16 bytes from 10.1.1.2 port 49153
++2.178647560s 2 UdpEchoServerApplication:HandleRead(): Current iteration: 4
++2.178647560s 2 UdpEchoServerApplication:HandleRead(): At time +2.17865s server sent 16 bytes to 03-07-0a:01:01:03:01:c0:00 port 9
++2.178647560s 2 UdpEchoServerApplication:HandleRead(): At time +2.17865s server sent 16 bytes to 03-07-0a:01:01:02:01:c0:00 port 9
++2.179843587s 1 UdpEchoClientApplication:HandleRead(): At time +2.17984s client received 16 bytes from 10.1.1.1 port 9
++2.179843587s 1 UdpEchoClientApplication:HandleRead(): Optimization Time: 0.369727
++2.181179628s 0 UdpEchoClientApplication:HandleRead(): At time +2.18118s client received 16 bytes from 10.1.1.1 port 9
++2.181179628s 0 UdpEchoClientApplication:HandleRead(): Optimization Time: 0.371412
++2.549570483s 1 UdpEchoClientApplication:sendPacket(): At time +2.54957s client sent 16 bytes to 10.1.1.1 port 9
++2.550452510s 2 UdpEchoServerApplication:HandleRead(): At time +2.55045s server received 16 bytes from 10.1.1.3 port 49153
++2.552591667s 0 UdpEchoClientApplication:sendPacket(): At time +2.55259s client sent 16 bytes to 10.1.1.1 port 9
++2.553473681s 2 UdpEchoServerApplication:HandleRead(): At time +2.55347s server received 16 bytes from 10.1.1.2 port 49153
++2.553473681s 2 UdpEchoServerApplication:HandleRead(): Current iteration: 5
++2.553473681s 2 UdpEchoServerApplication:HandleRead(): At time +2.55347s server sent 16 bytes to 03-07-0a:01:01:03:01:c0:00 port 9
++2.553473681s 2 UdpEchoServerApplication:HandleRead(): At time +2.55347s server sent 16 bytes to 03-07-0a:01:01:02:01:c0:00 port 9
++2.554669708s 1 UdpEchoClientApplication:HandleRead(): At time +2.55467s client received 16 bytes from 10.1.1.1 port 9
++2.554669708s 1 UdpEchoClientApplication:HandleRead(): Optimization Time: 0.373738
++2.556385749s 0 UdpEchoClientApplication:HandleRead(): At time +2.55639s client received 16 bytes from 10.1.1.1 port 9
++2.556385749s 0 UdpEchoClientApplication:HandleRead(): Optimization Time: 0.372662
++2.928407520s 1 UdpEchoClientApplication:sendPacket(): At time +2.92841s client sent 16 bytes to 10.1.1.1 port 9
++2.929047816s 0 UdpEchoClientApplication:sendPacket(): At time +2.92905s client sent 16 bytes to 10.1.1.1 port 9
++2.929289547s 2 UdpEchoServerApplication:HandleRead(): At time +2.92929s server received 16 bytes from 10.1.1.3 port 49153
++2.930545575s 2 UdpEchoServerApplication:HandleRead(): At time +2.93055s server received 16 bytes from 10.1.1.2 port 49153
++2.930545575s 2 UdpEchoServerApplication:HandleRead(): Current iteration: 6
++2.930545575s 2 UdpEchoServerApplication:HandleRead(): At time +2.93055s server sent 16 bytes to 03-07-0a:01:01:03:01:c0:00 port 9
++2.930545575s 2 UdpEchoServerApplication:HandleRead(): At time +2.93055s server sent 16 bytes to 03-07-0a:01:01:02:01:c0:00 port 9
++2.931741602s 1 UdpEchoClientApplication:HandleRead(): At time +2.93174s client received 16 bytes from 10.1.1.1 port 9
++2.931741602s 1 UdpEchoClientApplication:HandleRead(): Optimization Time: 0.382342
++2.933017643s 0 UdpEchoClientApplication:HandleRead(): At time +2.93302s client received 16 bytes from 10.1.1.1 port 9
++2.933017643s 0 UdpEchoClientApplication:HandleRead(): Optimization Time: 0.387021
++3.314083464s 1 UdpEchoClientApplication:sendPacket(): At time +3.31408s client sent 16 bytes to 10.1.1.1 port 9
++3.314965491s 2 UdpEchoServerApplication:HandleRead(): At time +3.31497s server received 16 bytes from 10.1.1.3 port 49153
++3.320038708s 0 UdpEchoClientApplication:sendPacket(): At time +3.32004s client sent 16 bytes to 10.1.1.1 port 9
++3.320920722s 2 UdpEchoServerApplication:HandleRead(): At time +3.32092s server received 16 bytes from 10.1.1.2 port 49153
++3.320920722s 2 UdpEchoServerApplication:HandleRead(): Current iteration: 7
++3.320920722s 2 UdpEchoServerApplication:HandleRead(): At time +3.32092s server sent 16 bytes to 03-07-0a:01:01:03:01:c0:00 port 9
++3.320920722s 2 UdpEchoServerApplication:HandleRead(): At time +3.32092s server sent 16 bytes to 03-07-0a:01:01:02:01:c0:00 port 9
++3.322116749s 1 UdpEchoClientApplication:HandleRead(): At time +3.32212s client received 16 bytes from 10.1.1.1 port 9
++3.322116749s 1 UdpEchoClientApplication:HandleRead(): Optimization Time: 0.367755
++3.323332790s 0 UdpEchoClientApplication:HandleRead(): At time +3.32333s client received 16 bytes from 10.1.1.1 port 9
++3.323332790s 0 UdpEchoClientApplication:HandleRead(): Optimization Time: 0.377518
++3.689871685s 1 UdpEchoClientApplication:sendPacket(): At time +3.68987s client sent 16 bytes to 10.1.1.1 port 9
++3.690753712s 2 UdpEchoServerApplication:HandleRead(): At time +3.69075s server received 16 bytes from 10.1.1.3 port 49153
++3.700850729s 0 UdpEchoClientApplication:sendPacket(): At time +3.70085s client sent 16 bytes to 10.1.1.1 port 9
++3.701732743s 2 UdpEchoServerApplication:HandleRead(): At time +3.70173s server received 16 bytes from 10.1.1.2 port 49153
++3.701732743s 2 UdpEchoServerApplication:HandleRead(): Current iteration: 8
++3.701732743s 2 UdpEchoServerApplication:HandleRead(): At time +3.70173s server sent 16 bytes to 03-07-0a:01:01:03:01:c0:00 port 9
++3.701732743s 2 UdpEchoServerApplication:HandleRead(): At time +3.70173s server sent 16 bytes to 03-07-0a:01:01:02:01:c0:00 port 9
++3.702928770s 1 UdpEchoClientApplication:HandleRead(): At time +3.70293s client received 16 bytes from 10.1.1.1 port 9
++3.702928770s 1 UdpEchoClientApplication:HandleRead(): Optimization Time: 0.374452
++3.704184811s 0 UdpEchoClientApplication:HandleRead(): At time +3.70418s client received 16 bytes from 10.1.1.1 port 9
++3.704184811s 0 UdpEchoClientApplication:HandleRead(): Optimization Time: 0.370218
++4.074402850s 0 UdpEchoClientApplication:sendPacket(): At time +4.0744s client sent 16 bytes to 10.1.1.1 port 9
++4.075284864s 2 UdpEchoServerApplication:HandleRead(): At time +4.07528s server received 16 bytes from 10.1.1.2 port 49153
++4.077380646s 1 UdpEchoClientApplication:sendPacket(): At time +4.07738s client sent 16 bytes to 10.1.1.1 port 9
++4.078262673s 2 UdpEchoServerApplication:HandleRead(): At time +4.07826s server received 16 bytes from 10.1.1.3 port 49153
++4.078262673s 2 UdpEchoServerApplication:HandleRead(): Current iteration: 9
++4.078262673s 2 UdpEchoServerApplication:HandleRead(): At time +4.07826s server sent 16 bytes to 03-07-0a:01:01:03:01:c0:00 port 9
++4.078262673s 2 UdpEchoServerApplication:HandleRead(): At time +4.07826s server sent 16 bytes to 03-07-0a:01:01:02:01:c0:00 port 9
++4.079458700s 1 UdpEchoClientApplication:HandleRead(): At time +4.07946s client received 16 bytes from 10.1.1.1 port 9
++4.079458700s 1 UdpEchoClientApplication:HandleRead(): Optimization Time: 0.370567
++4.080914741s 0 UdpEchoClientApplication:HandleRead(): At time +4.08091s client received 16 bytes from 10.1.1.1 port 9
++4.080914741s 0 UdpEchoClientApplication:HandleRead(): Optimization Time: 0.39163
++4.450025545s 1 UdpEchoClientApplication:sendPacket(): At time +4.45003s client sent 16 bytes to 10.1.1.1 port 9
++4.450587572s 2 UdpEchoServerApplication:HandleRead(): At time +4.45059s server received 16 bytes from 10.1.1.3 port 49153
++4.472544675s 0 UdpEchoClientApplication:sendPacket(): At time +4.47254s client sent 16 bytes to 10.1.1.1 port 9
++4.473106689s 2 UdpEchoServerApplication:HandleRead(): At time +4.47311s server received 16 bytes from 10.1.1.2 port 49153
++4.473106689s 2 UdpEchoServerApplication:HandleRead(): Current iteration: 10
++4.473106689s 2 UdpEchoServerApplication:HandleRead(): At time +4.47311s server sent 16 bytes to 03-07-0a:01:01:03:01:c0:00 port 9
++4.473106689s 2 UdpEchoServerApplication:HandleRead(): At time +4.47311s server sent 16 bytes to 03-07-0a:01:01:02:01:c0:00 port 9
++4.473926716s 1 UdpEchoClientApplication:HandleRead(): At time +4.47393s client received 16 bytes from 10.1.1.1 port 9
++4.473926716s 1 UdpEchoClientApplication:HandleRead(): Optimization Time: 0.370319
++4.475166757s 0 UdpEchoClientApplication:HandleRead(): At time +4.47517s client received 16 bytes from 10.1.1.1 port 9
++4.475166757s 0 UdpEchoClientApplication:HandleRead(): Optimization Time: 0.379089
++4.844245844s 1 UdpEchoClientApplication:sendPacket(): At time +4.84425s client sent 16 bytes to 10.1.1.1 port 9
++4.844807871s 2 UdpEchoServerApplication:HandleRead(): At time +4.84481s server received 16 bytes from 10.1.1.3 port 49153
++4.854255636s 0 UdpEchoClientApplication:sendPacket(): At time +4.85426s client sent 16 bytes to 10.1.1.1 port 9
++4.854817650s 2 UdpEchoServerApplication:HandleRead(): At time +4.85482s server received 16 bytes from 10.1.1.2 port 49153
++4.854817650s 2 UdpEchoServerApplication:HandleRead(): Current iteration: 11
++4.854817650s 2 UdpEchoServerApplication:HandleRead(): At time +4.85482s server sent 16 bytes to 03-07-0a:01:01:03:01:c0:00 port 9
++4.854817650s 2 UdpEchoServerApplication:HandleRead(): At time +4.85482s server sent 16 bytes to 03-07-0a:01:01:02:01:c0:00 port 9
++4.855637677s 1 UdpEchoClientApplication:HandleRead(): At time +4.85564s client received 16 bytes from 10.1.1.1 port 9
++4.855637677s 1 UdpEchoClientApplication:HandleRead(): Optimization Time: 0.370306
++4.856757718s 0 UdpEchoClientApplication:HandleRead(): At time +4.85676s client received 16 bytes from 10.1.1.1 port 9
++4.856757718s 0 UdpEchoClientApplication:HandleRead(): Optimization Time: 0.371408
++5.225943692s 1 UdpEchoClientApplication:sendPacket(): At time +5.22594s client sent 16 bytes to 10.1.1.1 port 9
++5.226505719s 2 UdpEchoServerApplication:HandleRead(): At time +5.22651s server received 16 bytes from 10.1.1.3 port 49153
++5.228165704s 0 UdpEchoClientApplication:sendPacket(): At time +5.22817s client sent 16 bytes to 10.1.1.1 port 9
++5.228727718s 2 UdpEchoServerApplication:HandleRead(): At time +5.22873s server received 16 bytes from 10.1.1.2 port 49153
++5.228727718s 2 UdpEchoServerApplication:HandleRead(): Current iteration: 12
++5.228727718s 2 UdpEchoServerApplication:HandleRead(): At time +5.22873s server sent 16 bytes to 03-07-0a:01:01:03:01:c0:00 port 9
++5.228727718s 2 UdpEchoServerApplication:HandleRead(): At time +5.22873s server sent 16 bytes to 03-07-0a:01:01:02:01:c0:00 port 9
++5.229547745s 1 UdpEchoClientApplication:HandleRead(): At time +5.22955s client received 16 bytes from 10.1.1.1 port 9
++5.229547745s 1 UdpEchoClientApplication:HandleRead(): Optimization Time: 0.369505
++5.230527786s 0 UdpEchoClientApplication:HandleRead(): At time +5.23053s client received 16 bytes from 10.1.1.1 port 9
++5.230527786s 0 UdpEchoClientApplication:HandleRead(): Optimization Time: 0.390754
++5.599052674s 1 UdpEchoClientApplication:sendPacket(): At time +5.59905s client sent 16 bytes to 10.1.1.1 port 9
++5.599614701s 2 UdpEchoServerApplication:HandleRead(): At time +5.59961s server received 16 bytes from 10.1.1.3 port 49153
++5.621281770s 0 UdpEchoClientApplication:sendPacket(): At time +5.62128s client sent 16 bytes to 10.1.1.1 port 9
++5.621843784s 2 UdpEchoServerApplication:HandleRead(): At time +5.62184s server received 16 bytes from 10.1.1.2 port 49153
++5.621843784s 2 UdpEchoServerApplication:HandleRead(): Current iteration: 13

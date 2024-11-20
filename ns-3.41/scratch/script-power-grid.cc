@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
     int seed = 1;
     int numberOfNodes = 2;
     float threshold = 9.0;
-    float simulationTime = 10.0;
+    float simulationTime = 1000.0;
 
     CommandLine cmd;
     cmd.AddValue("numberOfNodes", "Number of nodes", numberOfNodes);
@@ -116,8 +116,8 @@ int main(int argc, char *argv[])
         std::string valueToSend = oss.str();
         */
 
-        float x = 0.0;
-        uint32_t round = 1; // x and y have the same values for the first sending
+        float x = 0.0;// x and y have the same values for the first sending
+        uint32_t round = 1; 
         std::ostringstream oss;
         oss << x << " " << round;
         std::string valueToSend = oss.str();
@@ -140,7 +140,6 @@ int main(int argc, char *argv[])
     double totalDelay = 0;
     uint32_t packet_lost = 0;
     uint32_t total_packet_received = 0;
-    uint32_t total_packet = 0;
     uint32_t datarate = 0;
     for (auto it = stats.begin(); it != stats.end(); it++)
     {
@@ -148,7 +147,6 @@ int main(int argc, char *argv[])
         packet_lost += it->second.lostPackets;
         // equivalent to server.GetServer()->GetReceived()
         total_packet_received += it->second.rxPackets;
-        total_packet += it->second.txPackets;
         datarate += it->second.rxBytes;
     }
     std::cout << "Total delay: " << totalDelay << std::endl;

@@ -381,6 +381,7 @@
 /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache/scratch/CMakeFiles/scratch_script-5g-remote.dir
 /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache/scratch/CMakeFiles/scratch_script-5g.dir
 /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache/scratch/CMakeFiles/scratch_script-autonomous-bus.dir
+/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache/scratch/CMakeFiles/scratch_script-power-grid-5g.dir
 /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache/scratch/CMakeFiles/scratch_script-power-grid.dir
 /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache/scratch/CMakeFiles/scratch_script-wifi.dir
 /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache/scratch/CMakeFiles/scratch_subdir_scratch-subdir.dir

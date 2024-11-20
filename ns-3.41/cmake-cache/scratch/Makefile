@@ -247,6 +247,20 @@ scratch_script-autonomous-bus/fast:
 .PHONY : scratch_script-autonomous-bus/fast
 
 # Convenience name for target.
+scratch/CMakeFiles/scratch_script-power-grid-5g.dir/rule:
+	cd /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 scratch/CMakeFiles/scratch_script-power-grid-5g.dir/rule
+.PHONY : scratch/CMakeFiles/scratch_script-power-grid-5g.dir/rule
+
+# Convenience name for target.
+scratch_script-power-grid-5g: scratch/CMakeFiles/scratch_script-power-grid-5g.dir/rule
+.PHONY : scratch_script-power-grid-5g
+
+# fast build rule for target.
+scratch_script-power-grid-5g/fast:
+	cd /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache && $(MAKE) $(MAKESILENT) -f scratch/CMakeFiles/scratch_script-power-grid-5g.dir/build.make scratch/CMakeFiles/scratch_script-power-grid-5g.dir/build
+.PHONY : scratch_script-power-grid-5g/fast
+
+# Convenience name for target.
 scratch/CMakeFiles/scratch_script-power-grid.dir/rule:
 	cd /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 scratch/CMakeFiles/scratch_script-power-grid.dir/rule
 .PHONY : scratch/CMakeFiles/scratch_script-power-grid.dir/rule
@@ -432,6 +446,30 @@ script-autonomous-bus.cc.s:
 	cd /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache && $(MAKE) $(MAKESILENT) -f scratch/CMakeFiles/scratch_script-autonomous-bus.dir/build.make scratch/CMakeFiles/scratch_script-autonomous-bus.dir/script-autonomous-bus.cc.s
 .PHONY : script-autonomous-bus.cc.s
 
+script-power-grid-5g.o: script-power-grid-5g.cc.o
+.PHONY : script-power-grid-5g.o
+
+# target to build an object file
+script-power-grid-5g.cc.o:
+	cd /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache && $(MAKE) $(MAKESILENT) -f scratch/CMakeFiles/scratch_script-power-grid-5g.dir/build.make scratch/CMakeFiles/scratch_script-power-grid-5g.dir/script-power-grid-5g.cc.o
+.PHONY : script-power-grid-5g.cc.o
+
+script-power-grid-5g.i: script-power-grid-5g.cc.i
+.PHONY : script-power-grid-5g.i
+
+# target to preprocess a source file
+script-power-grid-5g.cc.i:
+	cd /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache && $(MAKE) $(MAKESILENT) -f scratch/CMakeFiles/scratch_script-power-grid-5g.dir/build.make scratch/CMakeFiles/scratch_script-power-grid-5g.dir/script-power-grid-5g.cc.i
+.PHONY : script-power-grid-5g.cc.i
+
+script-power-grid-5g.s: script-power-grid-5g.cc.s
+.PHONY : script-power-grid-5g.s
+
+# target to generate assembly for a file
+script-power-grid-5g.cc.s:
+	cd /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/cmake-cache && $(MAKE) $(MAKESILENT) -f scratch/CMakeFiles/scratch_script-power-grid-5g.dir/build.make scratch/CMakeFiles/scratch_script-power-grid-5g.dir/script-power-grid-5g.cc.s
+.PHONY : script-power-grid-5g.cc.s
+
 script-power-grid.o: script-power-grid.cc.o
 .PHONY : script-power-grid.o
 
@@ -547,6 +585,7 @@ help:
 	@echo "... scratch_script-5g-remote"
 	@echo "... scratch_script-autonomous-bus"
 	@echo "... scratch_script-power-grid"
+	@echo "... scratch_script-power-grid-5g"
 	@echo "... scratch_script-wifi"
 	@echo "... scratch_subdir_scratch-subdir"
 	@echo "... e2e-dl.o"
@@ -567,6 +606,9 @@ help:
 	@echo "... script-autonomous-bus.o"
 	@echo "... script-autonomous-bus.i"
 	@echo "... script-autonomous-bus.s"
+	@echo "... script-power-grid-5g.o"
+	@echo "... script-power-grid-5g.i"
+	@echo "... script-power-grid-5g.s"
 	@echo "... script-power-grid.o"
 	@echo "... script-power-grid.i"
 	@echo "... script-power-grid.s"

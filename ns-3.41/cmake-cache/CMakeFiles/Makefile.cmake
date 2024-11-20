@@ -359,6 +359,7 @@ set(CMAKE_DEPEND_INFO_FILES
   "scratch/CMakeFiles/scratch_script-5g-remote.dir/DependInfo.cmake"
   "scratch/CMakeFiles/scratch_script-5g.dir/DependInfo.cmake"
   "scratch/CMakeFiles/scratch_script-autonomous-bus.dir/DependInfo.cmake"
+  "scratch/CMakeFiles/scratch_script-power-grid-5g.dir/DependInfo.cmake"
   "scratch/CMakeFiles/scratch_script-power-grid.dir/DependInfo.cmake"
   "scratch/CMakeFiles/scratch_script-wifi.dir/DependInfo.cmake"
   "scratch/CMakeFiles/scratch_subdir_scratch-subdir.dir/DependInfo.cmake"

@@ -1866,6 +1866,19 @@ scratch_script-autonomous-bus/fast:
 .PHONY : scratch_script-autonomous-bus/fast
 
 #=============================================================================
+# Target rules for targets named scratch_script-power-grid-5g
+
+# Build rule for target.
+scratch_script-power-grid-5g: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 scratch_script-power-grid-5g
+.PHONY : scratch_script-power-grid-5g
+
+# fast build rule for target.
+scratch_script-power-grid-5g/fast:
+	$(MAKE) $(MAKESILENT) -f scratch/CMakeFiles/scratch_script-power-grid-5g.dir/build.make scratch/CMakeFiles/scratch_script-power-grid-5g.dir/build
+.PHONY : scratch_script-power-grid-5g/fast
+
+#=============================================================================
 # Target rules for targets named scratch_script-power-grid
 
 # Build rule for target.
@@ -2196,6 +2209,7 @@ help:
 	@echo "... scratch_script-5g-remote"
 	@echo "... scratch_script-autonomous-bus"
 	@echo "... scratch_script-power-grid"
+	@echo "... scratch_script-power-grid-5g"
 	@echo "... scratch_script-wifi"
 	@echo "... scratch_subdir_scratch-subdir"
 	@echo "... stdlib_pch-default"

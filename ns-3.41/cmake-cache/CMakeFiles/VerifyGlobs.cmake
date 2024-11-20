@@ -13,6 +13,7 @@ set(OLD_GLOB
   "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/script-5g-remote.cc"
   "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/script-5g.cc"
   "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/script-autonomous-bus.cc"
+  "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/script-power-grid-5g.cc"
   "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/script-power-grid.cc"
   "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/script-wifi.cc"
   "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/subdir"
@@ -31,6 +32,7 @@ set(OLD_GLOB
   "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/script-5g-remote.cc"
   "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/script-5g.cc"
   "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/script-autonomous-bus.cc"
+  "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/script-power-grid-5g.cc"
   "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/script-power-grid.cc"
   "/Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/scratch/script-wifi.cc"
   )

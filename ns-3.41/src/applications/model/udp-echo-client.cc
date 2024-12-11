@@ -458,14 +458,14 @@ UdpEchoClient::HandleRead(Ptr<Socket> socket)
         uint8_t buffer_[16];
         packet->CopyData(buffer_, sizeof(buffer_));
 
-        float x; float rho; float lambda; uint32_t round;
+        float x; float z12; float rho; uint32_t round;
 
         memcpy(&x, buffer_, sizeof(float));
-        memcpy(&rho, buffer_ + sizeof(float), sizeof(float));
-        memcpy(&lambda, buffer_ + 2 * sizeof(float), sizeof(float));
+        memcpy(&z12, buffer_ + sizeof(float), sizeof(float));
+        memcpy(&rho, buffer_ + 2 * sizeof(float), sizeof(float));
         memcpy(&round, buffer_ + 3 * sizeof(float), sizeof(uint32_t));
 
-        std::cout << "Client: Received x lambda rho round: " << x << " " << lambda << " " << rho  << " " << round << std::endl;
+        std::cout << "Client: Received x rho z12 round: " << x << " " << rho << " " << z12  << " " << round << std::endl;
 
         Ptr<Packet> responsePacket = Create<Packet>();
 
@@ -505,7 +505,7 @@ UdpEchoClient::HandleRead(Ptr<Socket> socket)
         //std::cout << script << std::endl;
 
         // Define the command to run the Julia script
-        std::string juliaCommand = "julia config/" + script + " " + std::to_string(x) + " " + std::to_string(rho) + " " + std::to_string(lambda) + " > output_client.txt";
+        std::string juliaCommand = "julia config/" + script + " " + std::to_string(x) + " " + std::to_string(z12) + " " + std::to_string(rho) + " > output_client.txt";
 
         // Run the Julia script
         float result = std::system(juliaCommand.c_str());

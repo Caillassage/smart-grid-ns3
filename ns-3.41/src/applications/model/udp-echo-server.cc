@@ -42,13 +42,24 @@ NS_OBJECT_ENSURE_REGISTERED(UdpEchoServer);
 
 static int counter = 0;
 static int current_round = 1;
-static float x = 0.0;
-static float y = 0.0;
+static float x1 = 0.0;
+static float x2 = 0.0;
+static float z12 = 1.0;
 static float rho = 1.0;
-static float lambda = 1.0;
 static float THRESHOLD = 10.0;
 static std::vector<std::pair<Address, std::string>> m_addressList;  // Static list of address-string pairs
 static int STOP = 0;
+static double lambda_121 = 0;
+static double lambda_122 = 0;
+
+// History containers
+static std::vector<double> x_121_hist;
+static std::vector<double> x_122_hist;
+static std::vector<double> lambda_121_hist;
+static std::vector<double> lambda_122_hist;
+static std::vector<double> z12_hist;
+static std::vector<std::vector<double>> primal_residual_hist;
+static std::vector<std::vector<double>> dual_residual_hist;
 
 static void TimerExpired(Ptr<Socket> socket) {
     if ((counter != 2) && (STOP == 0)) {
@@ -65,11 +76,11 @@ static void TimerExpired(Ptr<Socket> socket) {
                     Address address = pair.first;
                     variable = pair.second;
 
-                    if (variable == "x") {
+                    if (variable == "x1") {
                         uint8_t buffer_[16];
-                        memcpy(buffer_, &x, sizeof(float));
-                        memcpy(buffer_ + sizeof(float), &rho, sizeof(float));
-                        memcpy(buffer_ + 2 * sizeof(float), &lambda, sizeof(float));
+                        memcpy(buffer_, &x1, sizeof(float));
+                        memcpy(buffer_ + sizeof(float), &z12, sizeof(float));
+                        memcpy(buffer_ + 2 * sizeof(float), &rho, sizeof(float));
                         memcpy(buffer_ + 3 * sizeof(float), &current_round, sizeof(uint32_t));
 
                         responsePacket->AddAtEnd(Create<Packet>(buffer_, sizeof(buffer_)));
@@ -77,11 +88,11 @@ static void TimerExpired(Ptr<Socket> socket) {
                         //Ptr<Packet> responsePacket = Create<Packet> ((uint8_t *)msg.c_str(), msg.size());
                         socket->SendTo (responsePacket, 0, address);
                     }
-                    else if (variable == "y") {
+                    else if (variable == "x2") {
                         uint8_t buffer_[16];
-                        memcpy(buffer_, &y, sizeof(float));
-                        memcpy(buffer_ + sizeof(float), &rho, sizeof(float));
-                        memcpy(buffer_ + 2 * sizeof(float), &lambda, sizeof(float));
+                        memcpy(buffer_, &x2, sizeof(float));
+                        memcpy(buffer_ + sizeof(float), &z12, sizeof(float));
+                        memcpy(buffer_ + 2 * sizeof(float), &rho, sizeof(float));
                         memcpy(buffer_ + 3 * sizeof(float), &current_round, sizeof(uint32_t));
 
                         Ptr<Packet> responsePacket = Create<Packet>();
@@ -285,7 +296,7 @@ UdpEchoServer::HandleRead(Ptr<Socket> socket)
 
         uint8_t buffer_[16];
         packet->CopyData(buffer_, sizeof(buffer_));
-        float x; float y; uint32_t round = 0;
+        float x1; float x2; uint32_t round = 0;
 
         // Check if the address is already in the list
         if (std::find_if(m_addressList.begin(), m_addressList.end(),
@@ -299,16 +310,16 @@ UdpEchoServer::HandleRead(Ptr<Socket> socket)
 
         //std::cout << variable << std::endl;
 
-        if (variable == "x") {
-            memcpy(&x, buffer_, sizeof(float));
+        if (variable == "x1") {
+            memcpy(&x1, buffer_, sizeof(float));
             memcpy(&round, buffer_ + sizeof(float), sizeof(uint32_t));
-            std::cout << "Server: Received x round: " << x << " " << round << std::endl;
+            std::cout << "Server: Received x1 round: " << x1 << " " << round << std::endl;
             counter += 1;
         }
-        else if (variable == "y") {
-            memcpy(&y, buffer_, sizeof(float));
+        else if (variable == "x2") {
+            memcpy(&x2, buffer_, sizeof(float));
             memcpy(&round, buffer_ + sizeof(float), sizeof(uint32_t));
-            std::cout << "Server: Received y round: " << y << " " << round << std::endl;
+            std::cout << "Server: Received x2 round: " << x2 << " " << round << std::endl;
             counter += 1;
         }
         //std::cout << "round: " << round << " current round: " << current_round << std::endl;
@@ -322,10 +333,10 @@ UdpEchoServer::HandleRead(Ptr<Socket> socket)
                 Ptr<Packet> responsePacket = Create<Packet>();
                 //packet->AddHeader(SeqTsHeader()); // Ensure there is a header for timestamp
 
-                std::cout << "Sent variables to the script are: " << x << " " << y << " " << lambda << std::endl;
+                std::cout << "Sent variables to the script are: " << x1 << " " << x2 << " " << rho << std::endl;
 
                 // Define the command to run the Julia script
-                std::string juliaCommand = "julia config/Server.jl " + std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(lambda) + " " + std::to_string(rho) +  " > output_server.txt";
+                std::string juliaCommand = "julia config/Server.jl " + std::to_string(x1) + " " + std::to_string(x2) + " " + std::to_string(rho) + " " + std::to_string(z12) +  " > output_server.txt";
 
                 // Run the Julia script
                 float result = std::system(juliaCommand.c_str());
@@ -333,6 +344,18 @@ UdpEchoServer::HandleRead(Ptr<Socket> socket)
                     std::cerr << "Error running Julia script!" << std::endl;
                     //return 1;
                 }
+
+                // Updating the lists
+                // Add border solutions
+                x_121_hist.push_back(x1);
+                x_122_hist.push_back(x2);
+
+                // Add dual variables
+                lambda_121_hist.push_back(lambda_121);
+                lambda_122_hist.push_back(lambda_122);
+
+                // Add consensus variable
+                z12_hist.push_back(z12);
 
                 // Optionally read the output from the file
                 std::ifstream outputFile("output_server.txt");
@@ -350,27 +373,27 @@ UdpEchoServer::HandleRead(Ptr<Socket> socket)
 
                 // Convert the last four lines to the required variables
                 try {
-                    x = std::stof(line1);
-                    y = std::stof(line2);
-                    lambda = std::stof(line3);
-                    rho = std::stof(line4);
+                    x1 = std::stof(line1);
+                    x2 = std::stof(line2);
+                    rho = std::stof(line3);
+                    z12 = std::stof(line4);
 
                     // Output the values to verify
-                    std::cout << "x: " << x << std::endl;
-                    std::cout << "y: " << y << std::endl;
-                    std::cout << "lambda: " << lambda << std::endl;
+                    std::cout << "x1: " << x1 << std::endl;
+                    std::cout << "x2: " << x2 << std::endl;
                     std::cout << "rho: " << rho << std::endl;
+                    std::cout << "z12: " << z12 << std::endl;
 
                     for (const auto &pair : m_addressList)
                     {
                         Address address = pair.first;
                         variable = pair.second;
 
-                        if (variable == "x") {
+                        if (variable == "x1") {
                             uint8_t buffer_[16];
-                            memcpy(buffer_, &x, sizeof(float));
-                            memcpy(buffer_ + sizeof(float), &lambda, sizeof(float));
-                            memcpy(buffer_ + 2 * sizeof(float), &rho, sizeof(float));
+                            memcpy(buffer_, &x1, sizeof(float));
+                            memcpy(buffer_ + sizeof(float), &rho, sizeof(float));
+                            memcpy(buffer_ + 2 * sizeof(float), &z12, sizeof(float));
                             memcpy(buffer_ + 3 * sizeof(float), &current_round, sizeof(uint32_t));
 
                             responsePacket->AddAtEnd(Create<Packet>(buffer_, sizeof(buffer_)));
@@ -382,11 +405,11 @@ UdpEchoServer::HandleRead(Ptr<Socket> socket)
                                                 << packet->GetSize() << " bytes to " << address << " port 9"); // Hardcoded port here
 
                         }
-                        else if (variable == "y") {
+                        else if (variable == "x2") {
                             uint8_t buffer_[16];
-                            memcpy(buffer_, &y, sizeof(float));
-                            memcpy(buffer_ + sizeof(float), &lambda, sizeof(float));
-                            memcpy(buffer_ + 2 * sizeof(float), &rho, sizeof(float));
+                            memcpy(buffer_, &x2, sizeof(float));
+                            memcpy(buffer_ + sizeof(float), &rho, sizeof(float));
+                            memcpy(buffer_ + 2 * sizeof(float), &z12, sizeof(float));
                             memcpy(buffer_ + 3 * sizeof(float), &current_round, sizeof(uint32_t));
 
                             Ptr<Packet> responsePacket = Create<Packet>();

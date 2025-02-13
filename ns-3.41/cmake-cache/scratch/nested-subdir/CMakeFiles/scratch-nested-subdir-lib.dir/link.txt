@@ -1,2 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/build/lib/libscratch-nested-subdir-lib.a "CMakeFiles/scratch-nested-subdir-lib.dir/lib/scratch-nested-subdir-library-source.cc.o"
-/Library/Developer/CommandLineTools/usr/bin/ranlib /Users/samirsim/Desktop/Smart-Grid-Project/smart-grid-ns3/ns-3.41/build/lib/libscratch-nested-subdir-lib.a

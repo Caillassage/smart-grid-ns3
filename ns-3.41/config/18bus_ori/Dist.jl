@@ -24,6 +24,8 @@ rho = 100
 MAX_ITER = 200
 
 iter = 1
+
+
 while iter <= MAX_ITER
 
         global x1,v1, opf1 = solve_area1(lambda_121, z12, rho)

@@ -255,8 +255,7 @@ UdpEchoClient::SetFill(std::string fill)
 {
     NS_LOG_FUNCTION(this << fill);
 
-    //uint32_t dataSize = fill.size() + 1;
-    uint32_t dataSize = 12;
+    uint32_t dataSize = fill.size() + 1;
     if (dataSize != m_dataSize)
     {
         delete[] m_data;
@@ -264,13 +263,8 @@ UdpEchoClient::SetFill(std::string fill)
         m_dataSize = dataSize;
     }
 
-    // Serialize the floats into a string
-    float a = 1.666666667167921; uint32_t round = 1;
-    uint8_t buffer_[16];
-    memcpy(buffer_, &a, sizeof(float));
-    memcpy(buffer_ + sizeof(float), &round, sizeof(uint32_t));
-    memcpy(m_data, buffer_, dataSize);
-    //memcpy(m_data, fill.c_str(), dataSize);
+    memcpy(m_data, fill.c_str(), dataSize); // m_data is sent
+    // memcpy(m_data, fill.c_str(), dataSize);
 
     //
     // Overwrite packet size attribute.
@@ -469,69 +463,73 @@ UdpEchoClient::HandleRead(Ptr<Socket> socket)
 
         Ptr<Packet> responsePacket = Create<Packet>();
 
-        // Get the ipv4 address of the node
-        Ptr<Ipv4> ipv4 = GetNode()->GetObject<Ipv4>();
-        Ipv4Address address = ipv4->GetAddress(1, 0).GetLocal();
+        // // Get the ipv4 address of the node
+        // Ptr<Ipv4> ipv4 = GetNode()->GetObject<Ipv4>();
+        // Ipv4Address address = ipv4->GetAddress(1, 0).GetLocal();
 
-        std::string filename = "config/script-conf.csv";
-        std::string script;
+        // std::string filename = "config/script-conf.csv";
+        // std::string script;
+        std::string script = "";
 
-        std::ifstream file(filename);
-        std::string line_, ip, area;
-        std::map<Ipv4Address, std::string> addressToAreaMap;
+        // std::ifstream file(filename);
+        // std::string line_, ip, area;
+        // std::map<Ipv4Address, std::string> addressToAreaMap;
 
-        if (file.is_open()) {
-            while (std::getline(file, line_)) {
-                std::stringstream ss(line_);
-                std::getline(ss, ip, ',');
-                std::getline(ss, area, ',');
+        // if (file.is_open()) {
+        //     while (std::getline(file, line_)) {
+        //         std::stringstream ss(line_);
+        //         std::getline(ss, ip, ',');
+        //         std::getline(ss, area, ',');
 
-                Ipv4Address addr(ip.c_str());
-                addressToAreaMap[addr] = area;
-            }
-            file.close();
-        } else {
-            std::cerr << "Unable to open file: " << filename << std::endl;
-        }
+        //         Ipv4Address addr(ip.c_str());
+        //         addressToAreaMap[addr] = area;
+        //     }
+        //     file.close();
+        // } else {
+        //     std::cerr << "Unable to open file: " << filename << std::endl;
+        // }
 
-        // Find the area associated with the current node's address
-        auto it = addressToAreaMap.find(address);
-        if (it != addressToAreaMap.end()) {
-            script = it->second;
-        } else {
-            std::cerr << "Address not found in the file" << std::endl;
-        }
+        // // Find the area associated with the current node's address
+        // auto it = addressToAreaMap.find(address);
+        // if (it != addressToAreaMap.end()) {
+        //     script = it->second;
+        // } else {
+        //     std::cerr << "Address not found in the file" << std::endl;
+        // }
 
-        //std::cout << script << std::endl;
+        // //std::cout << script << std::endl;
 
-        // Define the command to run the Julia script
-        std::string juliaCommand = "julia config/" + script + " " + std::to_string(x) + " " + std::to_string(z12) + " " + std::to_string(rho) + " > output_client.txt";
+        // // Define the command to run the Julia script
+        // // faire une for loop avec les valeurs du vecteur
+        // std::string juliaCommand = "julia config/" + script + " " + std::to_string(x) + " " + std::to_string(z12) + " " + std::to_string(rho) + " > output_client.txt";
 
-        // Run the Julia script
-        float result = std::system(juliaCommand.c_str());
-        if (result != 0) {
-            std::cerr << "Error running Julia script!" << std::endl;
-            //return 1;
-        }
+        // // Run the Julia script
+        // float result = std::system(juliaCommand.c_str());
+        // if (result != 0) {
+        //     std::cerr << "Error running Julia script!" << std::endl;
+        //     //return 1;
+        // }
         
-        std::ifstream outputFile("output_client.txt");
-        std::string line, lastLine, secondLastLine;
+        // std::ifstream outputFile("output_client.txt");
+        // std::string line, lastLine, secondLastLine;
 
-        // Loop through the file to get the last two lines
-        while (std::getline(outputFile, line)) {
-            secondLastLine = lastLine;  // Move the previous last line
-            lastLine = line;             // Update last line to the current line
-        }
+        // // Loop through the file to get the last two lines
+        // while (std::getline(outputFile, line)) {
+        //     secondLastLine = lastLine;  // Move the previous last line
+        //     lastLine = line;             // Update last line to the current line
+        // }
 
-        outputFile.close();
+        // outputFile.close();
 
-        // Convert the last two lines to the required variables
-        float optimizationTime = std::stof(lastLine);
-        result = std::stof(secondLastLine);
+        // // Convert the last two lines to the required variables
+        // float optimizationTime = std::stof(lastLine);
+        float optimizationTime = 2;
+        // result = std::stof(secondLastLine);
+        float result = 0;
 
-        // Output the values to verify
-        NS_LOG_INFO("Optimization Time: " << optimizationTime);
-        std::cout << "Result: " << result << std::endl;
+        // // Output the values to verify
+        // NS_LOG_INFO("Optimization Time: " << optimizationTime);
+        // std::cout << "Result: " << result << std::endl;
 
         // Schedule the next events in ns-3 to continue after the real-time delay
         Simulator::Schedule(Seconds(optimizationTime), &sendPacket, responsePacket, from, result, script, round, socket);

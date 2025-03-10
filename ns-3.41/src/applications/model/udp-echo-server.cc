@@ -18,9 +18,9 @@
 #include "udp-echo-server.h"
 
 #include "ns3/address-utils.h"
-#include "ns3/internet-module.h"
 #include "ns3/inet-socket-address.h"
 #include "ns3/inet6-socket-address.h"
+#include "ns3/internet-module.h"
 #include "ns3/ipv4-address.h"
 #include "ns3/ipv6-address.h"
 #include "ns3/log.h"
@@ -31,6 +31,7 @@
 #include "ns3/socket.h"
 #include "ns3/udp-socket.h"
 #include "ns3/uinteger.h"
+
 #include <fstream>
 
 namespace ns3
@@ -47,7 +48,8 @@ static float x2 = 0.0;
 static float z12 = 1.0;
 static float rho = 1.0;
 static float THRESHOLD = 10.0;
-static std::vector<std::pair<Address, std::string>> m_addressList;  // Static list of address-string pairs
+static std::vector<std::pair<Address, std::string>>
+    m_addressList; // Static list of address-string pairs
 static int STOP = 0;
 static double lambda_121 = 0;
 static double lambda_122 = 0;
@@ -61,8 +63,11 @@ static std::vector<double> z12_hist;
 static std::vector<std::vector<double>> primal_residual_hist;
 static std::vector<std::vector<double>> dual_residual_hist;
 
-static void TimerExpired(Ptr<Socket> socket) {
-    if ((counter != 2) && (STOP == 0)) {
+static void
+TimerExpired(Ptr<Socket> socket)
+{
+    if ((counter != 2) && (STOP == 0))
+    {
         std::cout << "Threshold expired " << counter << std::endl;
         current_round += 1;
         counter = 0;
@@ -70,42 +75,45 @@ static void TimerExpired(Ptr<Socket> socket) {
         std::string filename = "config/variable-conf.csv";
         std::string variable = "";
         Ptr<Packet> responsePacket = Create<Packet>();
-        
-        for (const auto &pair : m_addressList)
-                {
-                    Address address = pair.first;
-                    variable = pair.second;
 
-                    if (variable == "x1") {
-                        uint8_t buffer_[16];
-                        memcpy(buffer_, &x1, sizeof(float));
-                        memcpy(buffer_ + sizeof(float), &z12, sizeof(float));
-                        memcpy(buffer_ + 2 * sizeof(float), &rho, sizeof(float));
-                        memcpy(buffer_ + 3 * sizeof(float), &current_round, sizeof(uint32_t));
+        for (const auto& pair : m_addressList)
+        {
+            Address address = pair.first;
+            variable = pair.second;
 
-                        responsePacket->AddAtEnd(Create<Packet>(buffer_, sizeof(buffer_)));
+            if (variable == "x1")
+            {
+                uint8_t buffer_[16];
+                memcpy(buffer_, &x1, sizeof(float));
+                memcpy(buffer_ + sizeof(float), &z12, sizeof(float));
+                memcpy(buffer_ + 2 * sizeof(float), &rho, sizeof(float));
+                memcpy(buffer_ + 3 * sizeof(float), &current_round, sizeof(uint32_t));
 
-                        //Ptr<Packet> responsePacket = Create<Packet> ((uint8_t *)msg.c_str(), msg.size());
-                        socket->SendTo (responsePacket, 0, address);
-                    }
-                    else if (variable == "x2") {
-                        uint8_t buffer_[16];
-                        memcpy(buffer_, &x2, sizeof(float));
-                        memcpy(buffer_ + sizeof(float), &z12, sizeof(float));
-                        memcpy(buffer_ + 2 * sizeof(float), &rho, sizeof(float));
-                        memcpy(buffer_ + 3 * sizeof(float), &current_round, sizeof(uint32_t));
+                responsePacket->AddAtEnd(Create<Packet>(buffer_, sizeof(buffer_)));
 
-                        Ptr<Packet> responsePacket = Create<Packet>();
-                        responsePacket->AddAtEnd(Create<Packet>(buffer_, sizeof(buffer_)));
+                // Ptr<Packet> responsePacket = Create<Packet> ((uint8_t *)msg.c_str(), msg.size());
+                socket->SendTo(responsePacket, 0, address);
+            }
+            else if (variable == "x2")
+            {
+                uint8_t buffer_[16];
+                memcpy(buffer_, &x2, sizeof(float));
+                memcpy(buffer_ + sizeof(float), &z12, sizeof(float));
+                memcpy(buffer_ + 2 * sizeof(float), &rho, sizeof(float));
+                memcpy(buffer_ + 3 * sizeof(float), &current_round, sizeof(uint32_t));
 
-                        //Ptr<Packet> responsePacket = Create<Packet> ((uint8_t *)msg.c_str(), msg.size());
-                        socket->SendTo (responsePacket, 0, address);
-                    }
-                }
-                // Set the timer to expire after 5 seconds
-                Simulator::Schedule(Seconds(THRESHOLD), &TimerExpired, socket);
+                Ptr<Packet> responsePacket = Create<Packet>();
+                responsePacket->AddAtEnd(Create<Packet>(buffer_, sizeof(buffer_)));
 
-        NS_LOG_INFO("At time (after expiration) " << Simulator::Now().As(Time::S) << " server sent packet to the clients");
+                // Ptr<Packet> responsePacket = Create<Packet> ((uint8_t *)msg.c_str(), msg.size());
+                socket->SendTo(responsePacket, 0, address);
+            }
+        }
+        // Set the timer to expire after 5 seconds
+        Simulator::Schedule(Seconds(THRESHOLD), &TimerExpired, socket);
+
+        NS_LOG_INFO("At time (after expiration) " << Simulator::Now().As(Time::S)
+                                                  << " server sent packet to the clients");
     }
 }
 
@@ -288,62 +296,100 @@ UdpEchoServer::HandleRead(Ptr<Socket> socket)
 
         // Find the area associated with the current node's address
         auto it = addressToAreaMap.find(sender);
-        if (it != addressToAreaMap.end()) {
+        if (it != addressToAreaMap.end())
+        {
             variable = it->second;
-        } else {
+        }
+        else
+        {
             std::cerr << "Address not found in the file" << std::endl;
         }
 
-        uint8_t buffer_[16];
-        packet->CopyData(buffer_, sizeof(buffer_));
-        float x1; float x2; uint32_t round = 0;
+        //
+        // Convert data from packet receive into vector of float
+        // We dont check if the packet is empty
+        //
+        uint32_t packetSize = packet->GetSize();
+
+        // temporary buffer to store raw data from packet
+        uint8_t* buffer_ = new uint8_t[packetSize + 1];
+        packet->CopyData(buffer_, packetSize);
+        buffer_[packetSize] = '\0';
+
+        // convert raw data into string
+        std::string receivedString(reinterpret_cast<char*>(buffer_));
+        delete[] buffer_;
+
+        // vector of float received
+        std::vector<float> receivedVector;
+        std::istringstream iss(receivedString);
+
+        float value;
+        while (iss >> value) {
+            receivedVector.push_back(value);
+        }
+
+        uint32_t vectorSize = receivedVector.size();
+
+        float x1;
+        float x2;
+        uint32_t round = 0;
 
         // Check if the address is already in the list
-        if (std::find_if(m_addressList.begin(), m_addressList.end(),
-                        [&from](const std::pair<Address, std::string>& pair) {
-                            return pair.first == from;
-                        }) == m_addressList.end())
+        if (std::find_if(m_addressList.begin(),
+                         m_addressList.end(),
+                         [&from](const std::pair<Address, std::string>& pair) {
+                             return pair.first == from;
+                         }) == m_addressList.end())
         {
             // If not found, append the address and associated string to the static list
             m_addressList.emplace_back(from, variable);
         }
 
-        //std::cout << variable << std::endl;
+        // std::cout << variable << std::endl;
 
-        if (variable == "x1") {
-            memcpy(&x1, buffer_, sizeof(float));
-            memcpy(&round, buffer_ + sizeof(float), sizeof(uint32_t));
+        if (variable == "x1")
+        {
+            memcpy(&x1, receivedVector.data() + 1, sizeof(float));
+            memcpy(&round, receivedVector.data(), sizeof(uint32_t));
             std::cout << "Server: Received x1 round: " << x1 << " " << round << std::endl;
             counter += 1;
         }
-        else if (variable == "x2") {
-            memcpy(&x2, buffer_, sizeof(float));
-            memcpy(&round, buffer_ + sizeof(float), sizeof(uint32_t));
+        else if (variable == "x2")
+        {
+            memcpy(&x2, receivedVector.data() + 1, sizeof(float));
+            memcpy(&round, receivedVector.data(), sizeof(uint32_t));
             std::cout << "Server: Received x2 round: " << x2 << " " << round << std::endl;
             counter += 1;
         }
-        //std::cout << "round: " << round << " current round: " << current_round << std::endl;
-        if (round == current_round) { // Else the packet is from the previous round, ignore it
-            //NS_LOG_INFO("counter: " << counter);
+        // std::cout << "round: " << round << " current round: " << current_round << std::endl;
+        if (round == current_round)
+        { // Else the packet is from the previous round, ignore it
+            // NS_LOG_INFO("counter: " << counter);
 
-            if (counter == 2) { // If all packets have been received from all the areas
+            if (counter == 2)
+            { // If all packets have been received from all the areas
+                // passer à 3 pour les 3 clients
                 NS_LOG_INFO("Current iteration: " << current_round);
                 current_round += 1;
                 counter = 0;
                 Ptr<Packet> responsePacket = Create<Packet>();
-                //packet->AddHeader(SeqTsHeader()); // Ensure there is a header for timestamp
+                // packet->AddHeader(SeqTsHeader()); // Ensure there is a header for timestamp
 
-                std::cout << "Sent variables to the script are: " << x1 << " " << x2 << " " << rho << std::endl;
+                // std::cout << "Sent variables to the script are: " << x1 << " " << x2 << " " <<
+                // rho << std::endl;
 
-                // Define the command to run the Julia script
-                std::string juliaCommand = "julia config/Server.jl " + std::to_string(x1) + " " + std::to_string(x2) + " " + std::to_string(rho) + " " + std::to_string(z12) +  " > output_server.txt";
+                // // Define the command to run the Julia script
+                // std::string juliaCommand = "julia config/Server.jl " + std::to_string(x1) + " " +
+                // std::to_string(x2) + " " + std::to_string(rho) + " " + std::to_string(z12) +  " >
+                // output_server.txt";
 
-                // Run the Julia script
-                float result = std::system(juliaCommand.c_str());
-                if (result != 0) {
-                    std::cerr << "Error running Julia script!" << std::endl;
-                    //return 1;
-                }
+                // // Run the Julia script
+                // float result = std::system(juliaCommand.c_str());
+                // if (result != 0) {
+                //     std::cerr << "Error running Julia script!" << std::endl;
+                //     //return 1;
+                // }
 
                 // Updating the lists
                 // Add border solutions
@@ -357,26 +403,31 @@ UdpEchoServer::HandleRead(Ptr<Socket> socket)
                 // Add consensus variable
                 z12_hist.push_back(z12);
 
-                // Optionally read the output from the file
-                std::ifstream outputFile("output_server.txt");
-                std::string line, line1, line2, line3, line4;
+                // // Optionally read the output from the file
+                // std::ifstream outputFile("output_server.txt");
+                // std::string line, line1, line2, line3, line4;
 
-                // Loop through the file to get the last four lines
-                while (std::getline(outputFile, line)) {
-                    line1 = line2;  // Shift the previous lines up
-                    line2 = line3;
-                    line3 = line4;
-                    line4 = line;   // Update line4 to the current line
-                }
+                // // Loop through the file to get the last four lines
+                // while (std::getline(outputFile, line)) {
+                //     line1 = line2;  // Shift the previous lines up
+                //     line2 = line3;
+                //     line3 = line4;
+                //     line4 = line;   // Update line4 to the current line
+                // }
 
-                outputFile.close();
+                // outputFile.close();
 
                 // Convert the last four lines to the required variables
-                try {
-                    x1 = std::stof(line1);
-                    x2 = std::stof(line2);
-                    rho = std::stof(line3);
-                    z12 = std::stof(line4);
+                try
+                {
+                    // x1 = std::stof(line1);
+                    // x2 = std::stof(line2);
+                    // rho = std::stof(line3);
+                    // z12 = std::stof(line4);
+                    x1 = 1;
+                    x2 = 1;
+                    rho = 1;
+                    z12 = 1;
 
                     // Output the values to verify
                     std::cout << "x1: " << x1 << std::endl;
@@ -384,12 +435,13 @@ UdpEchoServer::HandleRead(Ptr<Socket> socket)
                     std::cout << "rho: " << rho << std::endl;
                     std::cout << "z12: " << z12 << std::endl;
 
-                    for (const auto &pair : m_addressList)
+                    for (const auto& pair : m_addressList) // On renvoie les variables aux noeuds
                     {
                         Address address = pair.first;
                         variable = pair.second;
 
-                        if (variable == "x1") {
+                        if (variable == "x1")
+                        {
                             uint8_t buffer_[16];
                             memcpy(buffer_, &x1, sizeof(float));
                             memcpy(buffer_ + sizeof(float), &rho, sizeof(float));
@@ -398,14 +450,17 @@ UdpEchoServer::HandleRead(Ptr<Socket> socket)
 
                             responsePacket->AddAtEnd(Create<Packet>(buffer_, sizeof(buffer_)));
 
-                            //Ptr<Packet> responsePacket = Create<Packet> ((uint8_t *)msg.c_str(), msg.size());
-                            socket->SendTo (responsePacket, 0, address);
+                            // Ptr<Packet> responsePacket = Create<Packet> ((uint8_t *)msg.c_str(),
+                            // msg.size());
+                            socket->SendTo(responsePacket, 0, address);
 
-                            NS_LOG_INFO("At time " << Simulator::Now().As(Time::S) << " server sent "
-                                                << packet->GetSize() << " bytes to " << address << " port 9"); // Hardcoded port here
-
+                            NS_LOG_INFO("At time " << Simulator::Now().As(Time::S)
+                                                   << " server sent " << packet->GetSize()
+                                                   << " bytes to " << address
+                                                   << " port 9"); // Hardcoded port here
                         }
-                        else if (variable == "x2") {
+                        else if (variable == "x2")
+                        {
                             uint8_t buffer_[16];
                             memcpy(buffer_, &x2, sizeof(float));
                             memcpy(buffer_ + sizeof(float), &rho, sizeof(float));
@@ -415,24 +470,27 @@ UdpEchoServer::HandleRead(Ptr<Socket> socket)
                             Ptr<Packet> responsePacket = Create<Packet>();
                             responsePacket->AddAtEnd(Create<Packet>(buffer_, sizeof(buffer_)));
 
-                            //Ptr<Packet> responsePacket = Create<Packet> ((uint8_t *)msg.c_str(), msg.size());
-                            socket->SendTo (responsePacket, 0, address);
+                            // Ptr<Packet> responsePacket = Create<Packet> ((uint8_t *)msg.c_str(),
+                            // msg.size());
+                            socket->SendTo(responsePacket, 0, address);
 
-                            NS_LOG_INFO("At time " << Simulator::Now().As(Time::S) << " server sent "
-                                                << packet->GetSize() << " bytes to " << address << " port 9");
-
+                            NS_LOG_INFO("At time " << Simulator::Now().As(Time::S)
+                                                   << " server sent " << packet->GetSize()
+                                                   << " bytes to " << address << " port 9");
                         }
                     }
                     THRESHOLD = m_threshold.GetSeconds();
 
                     // Set the timer to expire after 5 seconds
                     Simulator::Schedule(Seconds(THRESHOLD), &TimerExpired, socket);
-                    //std::cout << "here setting timer" << std::endl;
-                } catch (const std::invalid_argument& e) {
-                    STOP = 1;
-                    std::cout << line4 << std::endl;
+                    // std::cout << "here setting timer" << std::endl;
                 }
-                
+                catch (const std::invalid_argument& e)
+                {
+                    STOP = 1;
+                    // std::cout << line4 << std::endl;
+                    // COMMENTAIRE
+                }
             }
         }
     }

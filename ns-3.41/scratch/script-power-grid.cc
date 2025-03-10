@@ -13,7 +13,7 @@ NS_LOG_COMPONENT_DEFINE("WifiSimpleAdhoc");
 int main(int argc, char *argv[])
 {
     int seed = 1;
-    int numberOfNodes = 2;
+    int numberOfNodes = 2; // mettre à 3 pour la suite
     float threshold = 9.0;
     float simulationTime = 1000.0;
 
@@ -28,16 +28,16 @@ int main(int argc, char *argv[])
     SeedManager::SetSeed (seed);  // Changes seed from default of 1 to 3
 
     // Configure logging
-    LogComponentEnable("WifiSimpleAdhoc", LOG_LEVEL_INFO);
-    LogComponentEnable("UdpClient", LOG_LEVEL_INFO);
-    LogComponentEnable("PacketSink", LOG_LEVEL_INFO);
-    //LogComponentEnable("MyApp", LOG_LEVEL_INFO);
-    LogComponentEnable ("UdpEchoClientApplication", LOG_LEVEL_INFO);
-    LogComponentEnable ("UdpEchoServerApplication", LOG_LEVEL_INFO);
+    // LogComponentEnable("WifiSimpleAdhoc", LOG_LEVEL_INFO);
+    // LogComponentEnable("UdpClient", LOG_LEVEL_INFO);
+    // LogComponentEnable("PacketSink", LOG_LEVEL_INFO);
+    // //LogComponentEnable("MyApp", LOG_LEVEL_INFO);
+    // LogComponentEnable ("UdpEchoClientApplication", LOG_LEVEL_INFO);
+    // LogComponentEnable ("UdpEchoServerApplication", LOG_LEVEL_INFO);
 
-    LogComponentEnableAll (LOG_PREFIX_FUNC);
-    LogComponentEnableAll (LOG_PREFIX_NODE);
-    LogComponentEnableAll (LOG_PREFIX_TIME);
+    // LogComponentEnableAll (LOG_PREFIX_FUNC);
+    // LogComponentEnableAll (LOG_PREFIX_NODE);
+    // LogComponentEnableAll (LOG_PREFIX_TIME);
 
     // Create nodes
     NodeContainer nodes;
@@ -117,10 +117,26 @@ int main(int argc, char *argv[])
         */
 
         float x = 0.0;// x and y have the same values for the first sending
-        uint32_t round = 1; 
+        float round = 1;
+        
+        std::vector<float> vec = {1.231111111111, 4.56, 7.89, 7.89};
+        
         std::ostringstream oss;
-        oss << x << " " << round;
+        // oss << x << " " << round;
+
+        // first value is the current round
+        oss << round;
+        for (size_t i = 0; i < vec.size(); ++i) {
+            oss << " " << vec[i];
+        }
+
         std::string valueToSend = oss.str();
+
+
+        std::cout << valueToSend << std::endl;
+        exit(1);
+
+
 
         // Use SetFill to set the packet payload
         echoClient1.SetFill(clientApp.Get(0), valueToSend);

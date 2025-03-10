@@ -476,7 +476,7 @@ main(int argc, char* argv[])
     std::cout << "Throughput: " << datarate / simTime << std::endl;
 
     std::cout << std::fixed;
-    std::cout << std::setprecision(2);
+    // std::cout << std::setprecision(2);
 
     /*
     if (g_rxPdcpCallbackCalled && g_rxRxRlcPDUCallbackCalled)

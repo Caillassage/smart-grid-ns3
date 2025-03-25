@@ -17,8 +17,8 @@
 #include "udp-echo-client.h"
 
 #include "ns3/inet-socket-address.h"
-#include "ns3/internet-module.h"
 #include "ns3/inet6-socket-address.h"
+#include "ns3/internet-module.h"
 #include "ns3/ipv4-address.h"
 #include "ns3/ipv6-address.h"
 #include "ns3/log.h"
@@ -29,10 +29,11 @@
 #include "ns3/socket.h"
 #include "ns3/trace-source-accessor.h"
 #include "ns3/uinteger.h"
-#include <fstream>
+
 #include <chrono>
-#include <unistd.h>
+#include <fstream>
 #include <thread>
+#include <unistd.h>
 
 namespace ns3
 {
@@ -41,26 +42,37 @@ NS_LOG_COMPONENT_DEFINE("UdpEchoClientApplication");
 
 NS_OBJECT_ENSURE_REGISTERED(UdpEchoClient);
 
-static void sendPacket(Ptr<Packet> responsePacket, Address from, float result, std::string script, uint32_t round, Ptr<Socket> socket)
+static void
+sendPacket(Ptr<Packet> responsePacket,
+           Address from,
+           std::vector<float> result,
+           std::string script,
+           Ptr<Socket> socket)
+{
+    std::cout << "Client:\t\tSending to server: ";
+    for (size_t i = 0; i < result.size(); ++i)
     {
-        //std::cout << script << " julia script result: " << result << std::endl;
-
-        uint8_t buffer_[16];
-
-        memcpy(buffer_, &result, sizeof(float));
-        memcpy(buffer_ + sizeof(float), &round, sizeof(uint32_t)); 
-
-        responsePacket->AddAtEnd(Create<Packet>(buffer_, sizeof(buffer_)));
-
-        //Ptr<Packet> responsePacket = Create<Packet> ((uint8_t *)msg.c_str(), msg.size());
-        socket->SendTo (responsePacket, 0, from);
-
-
-        NS_LOG_INFO("At time " << Simulator::Now().As(Time::S) << " client sent "
-                               << responsePacket->GetSize() << " bytes to "
-                               << InetSocketAddress::ConvertFrom(from).GetIpv4() << " port "
-                               << InetSocketAddress::ConvertFrom(from).GetPort());
+        std::cout << result[i] << " ";
     }
+    std::cout << std::endl;
+
+    int buffSize = result.size() * sizeof(float);
+    uint8_t* buffer_ = new uint8_t[buffSize];
+
+    memcpy(buffer_, result.data(), buffSize);
+
+    responsePacket->AddAtEnd(Create<Packet>(buffer_, buffSize));
+    socket->SendTo(responsePacket, 0, from);
+
+    NS_LOG_INFO("At time " << Simulator::Now().As(Time::S) << " client sent "
+                           << responsePacket->GetSize() << " bytes to "
+                           << InetSocketAddress::ConvertFrom(from).GetIpv4() << " port "
+                           << InetSocketAddress::ConvertFrom(from).GetPort());
+
+    std::cout << std::endl;
+
+    delete[] buffer_;
+}
 
 TypeId
 UdpEchoClient::GetTypeId()
@@ -255,21 +267,29 @@ UdpEchoClient::SetFill(std::string fill)
 {
     NS_LOG_FUNCTION(this << fill);
 
-    uint32_t dataSize = fill.size() + 1;
-    if (dataSize != m_dataSize)
+    std::vector<float> vec;
+    std::stringstream ss(fill);
+    float num;
+
+    while (ss >> num)
     {
-        delete[] m_data;
-        m_data = new uint8_t[dataSize];
-        m_dataSize = dataSize;
+        vec.push_back(num);
     }
 
-    memcpy(m_data, fill.c_str(), dataSize); // m_data is sent
-    // memcpy(m_data, fill.c_str(), dataSize);
+    uint32_t buffSize = vec.size() * sizeof(float);
+    if (buffSize != m_dataSize)
+    {
+        delete[] m_data;
+        m_data = new uint8_t[buffSize];
+        m_dataSize = buffSize;
+    }
+
+    memcpy(m_data, vec.data(), buffSize); // m_data is sent
 
     //
     // Overwrite packet size attribute.
     //
-    m_size = dataSize;
+    m_size = buffSize;
 }
 
 void
@@ -282,7 +302,7 @@ UdpEchoClient::SetFill(uint8_t fill, uint32_t dataSize)
         m_data = new uint8_t[dataSize];
         m_dataSize = dataSize;
     }
-    
+
     memset(m_data, fill, dataSize);
 
     //
@@ -422,6 +442,8 @@ UdpEchoClient::Send()
     {
         ScheduleTransmit(m_interval);
     }
+
+    std::cout << "Client:\t\tsent " << m_size << " bytes to server" << std::endl;
 }
 
 void
@@ -433,6 +455,8 @@ UdpEchoClient::HandleRead(Ptr<Socket> socket)
     Address localAddress;
     while ((packet = socket->RecvFrom(from)))
     {
+        std::cout << std::endl;
+
         if (InetSocketAddress::IsMatchingType(from))
         {
             NS_LOG_INFO("At time " << Simulator::Now().As(Time::S) << " client received "
@@ -447,93 +471,129 @@ UdpEchoClient::HandleRead(Ptr<Socket> socket)
                                    << Inet6SocketAddress::ConvertFrom(from).GetIpv6() << " port "
                                    << Inet6SocketAddress::ConvertFrom(from).GetPort());
         }
-  
 
-        uint8_t buffer_[16];
-        packet->CopyData(buffer_, sizeof(buffer_));
+        // Size of the data received
+        int bufferSize = (m_dataSize + 2) * sizeof(float);
 
-        float x; float z12; float rho; uint32_t round;
+        std::ostringstream oss;
+        packet->CopyData(&oss, bufferSize);
+        std::string rawData = oss.str();
 
-        memcpy(&x, buffer_, sizeof(float));
-        memcpy(&z12, buffer_ + sizeof(float), sizeof(float));
-        memcpy(&rho, buffer_ + 2 * sizeof(float), sizeof(float));
-        memcpy(&round, buffer_ + 3 * sizeof(float), sizeof(uint32_t));
+        // Allocate a properly aligned buffer
+        std::vector<uint8_t> buffer_(rawData.begin(), rawData.end());
 
-        std::cout << "Client: Received x rho z12 round: " << x << " " << rho << " " << z12  << " " << round << std::endl;
+        // Ensure correct memory alignment when reinterpreting as float*
+        float* floatPtr = reinterpret_cast<float*>(buffer_.data());
+
+        // Copy first m_dataSize elements
+        std::vector<float> vectorResult(floatPtr, floatPtr + m_dataSize / sizeof(float));
+        float z12Result = floatPtr[m_dataSize / sizeof(float)];
+        float rhoResult = floatPtr[m_dataSize / sizeof(float) + 1];
+
+        float round, client_num;
+        float x, z12, rho;
+
+        memcpy(&round, &vectorResult[0], sizeof(float));
+        memcpy(&client_num, &vectorResult[1], sizeof(float));
+        memcpy(&x, &vectorResult[2], sizeof(float));
+        memcpy(&z12, &z12Result, sizeof(float));
+        memcpy(&rho, &rhoResult, sizeof(float));
+
+        std::cout << "Client n°" << client_num << ":\treceived: ";
+        for (size_t i = 0; i < buffer_.size() / sizeof(float); ++i)
+        {
+            std::cout << floatPtr[i] << " ";
+        }
+        std::cout << "| x: " << x << ", rho: " << rho << " , z12: " << z12 << std::endl;
 
         Ptr<Packet> responsePacket = Create<Packet>();
 
-        // // Get the ipv4 address of the node
-        // Ptr<Ipv4> ipv4 = GetNode()->GetObject<Ipv4>();
-        // Ipv4Address address = ipv4->GetAddress(1, 0).GetLocal();
+        // Get the ipv4 address of the node
+        Ptr<Ipv4> ipv4 = GetNode()->GetObject<Ipv4>();
+        Ipv4Address address = ipv4->GetAddress(1, 0).GetLocal();
 
-        // std::string filename = "config/script-conf.csv";
-        // std::string script;
-        std::string script = "";
+        std::string filename = "config/script-conf.csv";
+        std::string script;
 
-        // std::ifstream file(filename);
-        // std::string line_, ip, area;
-        // std::map<Ipv4Address, std::string> addressToAreaMap;
+        std::ifstream file(filename);
+        std::string line_, ip, area;
+        std::map<Ipv4Address, std::string> addressToAreaMap;
 
-        // if (file.is_open()) {
-        //     while (std::getline(file, line_)) {
-        //         std::stringstream ss(line_);
-        //         std::getline(ss, ip, ',');
-        //         std::getline(ss, area, ',');
+        if (file.is_open())
+        {
+            while (std::getline(file, line_))
+            {
+                std::stringstream ss(line_);
+                std::getline(ss, ip, ',');
+                std::getline(ss, area, ',');
 
-        //         Ipv4Address addr(ip.c_str());
-        //         addressToAreaMap[addr] = area;
-        //     }
-        //     file.close();
-        // } else {
-        //     std::cerr << "Unable to open file: " << filename << std::endl;
-        // }
+                Ipv4Address addr(ip.c_str());
+                addressToAreaMap[addr] = area;
+            }
+            file.close();
+        }
+        else
+        {
+            std::cerr << "Unable to open file: " << filename << std::endl;
+        }
 
-        // // Find the area associated with the current node's address
-        // auto it = addressToAreaMap.find(address);
-        // if (it != addressToAreaMap.end()) {
-        //     script = it->second;
-        // } else {
-        //     std::cerr << "Address not found in the file" << std::endl;
-        // }
+        // Find the area associated with the current node's address
+        auto it = addressToAreaMap.find(address);
+        if (it != addressToAreaMap.end())
+        {
+            script = it->second;
+        }
+        else
+        {
+            std::cerr << "Address not found in the file" << std::endl;
+        }
 
-        // //std::cout << script << std::endl;
+        // Define the command to run the Julia script
+        std::string juliaCommand = "julia config/" + script + " " + std::to_string(x) + " " +
+                                   std::to_string(z12) + " " + std::to_string(rho) +
+                                   " > output_client.txt";
 
-        // // Define the command to run the Julia script
-        // // faire une for loop avec les valeurs du vecteur
-        // std::string juliaCommand = "julia config/" + script + " " + std::to_string(x) + " " + std::to_string(z12) + " " + std::to_string(rho) + " > output_client.txt";
+        // Run the Julia script
+        std::cout << "Client n°" << client_num << ":\tRunning " << script << "..." << std::endl;
 
-        // // Run the Julia script
-        // float result = std::system(juliaCommand.c_str());
-        // if (result != 0) {
-        //     std::cerr << "Error running Julia script!" << std::endl;
-        //     //return 1;
-        // }
-        
-        // std::ifstream outputFile("output_client.txt");
-        // std::string line, lastLine, secondLastLine;
+        float result = std::system(juliaCommand.c_str());
+        if (result != 0)
+        {
+            std::cerr << "Error running Julia script!" << std::endl;
+            // return 1;
+        }
 
-        // // Loop through the file to get the last two lines
-        // while (std::getline(outputFile, line)) {
-        //     secondLastLine = lastLine;  // Move the previous last line
-        //     lastLine = line;             // Update last line to the current line
-        // }
+        std::ifstream outputFile("output_client.txt");
+        std::string line, lastLine, secondLastLine;
 
-        // outputFile.close();
+        // Loop through the file to get the last two lines
+        while (std::getline(outputFile, line))
+        {
+            secondLastLine = lastLine; // Move the previous last line
+            lastLine = line;           // Update last line to the current line
+        }
+
+        outputFile.close();
 
         // // Convert the last two lines to the required variables
-        // float optimizationTime = std::stof(lastLine);
-        float optimizationTime = 2;
-        // result = std::stof(secondLastLine);
-        float result = 0;
+        float optimizationTime = std::stof(lastLine);
+        vectorResult[2] = std::stof(secondLastLine);
 
         // // Output the values to verify
-        // NS_LOG_INFO("Optimization Time: " << optimizationTime);
-        // std::cout << "Result: " << result << std::endl;
+        NS_LOG_INFO("Optimization Time: " << optimizationTime);
+
+        std::cout << "Client n°" << client_num << ":\tRunning " << script
+                  << " finished successfully after " << optimizationTime << "sec" << std::endl;
 
         // Schedule the next events in ns-3 to continue after the real-time delay
-        Simulator::Schedule(Seconds(optimizationTime), &sendPacket, responsePacket, from, result, script, round, socket);
-        
+        Simulator::Schedule(Seconds(optimizationTime),
+                            &sendPacket,
+                            responsePacket,
+                            from,
+                            vectorResult,
+                            script,
+                            socket);
+
         /*
         // Optionally read the output from the file
         std::ifstream outputFile("output.txt");
@@ -548,19 +608,18 @@ UdpEchoClient::HandleRead(Ptr<Socket> socket)
         std::cout << script << " julia script result: " << result << std::endl;
 
         memcpy(buffer_, &result, sizeof(float));
-        memcpy(buffer_ + sizeof(float), &round, sizeof(uint32_t)); 
+        memcpy(buffer_ + sizeof(float), &round, sizeof(uint32_t));
 
         responsePacket->AddAtEnd(Create<Packet>(buffer_, sizeof(buffer_)));
 
         //Ptr<Packet> responsePacket = Create<Packet> ((uint8_t *)msg.c_str(), msg.size());
         socket->SendTo (responsePacket, 0, from);
-        
+
         NS_LOG_INFO("At time " << Simulator::Now().As(Time::S) << " client sent "
                                << responsePacket->GetSize() << " bytes to "
                                << InetSocketAddress::ConvertFrom(from).GetIpv4() << " port "
                                << InetSocketAddress::ConvertFrom(from).GetPort());
         */
-
     }
 }
 

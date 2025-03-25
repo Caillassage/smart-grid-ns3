@@ -15,12 +15,18 @@ end
 
 if length(ARGS) > 0
     # The first argument is assumed to be the variable we want to use
-    x = parse(Float64, ARGS[1])
+    x1 = parse(Float64, ARGS[1])
+    # x2 = parse(Float64, ARGS[2])
+    # x3 = parse(Float64, ARGS[3])
+    # x4 = parse(Float64, ARGS[4])
+    # x5 = parse(Float64, ARGS[5])
+    # lambda = parse(Float64, ARGS[6])
+    # rho = parse(Float64, ARGS[7])
     lambda = parse(Float64, ARGS[2])
     rho = parse(Float64, ARGS[3])
 
     start_time = time()
-    println(solve_practice_area2(lambda, rho, x))
+    println(solve_practice_area2(lambda, rho, x1))
     end_time = time()
     
     time_taken = end_time - start_time

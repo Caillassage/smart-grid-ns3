@@ -10,12 +10,13 @@ using namespace ns3;
 
 NS_LOG_COMPONENT_DEFINE("WifiSimpleAdhoc");
 
+
 int
 main(int argc, char* argv[])
 {
     int seed = 1;
-    int numberOfNodes = 3; // mettre à 3 pour la suite
-    float threshold = 9.0;
+    int numberOfNodes = 3;
+    float threshold = 10.0;
     float simulationTime = 1000.0;
 
     CommandLine cmd;
@@ -31,16 +32,16 @@ main(int argc, char* argv[])
     SeedManager::SetSeed(seed); // Changes seed from default of 1 to 3
 
     // Configure logging
-    // LogComponentEnable("WifiSimpleAdhoc", LOG_LEVEL_INFO);
-    // LogComponentEnable("UdpClient", LOG_LEVEL_INFO);
-    // LogComponentEnable("PacketSink", LOG_LEVEL_INFO);
-    // //LogComponentEnable("MyApp", LOG_LEVEL_INFO);
-    // LogComponentEnable ("UdpEchoClientApplication", LOG_LEVEL_INFO);
-    // LogComponentEnable ("UdpEchoServerApplication", LOG_LEVEL_INFO);
+    LogComponentEnable("WifiSimpleAdhoc", LOG_LEVEL_INFO);
+    LogComponentEnable("UdpClient", LOG_LEVEL_INFO);
+    LogComponentEnable("PacketSink", LOG_LEVEL_INFO);
+    //LogComponentEnable("MyApp", LOG_LEVEL_INFO);
+    LogComponentEnable ("UdpEchoClientApplication", LOG_LEVEL_INFO);
+    LogComponentEnable ("UdpEchoServerApplication", LOG_LEVEL_INFO);
 
-    // LogComponentEnableAll (LOG_PREFIX_FUNC); //
-    // LogComponentEnableAll (LOG_PREFIX_NODE); // Log plus précis pour savoir quelle fonction fait
-    // quoi et quand LogComponentEnableAll (LOG_PREFIX_TIME); //
+    LogComponentEnableAll (LOG_PREFIX_FUNC); //
+    LogComponentEnableAll (LOG_PREFIX_NODE); // Log plus précis pour savoir quelle fonction fait
+    LogComponentEnableAll (LOG_PREFIX_TIME); // quoi et quand
 
     // Create nodes
     NodeContainer nodes;
@@ -98,6 +99,13 @@ main(int argc, char* argv[])
     serverApps.Start(Seconds(0.0));
     serverApps.Stop(Seconds(11.0));
 
+    std::vector<std::vector<float>> startingValues(numberOfNodes);
+
+    startingValues[0] = std::vector<float>(97, 1.0f);
+    startingValues[1] = std::vector<float>(49, 1.0f);
+    startingValues[2] = std::vector<float>(49, 1.0f);
+
+
     std::cout << "\nSTART SIMULATION" << std::endl;
 
     for (uint32_t index = 0; index < numberOfNodes; ++index)
@@ -121,16 +129,15 @@ main(int argc, char* argv[])
         echoClient1.SetFill (clientApp.Get (0), valueToSend);
         */
 
-        std::vector<float> vec = {1.231111111111, 4.56, 7.89, static_cast<float>((index + 1) * 10.0)};
         float round = 1;
 
         std::ostringstream oss;
 
         // first value is the current round, second value is the n° of the client
         oss << round << " " << static_cast<float>(index);
-        for (size_t i = 0; i < vec.size(); ++i)
+        for (size_t i = 0; i < startingValues[index].size(); ++i)
         {
-            oss << " " << vec[i];
+            oss << " " << startingValues[index][i];
         }
 
         std::string valueToSend = oss.str();

@@ -45,7 +45,7 @@ static int counter = 0;
 static int current_round = 1;
 static float z12 = 1.0;
 static float rho = 1.0;
-static float THRESHOLD = 100.0;
+static float THRESHOLD = 1.0;
 static std::vector<std::pair<Address, std::string>>
     m_addressList; // Static list of address-string pairs
 static int STOP = 0;
@@ -67,13 +67,14 @@ struct Data
 {
     std::vector<float> values;
     std::string client;
+    int vectorSize;
     float x;
 };
 
 static std::array<Data, total_of_node> ClientData;
 
 static void
-TimerExpired(Ptr<Socket> socket, uint32_t dataSize, std::array<Data, total_of_node>& ClientData)
+TimerExpired(Ptr<Socket> socket, std::array<Data, total_of_node>& ClientData)
 {
     if ((counter != total_of_node) && (STOP == 0))
     {
@@ -83,21 +84,24 @@ TimerExpired(Ptr<Socket> socket, uint32_t dataSize, std::array<Data, total_of_no
         counter = 0;
         std::string variable = "";
 
-        Ptr<Packet> responsePacket = Create<Packet>();
-
         for (const auto& pair : m_addressList)
         {
             Address address = pair.first;
             variable = pair.second;
 
-            int buffSize = (dataSize + 2) * sizeof(float);
-            uint8_t* buffer_ = new uint8_t[buffSize];
+            int dataSize;
+            int buffSize = 0;
+            uint8_t* buffer_ = nullptr;
             std::vector<float> VecToSend;
 
             for (auto& data : ClientData)
             {
                 if (data.client == variable)
                 {
+                    dataSize = data.vectorSize;
+                    buffSize = (dataSize + 2) * sizeof(float);
+                    buffer_ = new uint8_t[buffSize];
+
                     VecToSend = data.values;
                     VecToSend[0] = (float)current_round;
                     VecToSend[2] = data.x;
@@ -108,11 +112,12 @@ TimerExpired(Ptr<Socket> socket, uint32_t dataSize, std::array<Data, total_of_no
             memcpy(buffer_ + dataSize * sizeof(float), &rho, sizeof(float));
             memcpy(buffer_ + (dataSize + 1) * sizeof(float), &z12, sizeof(float));
 
+            Ptr<Packet> responsePacket = Create<Packet>();
             responsePacket->AddAtEnd(Create<Packet>(buffer_, buffSize));
 
             std::cout << "Server:\t\tsent at " << variable << ": ";
             float* floatPtr = reinterpret_cast<float*>(buffer_);
-            for (uint32_t i = 0; i < dataSize + 2; i++)
+            for (int i = 0; i < dataSize + 2; i++)
             {
                 std::cout << floatPtr[i] << " ";
             }
@@ -120,13 +125,16 @@ TimerExpired(Ptr<Socket> socket, uint32_t dataSize, std::array<Data, total_of_no
 
             socket->SendTo(responsePacket, 0, address);
 
-            delete[] buffer_;
+            if (buffer_ != nullptr)
+                delete[] buffer_;
         }
         // Set the timer to expire after 5 seconds
-        Simulator::Schedule(Seconds(THRESHOLD), &TimerExpired, socket, dataSize, ClientData);
+        Simulator::Schedule(Seconds(THRESHOLD), &TimerExpired, socket, ClientData);
 
         NS_LOG_INFO("At time (after expiration) " << Simulator::Now().As(Time::S)
                                                   << " server sent packet to the clients");
+
+        exit(1);
     }
 }
 
@@ -338,11 +346,11 @@ UdpEchoServer::HandleRead(Ptr<Socket> socket)
 
         delete[] buffer_;
 
-        uint32_t vectorSize = receivedVector.size();
         float round = receivedVector[0];
         float client_num = receivedVector[1];
 
         ClientData[client_num].values = receivedVector;
+        ClientData[client_num].vectorSize = receivedVector.size();
 
         // Check if the address is already in the list
         if (std::find_if(m_addressList.begin(),
@@ -366,7 +374,43 @@ UdpEchoServer::HandleRead(Ptr<Socket> socket)
         }
         std::cout << "| x1: " << ClientData[client_num].x << std::endl;
 
-        if (round == current_round)
+        if (round ==  1)
+        {
+            std::vector<float> lambda_121(24, 1);
+            std::vector<float> lambda_122(24, 1);
+
+            std::vector<float> lambda_131(24, 1);
+            std::vector<float> lambda_133(24, 1);
+            
+            std::vector<float> z12(24, 1);
+            std::vector<float> z13(24, 1);
+
+            float rho = 50.0;
+
+            // client 1
+            std::vector<float> to_client_1;
+            to_client_1.insert(to_client_1.end(), lambda_121.begin(), lambda_121.end());
+            to_client_1.insert(to_client_1.end(), lambda_131.begin(), lambda_131.end());
+            to_client_1.insert(to_client_1.end(), z12.begin(), z12.end());
+            to_client_1.insert(to_client_1.end(), z13.begin(), z13.end());
+            to_client_1.push_back(rho);
+
+
+            // client 2
+            std::vector<float> to_client_2;
+            to_client_2.insert(to_client_2.end(), lambda_122.begin(),lambda_122.end());
+            to_client_2.insert(to_client_2.end(), z12.begin(),z12.end());
+            to_client_2.push_back(rho);
+
+            // client 3
+            std::vector<float> to_client_3;
+            to_client_3.insert(to_client_3.end(), lambda_133.begin(),lambda_133.end());
+            to_client_3.insert(to_client_3.end(), z13.begin(),z13.end());
+            to_client_3.push_back(rho);
+
+        }
+
+        else if (round == current_round)
         { // Else the packet is from the previous round, ignore it
             // NS_LOG_INFO("counter: " << counter);
 
@@ -378,7 +422,8 @@ UdpEchoServer::HandleRead(Ptr<Socket> socket)
                 // packet->AddHeader(SeqTsHeader()); // Ensure there is a header for timestamp
 
                 // Define the command to run the Julia script
-                std::string juliaCommand = "julia config/Server.jl ";
+                // std::string juliaCommand = "julia config/Server.jl ";
+                std::string juliaCommand = "julia config/BasicServerScript.jl ";
 
                 for (auto& data : ClientData)
                 {
@@ -444,14 +489,19 @@ UdpEchoServer::HandleRead(Ptr<Socket> socket)
                         Address address = pair.first;
                         variable = pair.second;
 
-                        int buffSize = (vectorSize + 2) * sizeof(float);
-                        uint8_t* buffer_ = new uint8_t[buffSize];
+                        int buffSize = 0;
+                        int vectorSize;
+                        uint8_t* buffer_ = nullptr;
                         std::vector<float> VecToSend;
 
                         for (auto& data : ClientData)
                         {
                             if (data.client == variable)
                             {
+                                vectorSize = data.vectorSize;
+                                buffSize = (vectorSize + 2) * sizeof(float);
+                                buffer_ = new uint8_t[buffSize];
+
                                 VecToSend = data.values;
                                 VecToSend[0] = (float)current_round;
                                 VecToSend[2] = data.x;
@@ -468,7 +518,7 @@ UdpEchoServer::HandleRead(Ptr<Socket> socket)
 
                         std::cout << "Server:\t\tsent at " << variable << " -> ";
                         float* floatPtr = reinterpret_cast<float*>(buffer_);
-                        for (uint32_t i = 0; i < vectorSize + 2; i++)
+                        for (int i = 0; i < vectorSize + 2; i++)
                         {
                             std::cout << floatPtr[i] << " ";
                         }
@@ -478,15 +528,12 @@ UdpEchoServer::HandleRead(Ptr<Socket> socket)
                                                << packet->GetSize() << " bytes to " << address
                                                << " port 9"); // Hardcoded port here
 
-                        delete[] buffer_;
+                        if (buffer_ != nullptr)
+                            delete[] buffer_;
                     }
                     THRESHOLD = m_threshold.GetSeconds();
 
-                    Simulator::Schedule(Seconds(THRESHOLD),
-                                        &TimerExpired,
-                                        socket,
-                                        vectorSize,
-                                        ClientData);
+                    Simulator::Schedule(Seconds(THRESHOLD), &TimerExpired, socket, ClientData);
 
                     std::cout << "Server:\t\tset threshold to " << THRESHOLD << std::endl;
                 }

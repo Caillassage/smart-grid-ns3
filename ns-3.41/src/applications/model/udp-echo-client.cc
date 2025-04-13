@@ -490,21 +490,85 @@ UdpEchoClient::HandleRead(Ptr<Socket> socket)
         float z12Result = floatPtr[m_dataSize / sizeof(float)];
         float rhoResult = floatPtr[m_dataSize / sizeof(float) + 1];
 
-        float round, client_num;
-        float x, z12, rho;
+        float round, client_num, rho;
 
         memcpy(&round, &vectorResult[0], sizeof(float));
         memcpy(&client_num, &vectorResult[1], sizeof(float));
-        memcpy(&x, &vectorResult[2], sizeof(float));
-        memcpy(&z12, &z12Result, sizeof(float));
         memcpy(&rho, &rhoResult, sizeof(float));
+
+        std::string args;
+
+        if (client_num == 0)
+        {
+            std::vector<float> lambda_121(24);
+            std::vector<float> lambda_131(24);
+            std::vector<float> z12(24);
+            std::vector<float> z13(24);
+
+            memcpy(&lambda_121, &vectorResult[2], 24 * sizeof(float));
+            memcpy(&lambda_131, &vectorResult[2] + 24 * sizeof(float), 24 * sizeof(float));
+            memcpy(&z12, &vectorResult[2] + 2 * (24 * sizeof(float)), 24 * sizeof(float));
+            memcpy(&z13, &vectorResult[2] + 3 * (24 * sizeof(float)), 24 * sizeof(float));
+
+            std::ostringstream oss;
+            for (size_t i = 0; i < lambda_121.size(); ++i) {
+                oss << lambda_121[i] << " ";
+            }
+            for (size_t i = 0; i < lambda_131.size(); ++i) {
+                oss << lambda_131[i] << " ";
+            }
+            for (size_t i = 0; i < z12.size(); ++i) {
+                oss << z12[i] << " ";
+            }
+            for (size_t i = 0; i < z13.size(); ++i) {
+                oss << z13[i] << " ";
+            }
+            
+            args = oss.str();
+        }
+        else if (client_num == 1)
+        {
+            std::vector<float> lambda_122(24);
+            std::vector<float> z12(24);
+
+            memcpy(&lambda_122, &vectorResult[2], 24 * sizeof(float));
+            memcpy(&z12, &vectorResult[2] + 24 * sizeof(float), 24 * sizeof(float));
+
+            std::ostringstream oss;
+            for (size_t i = 0; i < lambda_122.size(); ++i) {
+                oss << lambda_122[i] << " ";
+            }
+            for (size_t i = 0; i < z12.size(); ++i) {
+                oss << z12[i] << " ";
+            }
+            
+            args = oss.str();
+        }
+        else if (client_num == 2)
+        {
+            std::vector<float> lambda_133(24);
+            std::vector<float> z13(24);
+
+            memcpy(&lambda_133, &vectorResult[2], 24 * sizeof(float));
+            memcpy(&z13, &vectorResult[2] + 24 * sizeof(float), 24 * sizeof(float));
+
+            std::ostringstream oss;
+            for (size_t i = 0; i < lambda_133.size(); ++i) {
+                oss << lambda_133[i] << " ";
+            }
+            for (size_t i = 0; i < z13.size(); ++i) {
+                oss << z13[i] << " ";
+            }
+            
+            args = oss.str();
+        }
 
         std::cout << "Client n°" << client_num << ":\treceived: ";
         for (size_t i = 0; i < buffer_.size() / sizeof(float); ++i)
         {
             std::cout << floatPtr[i] << " ";
         }
-        std::cout << "| x: " << x << ", rho: " << rho << " , z12: " << z12 << std::endl;
+        std::cout << "| rho: " << rho << std::endl;
 
         Ptr<Packet> responsePacket = Create<Packet>();
 
@@ -514,6 +578,7 @@ UdpEchoClient::HandleRead(Ptr<Socket> socket)
 
         std::string filename = "config/script-conf.csv";
         std::string script;
+        std::string client_name;
 
         std::ifstream file(filename);
         std::string line_, ip, area;
@@ -549,12 +614,11 @@ UdpEchoClient::HandleRead(Ptr<Socket> socket)
         }
 
         // Define the command to run the Julia script
-        std::string juliaCommand = "julia config/" + script + " " + std::to_string(x) + " " +
-                                   std::to_string(z12) + " " + std::to_string(rho) +
+        std::string juliaCommand = "julia config/" + script + " " + args + std::to_string(rho) +
                                    " > output_client.txt";
 
         // Run the Julia script
-        std::cout << "Client n°" << client_num << ":\tRunning " << script << "..." << std::endl;
+        std::cout << "Client n°" << client_num << ":\tRunning " << juliaCommand << std::endl;
 
         float result = std::system(juliaCommand.c_str());
         if (result != 0)

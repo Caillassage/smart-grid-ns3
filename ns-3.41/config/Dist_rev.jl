@@ -63,7 +63,7 @@ rho = 50.0
 MAX_ITER = 200
 
 iter = 1
-while iter <= MAX_ITER
+while iter <= MAX_ITER # changer en if, le MAX_ITER est défini dans le script server ns3
 
         # return x1, t1, obj1
         global x1,v1,t1, opf1, Pg1,Pg2,Pg3,Qg1,Qg2,Qg3, obj1, nl1, Pdg1, Qdg1, Pb38_2 = solve_area1(vcat(lambda_121, lambda_131), vcat(z12,z13), rho)

@@ -62,7 +62,7 @@ static std::vector<std::vector<double>> primal_residual_hist;
 static std::vector<std::vector<double>> dual_residual_hist;
 
 constexpr int total_of_node = 3;
-
+    
 struct Data
 {
     std::vector<float> values;
@@ -263,6 +263,8 @@ UdpEchoServer::StopApplication()
 void
 UdpEchoServer::HandleRead(Ptr<Socket> socket)
 {
+    std::cout << "server receive something !" << std::endl;
+
     NS_LOG_FUNCTION(this << socket);
     Ptr<Packet> packet;
     Address from;
@@ -374,43 +376,43 @@ UdpEchoServer::HandleRead(Ptr<Socket> socket)
         }
         std::cout << "| x1: " << ClientData[client_num].x << std::endl;
 
-        if (round ==  1)
-        {
-            std::vector<float> lambda_121(24, 1);
-            std::vector<float> lambda_122(24, 1);
+        // if (round ==  1)
+        // {
+        //     std::vector<float> lambda_121(24, 1);
+        //     std::vector<float> lambda_122(24, 1);
 
-            std::vector<float> lambda_131(24, 1);
-            std::vector<float> lambda_133(24, 1);
+        //     std::vector<float> lambda_131(24, 1);
+        //     std::vector<float> lambda_133(24, 1);
             
-            std::vector<float> z12(24, 1);
-            std::vector<float> z13(24, 1);
+        //     std::vector<float> z12(24, 1);
+        //     std::vector<float> z13(24, 1);
 
-            float rho = 50.0;
+        //     float rho = 50.0;
 
-            // client 1
-            std::vector<float> to_client_1;
-            to_client_1.insert(to_client_1.end(), lambda_121.begin(), lambda_121.end());
-            to_client_1.insert(to_client_1.end(), lambda_131.begin(), lambda_131.end());
-            to_client_1.insert(to_client_1.end(), z12.begin(), z12.end());
-            to_client_1.insert(to_client_1.end(), z13.begin(), z13.end());
-            to_client_1.push_back(rho);
+        //     // client 1
+        //     std::vector<float> to_client_1;
+        //     to_client_1.insert(to_client_1.end(), lambda_121.begin(), lambda_121.end());
+        //     to_client_1.insert(to_client_1.end(), lambda_131.begin(), lambda_131.end());
+        //     to_client_1.insert(to_client_1.end(), z12.begin(), z12.end());
+        //     to_client_1.insert(to_client_1.end(), z13.begin(), z13.end());
+        //     to_client_1.push_back(rho);
 
 
-            // client 2
-            std::vector<float> to_client_2;
-            to_client_2.insert(to_client_2.end(), lambda_122.begin(),lambda_122.end());
-            to_client_2.insert(to_client_2.end(), z12.begin(),z12.end());
-            to_client_2.push_back(rho);
+        //     // client 2
+        //     std::vector<float> to_client_2;
+        //     to_client_2.insert(to_client_2.end(), lambda_122.begin(),lambda_122.end());
+        //     to_client_2.insert(to_client_2.end(), z12.begin(),z12.end());
+        //     to_client_2.push_back(rho);
 
-            // client 3
-            std::vector<float> to_client_3;
-            to_client_3.insert(to_client_3.end(), lambda_133.begin(),lambda_133.end());
-            to_client_3.insert(to_client_3.end(), z13.begin(),z13.end());
-            to_client_3.push_back(rho);
+        //     // client 3
+        //     std::vector<float> to_client_3;
+        //     to_client_3.insert(to_client_3.end(), lambda_133.begin(),lambda_133.end());
+        //     to_client_3.insert(to_client_3.end(), z13.begin(),z13.end());
+        //     to_client_3.push_back(rho);
 
-        }
+        // }
 
-        else if (round == current_round)
+        if (round == current_round)
         { // Else the packet is from the previous round, ignore it
             // NS_LOG_INFO("counter: " << counter);
 

@@ -4,20 +4,50 @@
 #include "ns3/internet-module.h"
 #include "ns3/mobility-helper.h"
 #include "ns3/network-module.h"
+#include "ns3/simulator.h"
 #include "ns3/wifi-module.h"
 
 using namespace ns3;
+constexpr int nbr_client = 3;
+
+struct Data
+{
+    std::vector<float> values;
+    int vectorSize;
+    Ipv4Address address;
+};
 
 NS_LOG_COMPONENT_DEFINE("WifiSimpleAdhoc");
 
+void
+TimerExpired(Ptr<Socket> socket, std::vector<Data>& ClientData)
+{
+    for (uint32_t i = 0; i < nbr_client; ++i)
+    {
+        // Prepare data
+        int buffSize = ClientData[i].vectorSize * sizeof(float);
+        uint8_t* buffer_ = new uint8_t[buffSize];
+        memcpy(buffer_, ClientData[i].values.data(), buffSize);
+
+        // Create and send packet
+        Ptr<Packet> firstPacket = Create<Packet>(buffer_, buffSize);
+        socket->SendTo(firstPacket, 0, ClientData[i].address);
+
+        delete[] buffer_; // cleanup
+    }
+}
 
 int
 main(int argc, char* argv[])
 {
     int seed = 1;
-    int numberOfNodes = 3;
+    int numberOfNodes = nbr_client;
     float threshold = 10.0;
     float simulationTime = 1000.0;
+    float round = 1;
+    float rho = 50.0f;
+
+    std::vector<Data> ClientData(static_cast<std::size_t>(numberOfNodes));
 
     CommandLine cmd;
     cmd.AddValue("numberOfNodes", "Number of nodes", numberOfNodes);
@@ -35,13 +65,13 @@ main(int argc, char* argv[])
     LogComponentEnable("WifiSimpleAdhoc", LOG_LEVEL_INFO);
     LogComponentEnable("UdpClient", LOG_LEVEL_INFO);
     LogComponentEnable("PacketSink", LOG_LEVEL_INFO);
-    //LogComponentEnable("MyApp", LOG_LEVEL_INFO);
-    LogComponentEnable ("UdpEchoClientApplication", LOG_LEVEL_INFO);
-    LogComponentEnable ("UdpEchoServerApplication", LOG_LEVEL_INFO);
+    // LogComponentEnable("MyApp", LOG_LEVEL_INFO);
+    LogComponentEnable("UdpEchoClientApplication", LOG_LEVEL_INFO);
+    LogComponentEnable("UdpEchoServerApplication", LOG_LEVEL_INFO);
 
-    LogComponentEnableAll (LOG_PREFIX_FUNC); //
-    LogComponentEnableAll (LOG_PREFIX_NODE); // Log plus précis pour savoir quelle fonction fait
-    LogComponentEnableAll (LOG_PREFIX_TIME); // quoi et quand
+    LogComponentEnableAll(LOG_PREFIX_FUNC); //
+    LogComponentEnableAll(LOG_PREFIX_NODE); // Log plus précis pour savoir quelle fonction fait
+    LogComponentEnableAll(LOG_PREFIX_TIME); // quoi et quand
 
     // Create nodes
     NodeContainer nodes;
@@ -90,77 +120,91 @@ main(int argc, char* argv[])
     Ipv4InterfaceContainer centralInterface = address.Assign(centralDevice);
     Ipv4InterfaceContainer nodeInterfaces = address.Assign(nodeDevices);
 
+    // Create a UDP Echo Server on the server
     int echoPort = 9;
-    UdpEchoServerHelper echoServer(echoPort); // Port # 9
-    echoServer.SetAttribute("Threshold", TimeValue(Seconds(threshold)));
-    uint32_t payloadSizeEcho = 1023; // Packet size for Echo UDP App
+    UdpEchoServerHelper echoServer(echoPort); // Port #9
+    ApplicationContainer serverApp = echoServer.Install(centralNode.Get(0));
+    serverApp.Start(Seconds(1.0)); // Start server after 1 second
+    serverApp.Stop(Seconds(10.0)); // Stop server after 10 seconds
 
-    ApplicationContainer serverApps = echoServer.Install(centralNode.Get(0));
-    serverApps.Start(Seconds(0.0));
-    serverApps.Stop(Seconds(11.0));
-
-    std::vector<std::vector<float>> startingValues(numberOfNodes);
-
-    startingValues[0] = std::vector<float>(97, 1.0f);
-    startingValues[1] = std::vector<float>(49, 1.0f);
-    startingValues[2] = std::vector<float>(49, 1.0f);
-
-
-    std::cout << "\nSTART SIMULATION" << std::endl;
-
-    for (uint32_t index = 0; index < numberOfNodes; ++index)
+    // Installing client on nodes
+    for (uint32_t i = 0; i < nodes.GetN(); i++)
     {
-        // This application is to be installed at the central node
-        UdpEchoClientHelper echoClient1(centralInterface.GetAddress(0), echoPort);
+        // Configure the echo client to send to each client's IP address
+        UdpEchoClientHelper echoClient(nodeInterfaces.GetAddress(i), echoPort);
 
-        echoClient1.SetAttribute("MaxPackets", UintegerValue(10000));
-        echoClient1.SetAttribute("Interval", TimeValue(Seconds(10)));
-        echoClient1.SetAttribute("PacketSize", UintegerValue(payloadSizeEcho));
-
-        ApplicationContainer clientApp = echoClient1.Install(nodes.Get(index));
-        // commInterfaces.GetAddress(0).Print(std::cout);
+        ApplicationContainer clientApp = echoClient.Install(nodes.Get(i));
         clientApp.Start(Seconds(1.0));
         clientApp.Stop(Seconds(11.0));
-
-        /*
-        // Create an integer to send
-        std::string valueToSend = "1.0 1.0 1.0";
-        //Ptr<Packet> packet = Create<Packet>((uint8_t *)&valueToSend, sizeof(int));
-        echoClient1.SetFill (clientApp.Get (0), valueToSend);
-        */
-
-        float round = 1;
-
-        std::ostringstream oss;
-
-        // first value is the current round, second value is the n° of the client
-        oss << round << " " << static_cast<float>(index);
-        for (size_t i = 0; i < startingValues[index].size(); ++i)
-        {
-            oss << " " << startingValues[index][i];
-        }
-
-        std::string valueToSend = oss.str();
-
-        // Use SetFill to set the packet payload
-        echoClient1.SetFill(clientApp.Get(0), valueToSend);
     }
 
-    Ptr<FlowMonitor> flowMonitor;
-    FlowMonitorHelper flowHelper;
-    flowMonitor = flowHelper.InstallAll();
+    // Initialize vector sended to the client
+    std::vector<std::vector<float>> startingValues(numberOfNodes);
+    startingValues[0] = std::vector<float>(96, 1.0f);
+    startingValues[1] = std::vector<float>(48, 1.0f);
+    startingValues[2] = std::vector<float>(48, 1.0f);
+
+    for (int i = 0; i < numberOfNodes; ++i)
+    {
+        // adding to the vector the round, the current client number, and rho
+        startingValues[i].insert(startingValues[i].begin(), round);
+        startingValues[i].insert(startingValues[i].begin(), static_cast<float>(i));
+        startingValues[i].push_back(rho);
+
+        // Data client
+        ClientData[i].values = startingValues[i];            // data to send
+        ClientData[i].vectorSize = startingValues[i].size(); // size of data
+    }
+
+    // Create and bind the socket on the central node
+    Ptr<Socket> socket =
+        Socket::CreateSocket(centralNode.Get(0), TypeId::LookupByName("ns3::UdpSocketFactory"));
+    socket->Bind();
+
+    for (uint32_t index = 0; index < nodes.GetN(); ++index)
+    {
+        // Address of the client
+        ClientData[index].address = nodeInterfaces.GetAddress(index);
+
+        // Prepare data
+        int buffSize = ClientData[index].vectorSize * sizeof(float);
+        uint8_t* buffer_ = new uint8_t[buffSize];
+        memcpy(buffer_, ClientData[index].values.data(), buffSize);
+
+        // Create and send packet
+        Ptr<Packet> firstPacket = Create<Packet>(buffer_, buffSize);
+        InetSocketAddress socketAddress(ClientData[index].address, echoPort);
+        socket->SendTo(firstPacket, 0, socketAddress);
+
+
+        std::cout << "Server " << centralInterface.GetAddress(0) <<  " sended " << buffSize << " bytes to " << ClientData[index].address << " ( value: ";
+        for (int j = 0; j < 3; j++) { std::cout << ClientData[index].values[j] << " ";}
+        std::cout << "... ";
+
+        for (size_t j = ClientData[index].values.size() - 3; j < ClientData[index].values.size(); j++){std::cout << ClientData[index].values[j] << " ";}
+        std::cout << ")" << std::endl;
+
+        delete[] buffer_; // cleanup
+    }
+
+    Simulator::Schedule(Seconds(threshold), &TimerExpired, socket, ClientData);
 
     /*/ Starting simulation /*/
     Simulator::Stop(Seconds(simulationTime));
     Simulator::Run();
 
     // *** Récupération des statistiques ***
+    Ptr<FlowMonitor> flowMonitor;
+    FlowMonitorHelper flowHelper;
+    flowMonitor = flowHelper.InstallAll();
     flowMonitor->CheckForLostPackets();
+
     auto stats = flowMonitor->GetFlowStats();
     double totalDelay = 0;
     uint32_t packet_lost = 0;
     uint32_t total_packet_received = 0;
     uint32_t datarate = 0;
+
     for (auto it = stats.begin(); it != stats.end(); it++)
     {
         totalDelay += it->second.delaySum.GetSeconds() / it->second.rxPackets;

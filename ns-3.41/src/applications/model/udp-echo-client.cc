@@ -360,6 +360,7 @@ UdpEchoClient::ScheduleTransmit(Time dt)
 void
 UdpEchoClient::Send()
 {
+    std::cout << "Send fonction" << std::endl;
     NS_LOG_FUNCTION(this);
 
     NS_ASSERT(m_sendEvent.IsExpired());
@@ -413,29 +414,37 @@ UdpEchoClient::Send()
 
     if (Ipv4Address::IsMatchingType(m_peerAddress))
     {
-        NS_LOG_INFO("At time " << Simulator::Now().As(Time::S) << " client sent " << m_size
+        NS_LOG_INFO("At time " << Simulator::Now().As(Time::S) << " client "
+                               <<  m_socket->GetNode()
+                               << " sent " << m_size
                                << " bytes to " << Ipv4Address::ConvertFrom(m_peerAddress)
                                << " port " << m_peerPort);
     }
     else if (Ipv6Address::IsMatchingType(m_peerAddress))
     {
-        NS_LOG_INFO("At time " << Simulator::Now().As(Time::S) << " client sent " << m_size
+        NS_LOG_INFO("At time " << Simulator::Now().As(Time::S) << " client "
+                               <<  m_socket->GetNode()
+                               << " sent " << m_size
                                << " bytes to " << Ipv6Address::ConvertFrom(m_peerAddress)
                                << " port " << m_peerPort);
     }
     else if (InetSocketAddress::IsMatchingType(m_peerAddress))
     {
-        NS_LOG_INFO(
-            "At time " << Simulator::Now().As(Time::S) << " client sent " << m_size << " bytes to "
-                       << InetSocketAddress::ConvertFrom(m_peerAddress).GetIpv4() << " port "
-                       << InetSocketAddress::ConvertFrom(m_peerAddress).GetPort());
+        NS_LOG_INFO("At time " << Simulator::Now().As(Time::S) << " client "
+                               <<  m_socket->GetNode()
+                               << " sent " << m_size << " bytes to "
+                               << InetSocketAddress::ConvertFrom(m_peerAddress).GetIpv4()
+                               << " port "
+                               << InetSocketAddress::ConvertFrom(m_peerAddress).GetPort());
     }
     else if (Inet6SocketAddress::IsMatchingType(m_peerAddress))
     {
-        NS_LOG_INFO(
-            "At time " << Simulator::Now().As(Time::S) << " client sent " << m_size << " bytes to "
-                       << Inet6SocketAddress::ConvertFrom(m_peerAddress).GetIpv6() << " port "
-                       << Inet6SocketAddress::ConvertFrom(m_peerAddress).GetPort());
+        NS_LOG_INFO("At time " << Simulator::Now().As(Time::S) << " client "
+                               <<  m_socket->GetNode()
+                               << " sent " << m_size << " bytes to "
+                               << Inet6SocketAddress::ConvertFrom(m_peerAddress).GetIpv6()
+                               << " port "
+                               << Inet6SocketAddress::ConvertFrom(m_peerAddress).GetPort());
     }
 
     if (m_sent < m_count || m_count == 0)
@@ -449,13 +458,14 @@ UdpEchoClient::Send()
 void
 UdpEchoClient::HandleRead(Ptr<Socket> socket)
 {
+    std::cout << "Client receive something !" << std::endl;
     NS_LOG_FUNCTION(this << socket);
     Ptr<Packet> packet;
     Address from;
     Address localAddress;
     while ((packet = socket->RecvFrom(from)))
     {
-        std::cout << std::endl;
+        // return;
 
         if (InetSocketAddress::IsMatchingType(from))
         {
@@ -511,19 +521,23 @@ UdpEchoClient::HandleRead(Ptr<Socket> socket)
             memcpy(&z13, &vectorResult[2] + 3 * (24 * sizeof(float)), 24 * sizeof(float));
 
             std::ostringstream oss;
-            for (size_t i = 0; i < lambda_121.size(); ++i) {
+            for (size_t i = 0; i < lambda_121.size(); ++i)
+            {
                 oss << lambda_121[i] << " ";
             }
-            for (size_t i = 0; i < lambda_131.size(); ++i) {
+            for (size_t i = 0; i < lambda_131.size(); ++i)
+            {
                 oss << lambda_131[i] << " ";
             }
-            for (size_t i = 0; i < z12.size(); ++i) {
+            for (size_t i = 0; i < z12.size(); ++i)
+            {
                 oss << z12[i] << " ";
             }
-            for (size_t i = 0; i < z13.size(); ++i) {
+            for (size_t i = 0; i < z13.size(); ++i)
+            {
                 oss << z13[i] << " ";
             }
-            
+
             args = oss.str();
         }
         else if (client_num == 1)
@@ -535,13 +549,15 @@ UdpEchoClient::HandleRead(Ptr<Socket> socket)
             memcpy(&z12, &vectorResult[2] + 24 * sizeof(float), 24 * sizeof(float));
 
             std::ostringstream oss;
-            for (size_t i = 0; i < lambda_122.size(); ++i) {
+            for (size_t i = 0; i < lambda_122.size(); ++i)
+            {
                 oss << lambda_122[i] << " ";
             }
-            for (size_t i = 0; i < z12.size(); ++i) {
+            for (size_t i = 0; i < z12.size(); ++i)
+            {
                 oss << z12[i] << " ";
             }
-            
+
             args = oss.str();
         }
         else if (client_num == 2)
@@ -553,13 +569,15 @@ UdpEchoClient::HandleRead(Ptr<Socket> socket)
             memcpy(&z13, &vectorResult[2] + 24 * sizeof(float), 24 * sizeof(float));
 
             std::ostringstream oss;
-            for (size_t i = 0; i < lambda_133.size(); ++i) {
+            for (size_t i = 0; i < lambda_133.size(); ++i)
+            {
                 oss << lambda_133[i] << " ";
             }
-            for (size_t i = 0; i < z13.size(); ++i) {
+            for (size_t i = 0; i < z13.size(); ++i)
+            {
                 oss << z13[i] << " ";
             }
-            
+
             args = oss.str();
         }
 
@@ -614,8 +632,8 @@ UdpEchoClient::HandleRead(Ptr<Socket> socket)
         }
 
         // Define the command to run the Julia script
-        std::string juliaCommand = "julia config/" + script + " " + args + std::to_string(rho) +
-                                   " > output_client.txt";
+        std::string juliaCommand =
+            "julia config/" + script + " " + args + std::to_string(rho) + " > output_client.txt";
 
         // Run the Julia script
         std::cout << "Client n°" << client_num << ":\tRunning " << juliaCommand << std::endl;

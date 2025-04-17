@@ -147,6 +147,8 @@ class UdpEchoClient : public Application
      */
     void Send();
 
+    // std::string WrapVector(std::vector<float> vector, std::vector<int> size);
+
     /**
      * \brief Handle a packet reception.
      *

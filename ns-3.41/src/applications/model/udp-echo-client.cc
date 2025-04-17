@@ -446,6 +446,34 @@ UdpEchoClient::Send()
     std::cout << "Client:\t\tsent " << m_size << " bytes to server" << std::endl;
 }
 
+static std::string
+WrapVector(std::vector<float> vector, std::vector<int> size)
+{
+    int start = 0;
+
+    std::string args, temp;
+    std::ostringstream oss;
+
+    for (auto&& vecSize : size)
+    {
+        oss << "\"[";
+        for (int i = start; i < start + vecSize; i++)
+            oss << vector[i] << ", ";
+
+        temp = oss.str();
+        temp.pop_back();
+        temp.pop_back();
+        args += temp;
+        args += "]\" ";
+
+        oss.str("");
+        oss.clear();
+        start += vecSize;
+    }
+
+    return args;
+}
+
 void
 UdpEchoClient::HandleRead(Ptr<Socket> socket)
 {
@@ -473,7 +501,7 @@ UdpEchoClient::HandleRead(Ptr<Socket> socket)
         }
 
         // Size of the data received
-        int bufferSize = (m_dataSize + 2) * sizeof(float);
+        int bufferSize = m_dataSize * sizeof(float);
 
         std::ostringstream oss;
         packet->CopyData(&oss, bufferSize);
@@ -485,90 +513,53 @@ UdpEchoClient::HandleRead(Ptr<Socket> socket)
         // Ensure correct memory alignment when reinterpreting as float*
         float* floatPtr = reinterpret_cast<float*>(buffer_.data());
 
-        // Copy first m_dataSize elements
-        std::vector<float> vectorResult(floatPtr, floatPtr + m_dataSize / sizeof(float));
-        float z12Result = floatPtr[m_dataSize / sizeof(float)];
-        float rhoResult = floatPtr[m_dataSize / sizeof(float) + 1];
+        float round = floatPtr[0];      // extract the first value (round)
+        float client_num = floatPtr[1]; // extract the second value (n° client)
+        float rho = floatPtr[m_dataSize / sizeof(float) - 1]; // extract the last value (rho)
+        std::vector<float> vectorResult(floatPtr + 2,
+                                        floatPtr + m_dataSize / sizeof(float) -
+                                            1); // extract other values (vector)
 
-        float round, client_num, rho;
-
-        memcpy(&round, &vectorResult[0], sizeof(float));
-        memcpy(&client_num, &vectorResult[1], sizeof(float));
-        memcpy(&rho, &rhoResult, sizeof(float));
+        std::cout << "Client n°" << client_num << ":\treceived: ";
+        for (size_t i = 0; i < 3; ++i)
+        {
+            std::cout << vectorResult[i] << " ";
+        }
+        std::cout << "... ";
+        for (size_t i = vectorResult.size() - 3; i < vectorResult.size(); ++i)
+        {
+            std::cout << vectorResult[i] << " ";
+        }
+        std::cout << " (size: " << vectorResult.size() << ") | round: " << round << ", rho: " << rho
+                  << std::endl;
 
         std::string args;
 
         if (client_num == 0)
         {
-            std::vector<float> lambda_121(24);
-            std::vector<float> lambda_131(24);
-            std::vector<float> z12(24);
-            std::vector<float> z13(24);
+            int lambda_121 = 24;
+            int lambda_131 = 24;
+            int z12 = 24;
+            int z13 = 24;
 
-            memcpy(&lambda_121, &vectorResult[2], 24 * sizeof(float));
-            memcpy(&lambda_131, &vectorResult[2] + 24 * sizeof(float), 24 * sizeof(float));
-            memcpy(&z12, &vectorResult[2] + 2 * (24 * sizeof(float)), 24 * sizeof(float));
-            memcpy(&z13, &vectorResult[2] + 3 * (24 * sizeof(float)), 24 * sizeof(float));
-
-            std::ostringstream oss;
-            for (size_t i = 0; i < lambda_121.size(); ++i) {
-                oss << lambda_121[i] << " ";
-            }
-            for (size_t i = 0; i < lambda_131.size(); ++i) {
-                oss << lambda_131[i] << " ";
-            }
-            for (size_t i = 0; i < z12.size(); ++i) {
-                oss << z12[i] << " ";
-            }
-            for (size_t i = 0; i < z13.size(); ++i) {
-                oss << z13[i] << " ";
-            }
-            
-            args = oss.str();
+            args += WrapVector(vectorResult, {lambda_121, lambda_131, z12, z13});
         }
         else if (client_num == 1)
         {
-            std::vector<float> lambda_122(24);
-            std::vector<float> z12(24);
+            int lambda_122 = 24;
+            int z12 = 24;
 
-            memcpy(&lambda_122, &vectorResult[2], 24 * sizeof(float));
-            memcpy(&z12, &vectorResult[2] + 24 * sizeof(float), 24 * sizeof(float));
-
-            std::ostringstream oss;
-            for (size_t i = 0; i < lambda_122.size(); ++i) {
-                oss << lambda_122[i] << " ";
-            }
-            for (size_t i = 0; i < z12.size(); ++i) {
-                oss << z12[i] << " ";
-            }
-            
-            args = oss.str();
+            args += WrapVector(vectorResult, {lambda_122, z12});
         }
         else if (client_num == 2)
         {
-            std::vector<float> lambda_133(24);
-            std::vector<float> z13(24);
+            int lambda_133 = 24;
+            int z13 = 24;
 
-            memcpy(&lambda_133, &vectorResult[2], 24 * sizeof(float));
-            memcpy(&z13, &vectorResult[2] + 24 * sizeof(float), 24 * sizeof(float));
-
-            std::ostringstream oss;
-            for (size_t i = 0; i < lambda_133.size(); ++i) {
-                oss << lambda_133[i] << " ";
-            }
-            for (size_t i = 0; i < z13.size(); ++i) {
-                oss << z13[i] << " ";
-            }
-            
-            args = oss.str();
+            args += WrapVector(vectorResult, {lambda_133, z13});
         }
 
-        std::cout << "Client n°" << client_num << ":\treceived: ";
-        for (size_t i = 0; i < buffer_.size() / sizeof(float); ++i)
-        {
-            std::cout << floatPtr[i] << " ";
-        }
-        std::cout << "| rho: " << rho << std::endl;
+        args += std::to_string(rho);
 
         Ptr<Packet> responsePacket = Create<Packet>();
 
@@ -614,8 +605,8 @@ UdpEchoClient::HandleRead(Ptr<Socket> socket)
         }
 
         // Define the command to run the Julia script
-        std::string juliaCommand = "julia config/" + script + " " + args + std::to_string(rho) +
-                                   " > output_client.txt";
+        std::string juliaCommand =
+            "julia config/" + script + " " + args + " > output_client.txt 2> /dev/null";
 
         // Run the Julia script
         std::cout << "Client n°" << client_num << ":\tRunning " << juliaCommand << std::endl;
@@ -628,20 +619,27 @@ UdpEchoClient::HandleRead(Ptr<Socket> socket)
         }
 
         std::ifstream outputFile("output_client.txt");
-        std::string line, lastLine, secondLastLine;
+        std::string line, optiTime, xLine, tLine, objLine;
 
         // Loop through the file to get the last two lines
         while (std::getline(outputFile, line))
         {
-            secondLastLine = lastLine; // Move the previous last line
-            lastLine = line;           // Update last line to the current line
+            objLine = tLine;
+            tLine = xLine;
+            xLine = optiTime; // Move the previous last line
+            optiTime = line;  // Update last line to the current line
         }
 
         outputFile.close();
 
         // // Convert the last two lines to the required variables
-        float optimizationTime = std::stof(lastLine);
-        vectorResult[2] = std::stof(secondLastLine);
+        float optimizationTime = std::stof(optiTime);
+        // vectorResult[2] = std::stof(secondLastLine);
+
+        std::cout << "optiTime: " << optiTime << std::endl;
+        std::cout << "xLine: " << xLine << std::endl;
+        std::cout << "tLine: " << tLine << std::endl;
+        std::cout << "objLine: " << objLine << std::endl;
 
         // // Output the values to verify
         NS_LOG_INFO("Optimization Time: " << optimizationTime);

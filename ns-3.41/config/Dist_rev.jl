@@ -4,6 +4,8 @@ include("solve_area1.jl")
 include("solve_area2.jl")
 include("solve_area3.jl")
 
+include("123_LinDist3Flow_Distributed_3_Areas/Cent-revised.jl")
+
 lambda_121 = ones(24)
 lambda_122 = ones(24)
 

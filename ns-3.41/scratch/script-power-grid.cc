@@ -8,16 +8,25 @@
 
 using namespace ns3;
 
-NS_LOG_COMPONENT_DEFINE("WifiSimpleAdhoc");
+constexpr int nbr_client = 3;
 
+struct Data
+{
+    std::vector<float> values;
+    int vectorSize;
+};
+
+NS_LOG_COMPONENT_DEFINE("WifiSimpleAdhoc");
 
 int
 main(int argc, char* argv[])
 {
     int seed = 1;
-    int numberOfNodes = 3;
+    int numberOfNodes = nbr_client;
     float threshold = 10.0;
     float simulationTime = 1000.0;
+    float round = 1;
+    float rho = 50.0f;
 
     CommandLine cmd;
     cmd.AddValue("numberOfNodes", "Number of nodes", numberOfNodes);
@@ -35,13 +44,13 @@ main(int argc, char* argv[])
     LogComponentEnable("WifiSimpleAdhoc", LOG_LEVEL_INFO);
     LogComponentEnable("UdpClient", LOG_LEVEL_INFO);
     LogComponentEnable("PacketSink", LOG_LEVEL_INFO);
-    //LogComponentEnable("MyApp", LOG_LEVEL_INFO);
-    LogComponentEnable ("UdpEchoClientApplication", LOG_LEVEL_INFO);
-    LogComponentEnable ("UdpEchoServerApplication", LOG_LEVEL_INFO);
+    // LogComponentEnable("MyApp", LOG_LEVEL_INFO);
+    LogComponentEnable("UdpEchoClientApplication", LOG_LEVEL_INFO);
+    LogComponentEnable("UdpEchoServerApplication", LOG_LEVEL_INFO);
 
-    LogComponentEnableAll (LOG_PREFIX_FUNC); //
-    LogComponentEnableAll (LOG_PREFIX_NODE); // Log plus précis pour savoir quelle fonction fait
-    LogComponentEnableAll (LOG_PREFIX_TIME); // quoi et quand
+    LogComponentEnableAll(LOG_PREFIX_FUNC); //
+    LogComponentEnableAll(LOG_PREFIX_NODE); // Log plus précis pour savoir quelle fonction fait
+    LogComponentEnableAll(LOG_PREFIX_TIME); // quoi et quand
 
     // Create nodes
     NodeContainer nodes;
@@ -99,16 +108,30 @@ main(int argc, char* argv[])
     serverApps.Start(Seconds(0.0));
     serverApps.Stop(Seconds(11.0));
 
+    // Data of each client
+    std::vector<Data> ClientData(static_cast<std::size_t>(numberOfNodes));
+
+    // values of the first vector sended to the client
     std::vector<std::vector<float>> startingValues(numberOfNodes);
+    startingValues[0] = std::vector<float>(96, 1.0f);
+    startingValues[1] = std::vector<float>(48, 1.0f);
+    startingValues[2] = std::vector<float>(48, 1.0f);
 
-    startingValues[0] = std::vector<float>(97, 1.0f);
-    startingValues[1] = std::vector<float>(49, 1.0f);
-    startingValues[2] = std::vector<float>(49, 1.0f);
+    for (int i = 0; i < numberOfNodes; ++i)
+    {
+        // adding to the vector the round, the current client number, and rho
+        startingValues[i].insert(startingValues[i].begin(), static_cast<float>(i)); // client n°
+        startingValues[i].insert(startingValues[i].begin(), round);                 // round
+        startingValues[i].push_back(rho);                                           // rho
 
+        // Data client
+        ClientData[i].values = startingValues[i];            // data to send
+        ClientData[i].vectorSize = startingValues[i].size(); // size of data
+    }
 
     std::cout << "\nSTART SIMULATION" << std::endl;
 
-    for (uint32_t index = 0; index < numberOfNodes; ++index)
+    for (int index = 0; index < numberOfNodes; ++index)
     {
         // This application is to be installed at the central node
         UdpEchoClientHelper echoClient1(centralInterface.GetAddress(0), echoPort);
@@ -118,27 +141,13 @@ main(int argc, char* argv[])
         echoClient1.SetAttribute("PacketSize", UintegerValue(payloadSizeEcho));
 
         ApplicationContainer clientApp = echoClient1.Install(nodes.Get(index));
-        // commInterfaces.GetAddress(0).Print(std::cout);
         clientApp.Start(Seconds(1.0));
         clientApp.Stop(Seconds(11.0));
 
-        /*
-        // Create an integer to send
-        std::string valueToSend = "1.0 1.0 1.0";
-        //Ptr<Packet> packet = Create<Packet>((uint8_t *)&valueToSend, sizeof(int));
-        echoClient1.SetFill (clientApp.Get (0), valueToSend);
-        */
-
-        float round = 1;
-
         std::ostringstream oss;
 
-        // first value is the current round, second value is the n° of the client
-        oss << round << " " << static_cast<float>(index);
-        for (size_t i = 0; i < startingValues[index].size(); ++i)
-        {
-            oss << " " << startingValues[index][i];
-        }
+        for (auto&& f : ClientData[index].values)
+            oss << " " << f;
 
         std::string valueToSend = oss.str();
 

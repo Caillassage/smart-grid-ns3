@@ -1,5 +1,5 @@
 function read_network_file(filename)
-    cd("/data1/software/wn4ss-iot/julia/123_LinDist3Flow_Distributed_3_Areas")
+    cd("./config/123_LinDist3Flow_Distributed_3_Areas")
     # Open file to be read
     xf = XLSX.readxlsx(filename)
 

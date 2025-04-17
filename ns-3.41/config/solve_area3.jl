@@ -1,6 +1,15 @@
-using Ipopt, Gurobi
+using Ipopt, Gurobi, JuMP
 
-function solve_area3(lambda=zeros(24), z=zeros(24), rho=0)
+include("123_LinDist3Flow_Distributed_3_Areas/Cent-revised.jl")
+
+function parse_float_vector(arg::String)
+    # Remove brackets if present, then split by comma
+    clean_arg = replace(arg, ['[', ']'] => "")
+    return parse.(Float64, split(clean_arg, ","))
+end
+
+
+function solve_area3(lambda, z, rho)
 area = "area_3"
 
 opf3 = Model(Gurobi.Optimizer)
@@ -85,3 +94,22 @@ return[value(Pdg[31,:a])-Pload[31,:a], value(Qdg[31,:a])-Qload[31,:a], value(v[3
         value.(v),solvetime, opf3, JuMP.objective_value(opf3),  value(Pload[31,:a] - Pdg[31,:a]), value.(Pdg), value.(Qdg)
 
 end
+
+lambda_133 = parse_float_vector(ARGS[1])
+z13 = parse_float_vector(ARGS[2])
+rho = parse(Float64, ARGS[3])
+
+start_time = time()
+x3, v3, t3, opf3, obj3, nl3, Pdg3, Qdg3 = solve_area3(lambda_133, z13, rho)
+end_time = time()
+
+# x1 24-element Vector{Float64}
+# v3 JuMP.Containers.SparseAxisArray{Float64, 2, Tuple{Int64, Symbol}} with 106 entries
+# t1 Float64
+# obj1 Float64
+
+time_taken = end_time - start_time
+println(time_taken)
+println(x3)
+println(t3)
+println(obj3)

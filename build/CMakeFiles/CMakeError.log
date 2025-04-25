@@ -1,0 +1,110 @@
+Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
+Change Dir: /mnt/c/Users/pierr/Desktop/Cours/COURS_M1/s8/TER/smart-grid-ns3/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/ninja cmTC_32671 && [1/2] Building C object CMakeFiles/cmTC_32671.dir/src.c.o
+[2/2] Linking C executable cmTC_32671
+FAILED: cmTC_32671 
+: && /usr/bin/clang -DCMAKE_HAVE_LIBC_PTHREAD   CMakeFiles/cmTC_32671.dir/src.c.o  -o cmTC_32671   && :
+/usr/bin/ld: CMakeFiles/cmTC_32671.dir/src.c.o: in function `main':
+src.c:(.text+0x32): undefined reference to `pthread_create'
+/usr/bin/ld: src.c:(.text+0x3e): undefined reference to `pthread_detach'
+/usr/bin/ld: src.c:(.text+0x50): undefined reference to `pthread_join'
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+ninja: build stopped: subcommand failed.
+
+
+Source file was:
+#include <pthread.h>
+
+void* test_func(void* data)
+{
+  return data;
+}
+
+int main(void)
+{
+  pthread_t thread;
+  pthread_create(&thread, NULL, test_func, NULL);
+  pthread_detach(thread);
+  pthread_join(thread, NULL);
+  pthread_atfork(NULL, NULL, NULL);
+  pthread_exit(NULL);
+
+  return 0;
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /mnt/c/Users/pierr/Desktop/Cours/COURS_M1/s8/TER/smart-grid-ns3/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/ninja cmTC_d0e53 && [1/2] Building C object CMakeFiles/cmTC_d0e53.dir/CheckFunctionExists.c.o
+[2/2] Linking C executable cmTC_d0e53
+FAILED: cmTC_d0e53 
+: && /usr/bin/clang -DCHECK_FUNCTION_EXISTS=pthread_create   CMakeFiles/cmTC_d0e53.dir/CheckFunctionExists.c.o  -o cmTC_d0e53  -lpthreads && :
+/usr/bin/ld: cannot find -lpthreads
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+ninja: build stopped: subcommand failed.
+
+
+
+Performing C++ SOURCE FILE Test HAVE_UINT128_T failed with the following output:
+Change Dir: /mnt/c/Users/pierr/Desktop/Cours/COURS_M1/s8/TER/smart-grid-ns3/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/ninja cmTC_0feb3 && [1/2] Building CXX object CMakeFiles/cmTC_0feb3.dir/src.cxx.o
+FAILED: CMakeFiles/cmTC_0feb3.dir/src.cxx.o 
+/usr/bin/clang++    -DHAVE_UINT128_T -fPIE   -std=c++2a -o CMakeFiles/cmTC_0feb3.dir/src.cxx.o -c src.cxx
+src.cxx:4:18: error: use of undeclared identifier 'uint128_t'
+            if ((uint128_t *) 0) return 0;
+                 ^
+src.cxx:4:29: error: expected expression
+            if ((uint128_t *) 0) return 0;
+                            ^
+src.cxx:5:25: error: use of undeclared identifier 'uint128_t'
+            if (sizeof (uint128_t)) return 0;
+                        ^
+3 errors generated.
+ninja: build stopped: subcommand failed.
+
+
+Source file was:
+#include <stdint.h>
+       int main()
+         {
+            if ((uint128_t *) 0) return 0;
+            if (sizeof (uint128_t)) return 0;
+            return 1;
+         }
+Determining if files boost/units/quantity.hpp;boost/units/systems/si.hpp exist failed with the following output:
+Change Dir: /mnt/c/Users/pierr/Desktop/Cours/COURS_M1/s8/TER/smart-grid-ns3/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/ninja cmTC_9583e && [1/2] Building CXX object CMakeFiles/cmTC_9583e.dir/HAVE_BOOST_UNITS.cpp.o
+FAILED: CMakeFiles/cmTC_9583e.dir/HAVE_BOOST_UNITS.cpp.o 
+/usr/bin/clang++    -fPIE   -std=c++2a -o CMakeFiles/cmTC_9583e.dir/HAVE_BOOST_UNITS.cpp.o -c /mnt/c/Users/pierr/Desktop/Cours/COURS_M1/s8/TER/smart-grid-ns3/build/CMakeFiles/CheckIncludeFiles/HAVE_BOOST_UNITS.cpp
+/mnt/c/Users/pierr/Desktop/Cours/COURS_M1/s8/TER/smart-grid-ns3/build/CMakeFiles/CheckIncludeFiles/HAVE_BOOST_UNITS.cpp:2:10: fatal error: 'boost/units/quantity.hpp' file not found
+#include <boost/units/quantity.hpp>
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+ninja: build stopped: subcommand failed.
+
+
+Source:
+/* */
+#include <boost/units/quantity.hpp>
+#include <boost/units/systems/si.hpp>
+
+
+int main(void){return 0;}
+
+Determining if the include file net/netmap_user.h exists failed with the following output:
+Change Dir: /mnt/c/Users/pierr/Desktop/Cours/COURS_M1/s8/TER/smart-grid-ns3/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/ninja cmTC_d0ba3 && [1/2] Building C object CMakeFiles/cmTC_d0ba3.dir/CheckIncludeFile.c.o
+FAILED: CMakeFiles/cmTC_d0ba3.dir/CheckIncludeFile.c.o 
+/usr/bin/clang   -fPIE -o CMakeFiles/cmTC_d0ba3.dir/CheckIncludeFile.c.o   -c CheckIncludeFile.c
+CheckIncludeFile.c:1:10: fatal error: 'net/netmap_user.h' file not found
+#include <net/netmap_user.h>
+         ^~~~~~~~~~~~~~~~~~~
+1 error generated.
+ninja: build stopped: subcommand failed.
+
+
+

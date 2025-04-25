@@ -23,7 +23,7 @@ main(int argc, char* argv[])
 {
     int seed = 1;
     int numberOfNodes = nbr_client;
-    float threshold = 10.0;
+    float threshold = 1000.0;
     float simulationTime = 1000.0;
     float round = 1;
     float rho = 50.0f;
@@ -106,7 +106,7 @@ main(int argc, char* argv[])
 
     ApplicationContainer serverApps = echoServer.Install(centralNode.Get(0));
     serverApps.Start(Seconds(0.0));
-    serverApps.Stop(Seconds(11.0));
+    serverApps.Stop(Seconds(1000000.0));
 
     // Data of each client
     std::vector<Data> ClientData(static_cast<std::size_t>(numberOfNodes));
@@ -137,12 +137,12 @@ main(int argc, char* argv[])
         UdpEchoClientHelper echoClient1(centralInterface.GetAddress(0), echoPort);
 
         echoClient1.SetAttribute("MaxPackets", UintegerValue(10000));
-        echoClient1.SetAttribute("Interval", TimeValue(Seconds(10)));
+        echoClient1.SetAttribute("Interval", TimeValue(Seconds(10000)));
         echoClient1.SetAttribute("PacketSize", UintegerValue(payloadSizeEcho));
 
         ApplicationContainer clientApp = echoClient1.Install(nodes.Get(index));
         clientApp.Start(Seconds(1.0));
-        clientApp.Stop(Seconds(11.0));
+        clientApp.Stop(Seconds(1000000.0));
 
         std::ostringstream oss;
 

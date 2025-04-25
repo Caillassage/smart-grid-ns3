@@ -32,7 +32,9 @@
 #include "ns3/udp-socket.h"
 #include "ns3/uinteger.h"
 
+#include <filesystem>
 #include <fstream>
+#include <nlohmann/json.hpp>
 
 namespace ns3
 {
@@ -43,39 +45,49 @@ NS_OBJECT_ENSURE_REGISTERED(UdpEchoServer);
 
 static int counter = 0;
 static int current_round = 1;
-static float z12 = 1.0;
-static float rho = 1.0;
-static float THRESHOLD = 1.0;
-static std::vector<std::pair<Address, std::string>>
-    m_addressList; // Static list of address-string pairs
+static float rho;
+static float THRESHOLD;
+static std::vector<std::pair<Address, std::string>> m_addressList; // Static list of address-string pairs
 static int STOP = 0;
-static double lambda_121 = 0;
-static double lambda_122 = 0;
+
+// static float z12 = 1.0;
+// static double lambda_121 = 0;
+// static double lambda_122 = 0;
+
+static std::vector<float> z12;
+static std::vector<float> z13;
+static std::vector<float> lambda_121;
+static std::vector<float> lambda_131;
+static std::vector<float> lambda_122;
+static std::vector<float> lambda_133;
 
 // History containers
-static std::vector<double> x_121_hist;
-static std::vector<double> x_122_hist;
-static std::vector<double> lambda_121_hist;
-static std::vector<double> lambda_122_hist;
-static std::vector<double> z12_hist;
-static std::vector<std::vector<double>> primal_residual_hist;
-static std::vector<std::vector<double>> dual_residual_hist;
+// static std::vector<double> x_121_hist;
+// static std::vector<double> x_122_hist;
+// static std::vector<double> lambda_121_hist;
+// static std::vector<double> lambda_122_hist;
+// static std::vector<double> z12_hist;
+// static std::vector<std::vector<double>> primal_residual_hist;
+// static std::vector<std::vector<double>> dual_residual_hist;
 
 constexpr int total_of_node = 3;
 
+static nlohmann::json args;                 // to copy value into JSON file
+static std::string JSON_file = "args.json"; // JSON file
+
 struct Data
 {
-    std::vector<float> values;
-    int vectorSize;
-    float x;
-    float ojb;
-    std::string client;
+    std::vector<float> vector; // vector received from client
+    int vectorSize;            // size of vector received
+    float t;                   // value of x
+    float obj;                 // value of obj
+    std::string client;        // client name (x1, x2...)
 };
 
 static std::array<Data, total_of_node> ClientData;
 
 static void
-TimerExpired(Ptr<Socket> socket, std::array<Data, total_of_node>& ClientData)
+TimerExpired(Ptr<Socket> socket)
 {
     if ((counter != total_of_node) && (STOP == 0))
     {
@@ -85,57 +97,52 @@ TimerExpired(Ptr<Socket> socket, std::array<Data, total_of_node>& ClientData)
         counter = 0;
         std::string variable = "";
 
-        for (const auto& pair : m_addressList)
+        float cli_num = 0;                     // get the client num
+        for (const auto& pair : m_addressList) // send the result to the clients
         {
             Address address = pair.first;
             variable = pair.second;
 
-            int dataSize;
             int buffSize = 0;
             uint8_t* buffer_ = nullptr;
-            std::vector<float> VecToSend;
 
             for (auto& data : ClientData)
             {
                 if (data.client == variable)
                 {
-                    dataSize = data.vectorSize;
-                    buffSize = (dataSize + 2) * sizeof(float);
+                    // Fill buffer_ to send it to the client
+                    buffSize = data.vector.size() * sizeof(float);
                     buffer_ = new uint8_t[buffSize];
-
-                    VecToSend = data.values;
-                    VecToSend[0] = (float)current_round;
-                    VecToSend[2] = data.x;
+                    memcpy(buffer_, data.vector.data(), buffSize);
                 }
             }
 
-            memcpy(buffer_, VecToSend.data(), dataSize * sizeof(float));
-            memcpy(buffer_ + dataSize * sizeof(float), &rho, sizeof(float));
-            memcpy(buffer_ + (dataSize + 1) * sizeof(float), &z12, sizeof(float));
-
+            // Create an fill the packet sended to the client
             Ptr<Packet> responsePacket = Create<Packet>();
             responsePacket->AddAtEnd(Create<Packet>(buffer_, buffSize));
+            socket->SendTo(responsePacket, 0, address);
 
-            std::cout << "Server:\t\tsent at " << variable << ": ";
-            float* floatPtr = reinterpret_cast<float*>(buffer_);
-            for (int i = 0; i < dataSize + 2; i++)
+            // print sended values
+            std::cout << "Server:\t\tsent at " << variable << " -> ";
+            for (size_t i = 0; i < buffSize / sizeof(float); ++i)
             {
-                std::cout << floatPtr[i] << " ";
+                float value;
+                std::memcpy(&value, buffer_ + i * sizeof(float), sizeof(float));
+                std::cout << value << " ";
             }
             std::cout << std::endl;
 
-            socket->SendTo(responsePacket, 0, address);
-
             if (buffer_ != nullptr)
                 delete[] buffer_;
+
+            cli_num++;
         }
         // Set the timer to expire after 5 seconds
-        Simulator::Schedule(Seconds(THRESHOLD), &TimerExpired, socket, ClientData);
+        Simulator::Schedule(Seconds(THRESHOLD), &TimerExpired, socket);
+        std::cout << "Server:\t\tset threshold to " << THRESHOLD << std::endl;
 
         NS_LOG_INFO("At time (after expiration) " << Simulator::Now().As(Time::S)
                                                   << " server sent packet to the clients");
-
-        exit(1);
     }
 }
 
@@ -261,6 +268,32 @@ UdpEchoServer::StopApplication()
     }
 }
 
+static std::vector<float>
+parseFloatVector(const std::string& str)
+{
+    std::vector<float> result;
+
+    // Trim brackets from the input string
+    std::string trimmed = str.substr(1, str.size() - 2); // remove [ and ]
+    std::stringstream ss(trimmed);
+    std::string item;
+
+    // Parse the rest of the floats
+    while (std::getline(ss, item, ','))
+    {
+        try
+        {
+            result.push_back(std::stof(item));
+        }
+        catch (const std::exception& e)
+        {
+            std::cerr << "Error converting '" << item << "' to float: " << e.what() << std::endl;
+        }
+    }
+
+    return result;
+}
+
 void
 UdpEchoServer::HandleRead(Ptr<Socket> socket)
 {
@@ -335,6 +368,8 @@ UdpEchoServer::HandleRead(Ptr<Socket> socket)
         // Convert data from packet receive into vector of float
         // We dont check if the packet is empty
         //
+
+        // Size of the data received
         uint32_t packetSize = packet->GetSize();
 
         // temporary buffer to store raw data from packet
@@ -347,11 +382,18 @@ UdpEchoServer::HandleRead(Ptr<Socket> socket)
 
         delete[] buffer_;
 
-        float round = receivedVector[0];
-        float client_num = receivedVector[1];
+        float round = receivedVector[0];      // round of the message received
+        float client_num = receivedVector[1]; // client number
 
-        ClientData[client_num].values = receivedVector;
-        ClientData[client_num].vectorSize = receivedVector.size();
+        ClientData[client_num].vector = receivedVector;            // store the received vector
+        ClientData[client_num].vectorSize = receivedVector.size(); // store the size of the vector
+        ClientData[client_num].client = variable;                  // store the client name
+
+        // print data received
+        std::cout << "Server:\t\treceive from client " << ClientData[client_num].client << ": ";
+        for (std::size_t i = 0; i < ClientData[client_num].vector.size(); i++)
+            std::cout << ClientData[client_num].vector[i] << " ";
+        std::cout << "| round: " << round << std::endl;
 
         // Check if the address is already in the list
         if (std::find_if(m_addressList.begin(),
@@ -364,17 +406,7 @@ UdpEchoServer::HandleRead(Ptr<Socket> socket)
             m_addressList.emplace_back(from, variable);
         }
 
-        memcpy(&ClientData[client_num].x, ClientData[client_num].values.data() + 2, sizeof(float));
-        ClientData[client_num].client = variable;
         counter += 1;
-
-        std::cout << "Server:\t\treceive from client " << ClientData[client_num].client << ": ";
-        for (std::size_t i = 0; i < ClientData[client_num].values.size(); i++)
-        {
-            std::cout << ClientData[client_num].values[i] << " ";
-        }
-        std::cout << "| round: " << round << std::endl;
-
         if (round == current_round)
         { // Else the packet is from the previous round, ignore it
             // NS_LOG_INFO("counter: " << counter);
@@ -385,108 +417,159 @@ UdpEchoServer::HandleRead(Ptr<Socket> socket)
                 current_round += 1;
                 counter = 0;
 
+                // Open the JSON file used to pass arguments to the Julia script
+                std::ifstream in(JSON_file);
+                if (in)
+                { // if file exist, extract data
+                    args = nlohmann::json::parse(in);
+                }
+                else
+                {
+                    std::cerr << "File doesn't exist. Creating a default empty JSON file." << std::endl;
+                    args = nlohmann::json::object();
+                }
+                in.close();
+
                 if (round == 1) // For the first round, just resend data
                 {
                     std::cout << "Server:\t\tRound 1, re-sending data to clients" << std::endl;
+
                     for (const auto& pair : m_addressList)
                     {
-                        Address address = pair.first;
-                        variable = pair.second;
-                        // socket->SendTo(packet, 0, address);
+                        Address address = pair.first; // client ip addr
+                        variable = pair.second;       // client name
 
-                        int buffSize = 0;
-                        int vectorSize;
-                        uint8_t* buffer_ = nullptr;
-                        std::vector<float> VecToSend;
+                        int buffSize = 0;           // buffer_ size
+                        uint8_t* buffer_ = nullptr; // buffer_ to send
+
+                        int clientVectorSize = 0;        // size of the data from client
+                        std::vector<float> clientVector; // data from client
 
                         for (auto& data : ClientData)
                         {
                             if (data.client == variable)
                             {
-                                vectorSize = data.vectorSize;
-                                buffSize = (vectorSize + 2) * sizeof(float);
-                                buffer_ = new uint8_t[buffSize];
+                                clientVectorSize = data.vectorSize;
 
-                                VecToSend = data.values;
-                                VecToSend[0] = (float)current_round;
-                                VecToSend[2] = data.x;
+                                buffSize = clientVectorSize * sizeof(float); // buffer_ needs to be initialized by
+                                buffer_ = new uint8_t[buffSize];             // each client
+
+                                clientVector = data.vector;
+                                clientVector[0] = (float)current_round; // update round
                             }
                         }
 
-                        memcpy(buffer_, VecToSend.data(), vectorSize * sizeof(float));
-                        memcpy(buffer_ + vectorSize * sizeof(float), &rho, sizeof(float));
-                        memcpy(buffer_ + (vectorSize + 1) * sizeof(float), &z12, sizeof(float));
+                        memcpy(buffer_, clientVector.data(), clientVectorSize * sizeof(float));
 
                         Ptr<Packet> responsePacket = Create<Packet>();
                         responsePacket->AddAtEnd(Create<Packet>(buffer_, buffSize));
                         socket->SendTo(responsePacket, 0, address);
+
+                        delete[] buffer_;
                     }
 
-                    THRESHOLD = m_threshold.GetSeconds();
-                    Simulator::Schedule(Seconds(THRESHOLD), &TimerExpired, socket, ClientData);
-                    std::cout << "Server:\t\tset threshold to " << THRESHOLD << std::endl;
+                    // Define rho value
+                    rho = ClientData[0].vector.back();
+
+                    //
+                    // Set data into JSON file to pass arguments to the Julia script
+                    //
+                    z12.assign(ClientData[1].vector.end() - 24, ClientData[1].vector.end());                 //
+                    z13.assign(ClientData[2].vector.end() - 24, ClientData[2].vector.end());                 // Not a scalable method, but because
+                    lambda_121.assign(ClientData[0].vector.begin(), ClientData[0].vector.begin() + 24);      // each client doesn't expect the same
+                    lambda_131.assign(ClientData[0].vector.begin() + 24, ClientData[0].vector.begin() + 48); // data, it has to be done this way
+                    lambda_122.assign(ClientData[1].vector.begin(), ClientData[1].vector.begin() + 24);      //
+                    lambda_133.assign(ClientData[2].vector.begin(), ClientData[2].vector.begin() + 24);      //
                 }
 
                 else // For round > 1, execute Julia script with received data
                 {
-                    exit(0);
+                    for (auto& data : ClientData)
+                    {
+                        data.vector.erase(data.vector.begin(), data.vector.begin() + 2); // erase client num and round
+                        data.t = data.vector[0];                                         // store t value
+                        data.obj = data.vector[1];                                       // store obj value
+                        data.vector.erase(data.vector.begin(), data.vector.begin() + 2); // erase x and obj value
 
-                    // Define the command to run the Julia script
-                    // std::string juliaCommand = "julia config/Server.jl ";
-                    std::string juliaCommand = "julia config/BasicServerScript.jl ";
+                        for (size_t i = 0; i < data.vector.size(); i++)
+                            std::cout << data.vector[i] << " ";
+                        std::cout << " | t: " << data.t << " | obj: " << data.obj << std::endl;
+                    }
+
+                    args["rho"] = rho;
+                    args["round"] = current_round;
 
                     for (auto& data : ClientData)
                     {
-                        juliaCommand += std::to_string(data.x) + " ";
+                        args[data.client] = {
+                            {"t_val", data.t},
+                            {"obj_val", data.obj},
+                            {"vect", data.vector}};
                     }
-                    juliaCommand +=
-                        std::to_string(rho) + " " + std::to_string(z12) + " > output_server.txt";
 
-                    std::cout << "Server:\t\trunning Julia script... (" << juliaCommand << ")"
-                              << std::endl;
+                    std::ofstream out(JSON_file);
+                    out << args.dump(4);
+                    out.close(); // Close the input file
+
+                    // Define the command to run the Julia script
+                    std::string juliaCommand = "julia config/Dist_rev.jl " + JSON_file + " > output_server.txt";
 
                     // Run the Julia script
-                    float result = std::system(juliaCommand.c_str());
-                    if (result != 0)
-                    {
-                        std::cerr << "Error running Julia script!" << std::endl;
-                        // return 1;
-                    }
+                    std::cout << "Server:\t\tRunning Julia script... (" << juliaCommand << ")" << std::endl;
+                    if (std::system(juliaCommand.c_str()) != 0)
+                        std::cerr << "Server:\t\tError running Julia script!" << std::endl;
+                    else
+                        std::cout << "Server:\t\tJulia script finished successfully" << std::endl;
 
                     // Updating the lists
                     // Add border solutions
-                    x_121_hist.push_back(ClientData[0].x); // Not optimal and scalable
-                    x_122_hist.push_back(ClientData[1].x); //
+                    // x_121_hist.push_back(ClientData[0].t); // Not optimal and scalable
+                    // x_122_hist.push_back(ClientData[1].t); //
 
                     // Add dual variables
-                    lambda_121_hist.push_back(lambda_121);
-                    lambda_122_hist.push_back(lambda_122);
+                    // lambda_121_hist.push_back(lambda_121);
+                    // lambda_122_hist.push_back(lambda_122);
 
                     // Add consensus variable
-                    z12_hist.push_back(z12);
+                    // z12_hist.push_back(z12);
 
                     // Optionally read the output from the file
                     std::ifstream outputFile("output_server.txt");
-                    std::string line, line1, line2, line3, line4;
 
-                    // Loop through the file to get the last four lines
+                    std::string line;
+                    std::string z12_Line;
+                    std::string z13_Line;
+                    std::string lambda_121_Line;
+                    std::string lambda_122_Line;
+                    std::string lambda_131_Line;
+                    std::string lambda_133_Line;
+
+                    // Loop through the file to get the last lines
                     while (std::getline(outputFile, line))
                     {
-                        line1 = line2; // Shift the previous lines up
-                        line2 = line3;
-                        line3 = line4;
-                        line4 = line; // Update line4 to the current line
+                        z12_Line = z13_Line; // Shift the previous lines up
+                        z13_Line = lambda_121_Line;
+                        lambda_121_Line = lambda_122_Line;
+                        lambda_122_Line = lambda_131_Line;
+                        lambda_131_Line = lambda_133_Line;
+                        lambda_133_Line = line; // Update lambda_133_Line to the current line
                     }
-
                     outputFile.close();
+
+                    z12 = parseFloatVector(z12_Line);
+                    z13 = parseFloatVector(z13_Line);
+                    lambda_121 = parseFloatVector(lambda_121_Line);
+                    lambda_122 = parseFloatVector(lambda_122_Line);
+                    lambda_131 = parseFloatVector(lambda_131_Line);
+                    lambda_133 = parseFloatVector(lambda_133_Line);
 
                     // Convert the last four lines to the required variables
                     try
                     {
-                        ClientData[0].x = std::stof(line1); // MODIFY THESE LINES WITH
-                        ClientData[1].x = std::stof(line2); // THE PROPER JULIA SCRIPT
-                        rho = std::stof(line3);
-                        z12 = std::stof(line4);
+                        // ClientData[0].t = std::stof(line1); // MODIFY THESE LINES WITH
+                        // ClientData[1].t = std::stof(line2); // THE PROPER JULIA SCRIPT
+                        // rho = std::stof(line3);
+                        // z12 = std::stof(line4);
 
                         // Output the values to verify
                         // std::cout << "x1: " << x1 << std::endl;
@@ -494,43 +577,62 @@ UdpEchoServer::HandleRead(Ptr<Socket> socket)
                         // std::cout << "rho: " << rho << std::endl;
                         // std::cout << "z12: " << z12 << std::endl;
 
+                        float cli_num = 0;                     // get the client num
                         for (const auto& pair : m_addressList) // send the result to the clients
                         {
                             Address address = pair.first;
                             variable = pair.second;
 
                             int buffSize = 0;
-                            int vectorSize;
                             uint8_t* buffer_ = nullptr;
                             std::vector<float> VecToSend;
+
+                            // for each client, determine which vector has to be sended
+                            std::vector<std::vector<float>> VecToConcat;
+                            if (variable == "x1")                                 //
+                                VecToConcat = {lambda_121, lambda_131, z12, z13}; // Not a scalable method, but because
+                            else if (variable == "x2")                            // each client doesn't expect the same
+                                VecToConcat = {lambda_122, z12};                  // data, it has to be done this way
+                            else if (variable == "x3")                            //
+                                VecToConcat = {lambda_133, z13};                  //
 
                             for (auto& data : ClientData)
                             {
                                 if (data.client == variable)
                                 {
-                                    vectorSize = data.vectorSize;
-                                    buffSize = (vectorSize + 2) * sizeof(float);
+                                    // Concatenate all vectors
+                                    for (const auto& vec : VecToConcat)
+                                        VecToSend.insert(VecToSend.end(), vec.begin(), vec.end());
+
+                                    // add cli num, round and rho
+                                    VecToSend.insert(VecToSend.begin(), cli_num);
+                                    VecToSend.insert(VecToSend.begin(), static_cast<float>(current_round));
+                                    VecToSend.push_back(rho);
+
+                                    // fill the buffer
+                                    buffSize = VecToSend.size() * sizeof(float);
                                     buffer_ = new uint8_t[buffSize];
 
-                                    VecToSend = data.values;
-                                    VecToSend[0] = (float)current_round;
-                                    VecToSend[2] = data.x;
+                                    // used if timer expire
+                                    data.vector = VecToSend;
                                 }
                             }
 
-                            memcpy(buffer_, VecToSend.data(), vectorSize * sizeof(float));
-                            memcpy(buffer_ + vectorSize * sizeof(float), &rho, sizeof(float));
-                            memcpy(buffer_ + (vectorSize + 1) * sizeof(float), &z12, sizeof(float));
+                            // Fill buffer_ to send it to the client
+                            memcpy(buffer_, VecToSend.data(), buffSize);
 
+                            // Create an fill the packet sended to the client
                             Ptr<Packet> responsePacket = Create<Packet>();
                             responsePacket->AddAtEnd(Create<Packet>(buffer_, buffSize));
                             socket->SendTo(responsePacket, 0, address);
 
+                            // print sended values
                             std::cout << "Server:\t\tsent at " << variable << " -> ";
-                            float* floatPtr = reinterpret_cast<float*>(buffer_);
-                            for (int i = 0; i < vectorSize + 2; i++)
+                            for (size_t i = 0; i < VecToSend.size(); ++i)
                             {
-                                std::cout << floatPtr[i] << " ";
+                                float value;
+                                std::memcpy(&value, buffer_ + i * sizeof(float), sizeof(float));
+                                std::cout << value << " ";
                             }
                             std::cout << std::endl;
 
@@ -541,18 +643,35 @@ UdpEchoServer::HandleRead(Ptr<Socket> socket)
 
                             if (buffer_ != nullptr)
                                 delete[] buffer_;
-                        }
-                        THRESHOLD = m_threshold.GetSeconds();
 
-                        Simulator::Schedule(Seconds(THRESHOLD), &TimerExpired, socket, ClientData);
-                        std::cout << "Server:\t\tset threshold to " << THRESHOLD << std::endl;
+                            cli_num++;
+                        }
                     }
                     catch (const std::invalid_argument& e)
                     {
                         STOP = 1;
-                        std::cout << line4 << std::endl;
+                        std::cout << "Server:\t\tError wrapping and sending data to client" << std::endl;
                     }
                 } // round > 1, execute Julia script Server
+
+                // Set threshold to resend data if client take too long
+                THRESHOLD = m_threshold.GetSeconds();
+                Simulator::Schedule(Seconds(THRESHOLD), &TimerExpired, socket);
+                std::cout << "Server:\t\tset threshold to " << THRESHOLD << std::endl;
+
+                // Fill the JSON file
+                args["z12"] = z12;
+                args["z13"] = z13;
+                args["lambda_121"] = lambda_121;
+                args["lambda_131"] = lambda_131;
+                args["lambda_122"] = lambda_122;
+                args["lambda_133"] = lambda_133;
+
+                // copy args into JSON file
+                std::ofstream out(JSON_file);
+                out << args.dump(4);
+                out.close(); // Close the input file
+
             } // counter == total_of_node, we received message from every node before timer expired
         } // round == current_round, message received is from the current round
     } // end while loop

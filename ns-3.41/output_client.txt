@@ -1,6 +1,6 @@
 Set parameter Username
-Set parameter LicenseID to value 2653945
-Academic license - for non-commercial use only - expires 2026-04-17
+Set parameter LicenseID to value 2656472
+Academic license - for non-commercial use only - expires 2026-04-24
 Gurobi Optimizer version 12.0.1 build v12.0.1rc0 (linux64 - "Ubuntu 20.04.6 LTS")
 
 CPU model: AMD Ryzen 5 2500U with Radeon Vega Mobile Gfx, instruction set [SSE2|AVX|AVX2]
@@ -14,23 +14,17 @@ Coefficient statistics:
   Bounds range     [4e-02, 1e+00]
   RHS range        [2e-03, 1e+00]
 Presolve removed 5908 rows and 6425 columns
-Presolve time: 0.02s
+Presolve time: 0.01s
 Presolved: 665 rows, 422 columns, 1776 nonzeros
 
 Iteration    Objective       Primal Inf.    Dual Inf.      Time
        0      handle free variables                          0s
      469    9.8199535e-01   0.000000e+00   0.000000e+00      0s
 
-Solved in 469 iterations and 0.05 seconds (0.02 work units)
+Solved in 469 iterations and 0.04 seconds (0.02 work units)
 Optimal objective  9.819953507e-01
 
 User-callback calls 556, time in user-callback 0.01 sec
 Set parameter Username
-Set parameter LicenseID to value 2653945
-Academic license - for non-commercial use only - expires 2026-04-17
-AffExpr[Pdg[21,a], Qdg[21,a], v[21,a], v[56,a], Pbranch[(21, 56),a], Qbranch[(21, 56),a], Pdg[56,a], Qdg[56,a], Pdg[21,b], Qdg[21,b], v[21,b], v[56,b], Pbranch[(21, 56),b], Qbranch[(21, 56),b], Pdg[56,b] - 0.004, Qdg[56,b] - 0.002, Pdg[21,c], Qdg[21,c], v[21,c], v[56,c], Pbranch[(21, 56),c], Qbranch[(21, 56),c], Pdg[56,c], Qdg[56,c], Pdg[31,a], Qdg[31,a], v[31,a], v[94,a], Pbranch[(31, 94),a], Qbranch[(31, 94),a], Pdg[94,a] - 0.008, Qdg[94,a] - 0.004, Pdg[31,b], Qdg[31,b], v[31,b], v[94,b], Pbranch[(31, 94),b], Qbranch[(31, 94),b], Pdg[94,b], Qdg[94,b], Pdg[31,c] - 0.004, Qdg[31,c] - 0.002, v[31,c], v[94,c], Pbranch[(31, 94),c], Qbranch[(31, 94),c], Pdg[94,c], Qdg[94,c]]
-Vector{AffExpr}
-14.108332872390747
-[0.07999999999124174, 0.036660605553719965, 0.9304495739927817, 0.921841410038255, 0.5204187017480296, -0.06683002720641258, -0.0, 0.0, -0.0, 0.0, 0.9353661095297422, 0.9025000000109833, 0.4239182736253489, 0.06988036774643004, 0.076, 0.034660605559646736, -0.0, 0.0, 0.9061381408155773, 0.9025000000102403, 0.49695586118911905, -0.11854681283037384, -0.0, 0.0, -0.0, 0.0, 0.9103329816783906, 0.9139058726101006, 0.5305231907301015, -0.16233283519616593, 0.07200000000000001, 0.03266060555964674, -0.0, 0.0, 0.9223226136670901, 0.9025000000243124, 0.4054238973558504, 0.022582971787216563, -0.0, 0.0, -0.004, -0.002, 0.915363632139674, 0.902500000023446, 0.4139961708904679, -0.14363048900216993, -0.0, 0.0]
-0.050757709
-775.7972047055572
+Set parameter LicenseID to value 2656472
+Academic license - for non-commercial use only - expires 2026-04-24

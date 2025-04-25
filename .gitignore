@@ -1,3 +1,6 @@
 */build
 */cmake-cache
 */.vscode
+Gurobi_installation.md
+Gurobi_test.jl
+single_exec_julia.md

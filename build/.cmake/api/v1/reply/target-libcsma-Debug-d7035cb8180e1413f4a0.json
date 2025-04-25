@@ -1,0 +1,318 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "/mnt/c/Users/pierr/Desktop/Cours/COURS_M1/s8/TER/smart-grid-ns3/ns-3.41/build/lib/libns3.41-csma-debug.so"
+		}
+	],
+	"backtrace" : 2,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"build_lib",
+			"install",
+			"add_link_options",
+			"include",
+			"link_directories",
+			"target_link_libraries",
+			"add_compile_options",
+			"process_options",
+			"add_definitions",
+			"include_directories"
+		],
+		"files" : 
+		[
+			"build-support/custom-modules/ns3-module-macros.cmake",
+			"src/csma/CMakeLists.txt",
+			"build-support/custom-modules/ns3-compiler-and-linker-support.cmake",
+			"build-support/macros-and-definitions.cmake",
+			"CMakeLists.txt",
+			"build-support/custom-modules/ns3-output-directory.cmake",
+			"build-support/custom-modules/ns3-platform-support.cmake"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 1,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 155,
+				"parent" : 1
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 485,
+				"parent" : 1
+			},
+			{
+				"file" : 4
+			},
+			{
+				"command" : 4,
+				"file" : 4,
+				"line" : 126,
+				"parent" : 4
+			},
+			{
+				"file" : 3,
+				"parent" : 5
+			},
+			{
+				"command" : 4,
+				"file" : 3,
+				"line" : 55,
+				"parent" : 6
+			},
+			{
+				"file" : 2,
+				"parent" : 7
+			},
+			{
+				"command" : 3,
+				"file" : 2,
+				"line" : 122,
+				"parent" : 8
+			},
+			{
+				"command" : 4,
+				"file" : 3,
+				"line" : 46,
+				"parent" : 6
+			},
+			{
+				"file" : 5,
+				"parent" : 10
+			},
+			{
+				"command" : 5,
+				"file" : 5,
+				"line" : 81,
+				"parent" : 11
+			},
+			{
+				"command" : 6,
+				"file" : 0,
+				"line" : 296,
+				"parent" : 1
+			},
+			{
+				"command" : 8,
+				"file" : 4,
+				"line" : 149,
+				"parent" : 4
+			},
+			{
+				"command" : 7,
+				"file" : 3,
+				"line" : 216,
+				"parent" : 14
+			},
+			{
+				"command" : 7,
+				"file" : 3,
+				"line" : 218,
+				"parent" : 14
+			},
+			{
+				"command" : 9,
+				"file" : 3,
+				"line" : 593,
+				"parent" : 14
+			},
+			{
+				"command" : 9,
+				"file" : 3,
+				"line" : 1124,
+				"parent" : 14
+			},
+			{
+				"command" : 9,
+				"file" : 3,
+				"line" : 157,
+				"parent" : 14
+			},
+			{
+				"command" : 9,
+				"file" : 3,
+				"line" : 1119,
+				"parent" : 14
+			},
+			{
+				"command" : 9,
+				"file" : 3,
+				"line" : 19,
+				"parent" : 6
+			},
+			{
+				"command" : 4,
+				"file" : 3,
+				"line" : 52,
+				"parent" : 6
+			},
+			{
+				"file" : 6,
+				"parent" : 22
+			},
+			{
+				"command" : 9,
+				"file" : 6,
+				"line" : 34,
+				"parent" : 23
+			},
+			{
+				"command" : 10,
+				"file" : 3,
+				"line" : 465,
+				"parent" : 14
+			},
+			{
+				"command" : 10,
+				"file" : 3,
+				"line" : 594,
+				"parent" : 14
+			}
+		]
+	},
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 13,
+			"id" : "libcore::@0618756b1ff51bca1a0e"
+		},
+		{
+			"id" : "libcsma-obj::@457f510286be5371199b"
+		},
+		{
+			"backtrace" : 13,
+			"id" : "libnetwork::@311edf953348ef8fadde"
+		},
+		{
+			"backtrace" : 13,
+			"id" : "libstats::@a16f7aa18ccba9be6aba"
+		}
+	],
+	"id" : "libcsma::@457f510286be5371199b",
+	"install" : 
+	{
+		"destinations" : 
+		[
+			{
+				"backtrace" : 3,
+				"path" : "lib"
+			},
+			{
+				"backtrace" : 3,
+				"path" : "lib"
+			}
+		],
+		"prefix" : 
+		{
+			"path" : "/usr/local"
+		}
+	},
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 9,
+				"fragment" : "-fuse-ld=lld",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 12,
+				"fragment" : "-L/mnt/c/Users/pierr/Desktop/Cours/COURS_M1/s8/TER/smart-grid-ns3/ns-3.41/build/lib",
+				"role" : "libraryPath"
+			},
+			{
+				"fragment" : "-Wl,-rpath,/mnt/c/Users/pierr/Desktop/Cours/COURS_M1/s8/TER/smart-grid-ns3/ns-3.41/build/lib:",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 13,
+				"fragment" : "/mnt/c/Users/pierr/Desktop/Cours/COURS_M1/s8/TER/smart-grid-ns3/ns-3.41/build/lib/libns3.41-network-debug.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lpthread",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/mnt/c/Users/pierr/Desktop/Cours/COURS_M1/s8/TER/smart-grid-ns3/ns-3.41/build/lib/libns3.41-stats-debug.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/mnt/c/Users/pierr/Desktop/Cours/COURS_M1/s8/TER/smart-grid-ns3/ns-3.41/build/lib/libns3.41-core-debug.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lpthread",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX"
+	},
+	"name" : "libcsma",
+	"nameOnDisk" : "libns3.41-csma-debug.so",
+	"paths" : 
+	{
+		"build" : "src/csma",
+		"source" : "src/csma"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Object Libraries",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 2,
+			"isGenerated" : true,
+			"path" : "/mnt/c/Users/pierr/Desktop/Cours/COURS_M1/s8/TER/smart-grid-ns3/build/src/csma/CMakeFiles/libcsma-obj.dir/helper/csma-helper.cc.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"isGenerated" : true,
+			"path" : "/mnt/c/Users/pierr/Desktop/Cours/COURS_M1/s8/TER/smart-grid-ns3/build/src/csma/CMakeFiles/libcsma-obj.dir/model/backoff.cc.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"isGenerated" : true,
+			"path" : "/mnt/c/Users/pierr/Desktop/Cours/COURS_M1/s8/TER/smart-grid-ns3/build/src/csma/CMakeFiles/libcsma-obj.dir/model/csma-channel.cc.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"isGenerated" : true,
+			"path" : "/mnt/c/Users/pierr/Desktop/Cours/COURS_M1/s8/TER/smart-grid-ns3/build/src/csma/CMakeFiles/libcsma-obj.dir/model/csma-net-device.cc.o",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "SHARED_LIBRARY"
+}

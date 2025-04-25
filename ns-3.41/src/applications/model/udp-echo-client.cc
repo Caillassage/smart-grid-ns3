@@ -35,6 +35,13 @@
 #include <thread>
 #include <unistd.h>
 
+static int lambda_121 = 24;
+static int lambda_131 = 24;
+static int lambda_122 = 24;
+static int lambda_133 = 24;
+static int z12 = 24;
+static int z13 = 24;
+
 namespace ns3
 {
 
@@ -46,16 +53,8 @@ static void
 sendPacket(Ptr<Packet> responsePacket,
            Address from,
            std::vector<float> result,
-           std::string script,
            Ptr<Socket> socket)
 {
-    std::cout << "Client:\t\tSending to server: ";
-    for (size_t i = 0; i < result.size(); ++i)
-    {
-        std::cout << result[i] << " ";
-    }
-    std::cout << std::endl;
-
     int buffSize = result.size() * sizeof(float);
     uint8_t* buffer_ = new uint8_t[buffSize];
 
@@ -68,8 +67,6 @@ sendPacket(Ptr<Packet> responsePacket,
                            << responsePacket->GetSize() << " bytes to "
                            << InetSocketAddress::ConvertFrom(from).GetIpv4() << " port "
                            << InetSocketAddress::ConvertFrom(from).GetPort());
-
-    std::cout << std::endl;
 
     delete[] buffer_;
 }
@@ -474,6 +471,55 @@ WrapVector(std::vector<float> vector, std::vector<int> size)
     return args;
 }
 
+/**
+ * @brief convert the output Julia script into a vector of float, and push scalar1 and scalar2 at the beginning
+ *
+ * @note result will be: [scalar1, scalar2, str[0], str[1], ...]
+ *
+ * @param str string of float vector
+ * @param scalar1 scalar
+ * @param scalar2 scalar
+ * @return std::vector<float>
+ */
+static std::vector<float>
+parseFloatVectorWithScalars(const std::string& str, const std::string& scalar1, const std::string& scalar2)
+{
+    std::vector<float> result;
+
+    // Convert scalars and add them to the front
+    try
+    {
+        result.push_back(std::stof(scalar1));
+        result.push_back(std::stof(scalar2));
+    }
+    catch (const std::exception& e)
+    {
+        std::cerr << "Error converting scalar to float: " << e.what() << std::endl;
+        std::cerr << "scalar1 raw: '" << scalar1 << "'\n";
+        std::cerr << "scalar2 raw: '" << scalar2 << "'\n";
+    }
+
+    // Trim brackets from the input string
+    std::string trimmed = str.substr(1, str.size() - 2); // remove [ and ]
+    std::stringstream ss(trimmed);
+    std::string item;
+
+    // Parse the rest of the floats
+    while (std::getline(ss, item, ','))
+    {
+        try
+        {
+            result.push_back(std::stof(item));
+        }
+        catch (const std::exception& e)
+        {
+            std::cerr << "Error converting '" << item << "' to float: " << e.what() << std::endl;
+        }
+    }
+
+    return result;
+}
+
 void
 UdpEchoClient::HandleRead(Ptr<Socket> socket)
 {
@@ -483,8 +529,6 @@ UdpEchoClient::HandleRead(Ptr<Socket> socket)
     Address localAddress;
     while ((packet = socket->RecvFrom(from)))
     {
-        std::cout << std::endl;
-
         if (InetSocketAddress::IsMatchingType(from))
         {
             NS_LOG_INFO("At time " << Simulator::Now().As(Time::S) << " client received "
@@ -513,54 +557,28 @@ UdpEchoClient::HandleRead(Ptr<Socket> socket)
         // Ensure correct memory alignment when reinterpreting as float*
         float* floatPtr = reinterpret_cast<float*>(buffer_.data());
 
-        float round = floatPtr[0];      // extract the first value (round)
-        float client_num = floatPtr[1]; // extract the second value (n° client)
-        float rho = floatPtr[m_dataSize / sizeof(float) - 1]; // extract the last value (rho)
-        std::vector<float> vectorResult(floatPtr + 2,
-                                        floatPtr + m_dataSize / sizeof(float) -
-                                            1); // extract other values (vector)
+        float round = floatPtr[0];                                                                  // extract the first value (round)
+        float client_num = floatPtr[1];                                                             // extract the second value (n° client)
+        float rho = floatPtr[m_dataSize / sizeof(float) - 1];                                       // extract the last value (rho)
+        std::vector<float> receivedVector(floatPtr + 2, floatPtr + m_dataSize / sizeof(float) - 1); // extract other values (vector)
 
         std::cout << "Client n°" << client_num << ":\treceived: ";
-        for (size_t i = 0; i < 3; ++i)
-        {
-            std::cout << vectorResult[i] << " ";
-        }
-        std::cout << "... ";
-        for (size_t i = vectorResult.size() - 3; i < vectorResult.size(); ++i)
-        {
-            std::cout << vectorResult[i] << " ";
-        }
-        std::cout << " (size: " << vectorResult.size() << ") | round: " << round << ", rho: " << rho
-                  << std::endl;
+        for (size_t i = 0; i < receivedVector.size(); ++i)
+            std::cout << receivedVector[i] << " ";
+        std::cout << " (size: " << receivedVector.size() << ") | round: " << round << ", rho: " << rho << std::endl;
 
         std::string args;
 
         if (client_num == 0)
-        {
-            int lambda_121 = 24;
-            int lambda_131 = 24;
-            int z12 = 24;
-            int z13 = 24;
+            args += WrapVector(receivedVector, {lambda_121, lambda_131, z12, z13});
 
-            args += WrapVector(vectorResult, {lambda_121, lambda_131, z12, z13});
-        }
         else if (client_num == 1)
-        {
-            int lambda_122 = 24;
-            int z12 = 24;
+            args += WrapVector(receivedVector, {lambda_122, z12});
 
-            args += WrapVector(vectorResult, {lambda_122, z12});
-        }
         else if (client_num == 2)
-        {
-            int lambda_133 = 24;
-            int z13 = 24;
-
-            args += WrapVector(vectorResult, {lambda_133, z13});
-        }
+            args += WrapVector(receivedVector, {lambda_133, z13});
 
         args += std::to_string(rho);
-
         Ptr<Packet> responsePacket = Create<Packet>();
 
         // Get the ipv4 address of the node
@@ -596,17 +614,12 @@ UdpEchoClient::HandleRead(Ptr<Socket> socket)
         // Find the area associated with the current node's address
         auto it = addressToAreaMap.find(address);
         if (it != addressToAreaMap.end())
-        {
             script = it->second;
-        }
         else
-        {
             std::cerr << "Address not found in the file" << std::endl;
-        }
 
         // Define the command to run the Julia script
-        std::string juliaCommand =
-            "julia config/" + script + " " + args + " > output_client.txt 2> /dev/null";
+        std::string juliaCommand = "julia config/" + script + " " + args + " > output_client.txt 2> /dev/null";
 
         // Run the Julia script
         std::cout << "Client n°" << client_num << ":\tRunning " << juliaCommand << std::endl;
@@ -615,73 +628,55 @@ UdpEchoClient::HandleRead(Ptr<Socket> socket)
         if (result != 0)
         {
             std::cerr << "Error running Julia script!" << std::endl;
-            // return 1;
+            exit(1);
         }
 
         std::ifstream outputFile("output_client.txt");
-        std::string line, optiTime, xLine, tLine, objLine;
+
+        std::string optiTime; // execution time of the Julia script
+        std::string xLine;    // vector result
+        std::string tLine;    // scalar result
+        std::string objLine;  // scalar result
+        std::string line;     // current line
 
         // Loop through the file to get the last two lines
         while (std::getline(outputFile, line))
         {
-            objLine = tLine;
-            tLine = xLine;
-            xLine = optiTime; // Move the previous last line
-            optiTime = line;  // Update last line to the current line
+            optiTime = xLine;
+            xLine = tLine;
+            tLine = objLine; // Move the previous last line
+            objLine = line;  // Update last line to the current line
         }
 
         outputFile.close();
 
-        // // Convert the last two lines to the required variables
-        float optimizationTime = std::stof(optiTime);
-        // vectorResult[2] = std::stof(secondLastLine);
+        std::cout << "Client n°" << client_num << ":\tRunning " << script << " finished successfully after " << optiTime << "sec" << std::endl;
 
         std::cout << "optiTime: " << optiTime << std::endl;
         std::cout << "xLine: " << xLine << std::endl;
         std::cout << "tLine: " << tLine << std::endl;
         std::cout << "objLine: " << objLine << std::endl;
 
-        // // Output the values to verify
-        NS_LOG_INFO("Optimization Time: " << optimizationTime);
+        // vector to send
+        std::vector<float> vecToSend = parseFloatVectorWithScalars(xLine, tLine, objLine);
+        vecToSend.insert(vecToSend.begin(), {round, client_num});
 
-        std::cout << "Client n°" << client_num << ":\tRunning " << script
-                  << " finished successfully after " << optimizationTime << "sec" << std::endl;
+        // Print result
+        std::cout << "Client n°" << client_num << ":\tSending to server: ";
+        for (float f : vecToSend)
+            std::cout << f << " ";
+        std::cout << std::endl;
+
+        // // Output the values to verify
+        NS_LOG_INFO("Optimization Time: " << std::stof(optiTime));
 
         // Schedule the next events in ns-3 to continue after the real-time delay
-        Simulator::Schedule(Seconds(optimizationTime),
+        Simulator::Schedule(Seconds(std::stof(optiTime)),
                             &sendPacket,
                             responsePacket,
                             from,
-                            vectorResult,
-                            script,
+                            vecToSend,
                             socket);
-
-        /*
-        // Optionally read the output from the file
-        std::ifstream outputFile("output.txt");
-        std::string line; std::string store_line;
-        while (std::getline(outputFile, line)) {
-            //std::cout << line << std::endl; // Print each line from the Julia script's output
-            store_line = line;
-        }
-        result = std::stof(store_line);
-        outputFile.close();
-
-        std::cout << script << " julia script result: " << result << std::endl;
-
-        memcpy(buffer_, &result, sizeof(float));
-        memcpy(buffer_ + sizeof(float), &round, sizeof(uint32_t));
-
-        responsePacket->AddAtEnd(Create<Packet>(buffer_, sizeof(buffer_)));
-
-        //Ptr<Packet> responsePacket = Create<Packet> ((uint8_t *)msg.c_str(), msg.size());
-        socket->SendTo (responsePacket, 0, from);
-
-        NS_LOG_INFO("At time " << Simulator::Now().As(Time::S) << " client sent "
-                               << responsePacket->GetSize() << " bytes to "
-                               << InetSocketAddress::ConvertFrom(from).GetIpv4() << " port "
-                               << InetSocketAddress::ConvertFrom(from).GetPort());
-        */
     }
 }
 

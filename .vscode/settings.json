@@ -1,3 +1,9 @@
 {
-    "cmake.sourceDirectory": "/mnt/c/Users/pierr/Desktop/Cours/COURS_M1/s8/TER/smart-grid-ns3/ns-3.41"
+    "cmake.sourceDirectory": "/mnt/c/Users/pierr/Desktop/Cours/COURS_M1/s8/TER/smart-grid-ns3/ns-3.41",
+    "files.associations": {
+        "*.csv": "csv (whitespace)",
+        "new": "cpp",
+        "iostream": "cpp",
+        "vector": "cpp"
+    }
 }

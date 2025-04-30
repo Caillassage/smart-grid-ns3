@@ -23,7 +23,7 @@ main(int argc, char* argv[])
 {
     int seed = 1;
     int numberOfNodes = nbr_client;
-    float threshold = 1000.0;
+    float threshold = 8.0;
     float simulationTime = 1000.0;
     float round = 1;
     float rho = 50.0f;

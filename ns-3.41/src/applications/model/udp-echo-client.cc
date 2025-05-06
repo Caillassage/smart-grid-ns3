@@ -35,12 +35,12 @@
 #include <thread>
 #include <unistd.h>
 
-static int lambda_121 = 24;
-static int lambda_131 = 24;
-static int lambda_122 = 24;
-static int lambda_133 = 24;
-static int z12 = 24;
-static int z13 = 24;
+static int lambda_121 = 24; // size of the vector lambda_121
+static int lambda_131 = 24; // size of the vector lambda_131
+static int lambda_122 = 24; // size of the vector lambda_122
+static int lambda_133 = 24; // size of the vector lambda_133
+static int z12 = 24;        // size of the vector z12
+static int z13 = 24;        // size of the vector z13
 
 namespace ns3
 {
@@ -443,6 +443,15 @@ UdpEchoClient::Send()
     std::cout << "Client:\t\tsent " << m_size << " bytes to server" << std::endl;
 }
 
+/**
+ * @brief Wrap vectors sended to Julia script in a string format. if multiple vectors need to be send, indiquate the size of each vector in the size vector
+ *
+ * @example WrapVector({1.0, 2.0, 3.0, 4.0, 5.0}, {3, 2}) will return ""[1.0, 2.0, 3.0]" "[4.0, 5.0]""
+ *
+ * @param vector
+ * @param size
+ * @return std::string
+ */
 static std::string
 WrapVector(std::vector<float> vector, std::vector<int> size)
 {
